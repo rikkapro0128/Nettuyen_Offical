@@ -4,36 +4,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 /* source font by gg */
 
-:root {
-	--text-primary: #94a1b2;
-	--title-primary: #FEFEFD;
-	--input-primary: #FEFEFD;
-	--text-btn: #FFFFFE;
-	--bg-dark: #16161A;
-	--bg-fg: #242629;
-	--bg-card: #242629;
-	--fg-font-input: 1.3rem;
-	--fg-font-title: 1.8rem;
-	--card-font-input: 1.3rem;
-	--card-font-title: 1.8rem;
-	--fg-m-tb-input: 0.5rem;
-	--fg-p-tb-input: 0.5rem;
-	--fg-m-tb-title: 0.5rem;
-	--card-font-input: 1.3rem;
-	--card-font-title: 1.8rem;
-	--card-m-tb-content: 0.5rem;
-	--card-m-tb-title: 0.5rem;
-	--fg-border: 4px;
-	--btn-primary: #7F5AF0;
-	--btn-pd: 0.7rem;
-	--btn-border: 4px;
-	--word-space: -0.5rem;
-    --header: #16161a;
-    --header-title: #FEFEFD;
-    --header-sign: #FEFEFD;
-    --logo-size: 2rem;
-    --paragraph: #94a1b2;
-}
+@import "mixin";
+@import "variable";
+@import "componentComon";
 
 body {
 	font-family: 'JetBrains Mono', monospace;
@@ -55,9 +28,10 @@ a {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
 }
+
+// this is scope header
 
 .header {
     width: 80%;
@@ -106,3 +80,63 @@ a {
         }
     }
 }
+
+// this is scope header
+
+// this is scope footer
+
+.footer {
+    width: 80%;
+    background-color: var(--header);
+    display: flex;
+    &__left {
+        width: 70%;
+        margin: 0 1rem;
+        &--link {
+            height: 4rem;
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            &-logo {
+                height: 100%;
+                width: 4rem; 
+                background-image: url('https://i.pinimg.com/originals/9e/ec/37/9eec37f0efbc0f8044645476e284e741.png');
+                background-size: 90%;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            &-logo-text {
+                color: var(--header-title);
+                font-family: 'Pacifico', cursive;
+                font-size: var(--logo-size);
+            }
+        }
+        &--describe {
+            color: var(--paragraph);
+            font-size: var(--size-paragraph);
+        }
+        &--copyright {
+            color: var(--paragraph);
+            font-size: 1rem;
+        }
+    }
+    &__right {
+        width: 30%;
+        &--title-type {
+            display: block;
+            font-size: var(--title-size);
+            color: var(--header-title);
+            margin: 0.75rem 0.75rem;
+        }
+        &--list {
+            display: flex;
+            flex-wrap: wrap;
+            &-type-story {
+                margin: 0.75rem 0.75rem;
+                @include btn;
+            }
+        }
+    }
+}
+
+// this is scope footer

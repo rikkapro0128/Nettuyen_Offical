@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./app.js",
-    "build": "node-sass -w public/sass -o public/css"
+    "build": "node-sass -w public/sass/main.scss public/css/main.css"
   },
   "keywords": [],
   "author": "",

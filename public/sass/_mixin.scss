@@ -1,0 +1,21 @@
+@mixin contentCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin btn {
+    .btn {
+        display: block;
+        width: fit-content;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: var(--text-btn);
+        background-color: var(--btn-primary);
+        border: none;
+        padding: var(--btn-pd);
+        border-radius: var(--btn-border);
+        white-space: nowrap;
+    }
+}

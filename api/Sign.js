@@ -1,13 +1,21 @@
 import { Account } from '../models/account.js';
-import bcrypt from 'bcrypt';
-import help from '../helper/handleToken.js';
+import helper from '../helper/handleApi.js';
 
 class Signs {
-    signin(req, res, next) {
+    async signin(req, res, next) {
         try {
-            
+            const {accountName, password} = req.body;
+            if(!accountName || !password) throw new Error('account name or password missing!');
+            const doc = await Account.findOne({accountName}).exec();
+            const checkPass = await helper.compareHashString(password, doc.hashPassword);
+            if(!checkPass) throw new Error('account name or password invalid!');
+            const code = helper.getRefTokenAndToken({_id: doc._id, accountName: doc.accountName});
+            doc.refreshToken = code.refreshToken;
+            const state = await doc.save();
+            if(state) res.json(code);
         } catch (error) {
-            
+            res.json({errorMessage: error.message});
+            next(error);
         }
     }
     async signup(req, res, next) {
@@ -17,17 +25,14 @@ class Signs {
                     accountName: req.body.accountName,
                     password: req.body.password,
                 });
-                const accessToken = help.getToken({_id: account._id, accountName: account.accountName});
-                const refreshToken = help.getRefreshToken({_id: account._id, accountName: account.accountName});
-                if(refreshToken) { account.refreshToken = refreshToken };
+                const code = helper.getRefTokenAndToken({_id: account._id, accountName: account.accountName});
+                account.refreshToken = code.refreshToken;
                 const state = await account.save();
-                if(state) res.json({accessToken, refreshToken});
+                if(state) res.json(code);
             }
         } catch (error) {
-            if(error) {
-                next(error.message);
-                res.json({errorMessage: error});
-            }
+            res.json({errorMessage: error.message});
+            next(error);
         }
     }
     signout(req, res, next) {

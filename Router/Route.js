@@ -3,7 +3,7 @@ import Signs from './Signs.js';
 
 function Router(app) {
     app.use('/', Views);
-    app.use('/check', Signs);
+    app.use('/api', Signs);
 }
 
 export default Router;

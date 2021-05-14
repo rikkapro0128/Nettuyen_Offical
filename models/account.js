@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import helper from '../helper/handleApi.js';
 const Schema = mongoose.Schema;
 // const ObjectId = Schema.ObjectId;
 
@@ -36,11 +36,12 @@ account.pre('save', async function(next) {
     // do hash password in database
     try {
         const password = this.password;
-        let hashString = await bcrypt.hash(password, parseInt(process.env.SALT_ROUND));
+        if(!password) return next();
+        let hashString = await helper.getHashString(password);
         if(hashString) {
             this.hashPassword = hashString;
             this.password = null;
-            next();
+            return next();
         }
     } catch (error) {
         next(error);

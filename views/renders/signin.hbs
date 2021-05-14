@@ -1,12 +1,12 @@
 <div class="form-signin form-sign">
-    <form action="/check/signin" method="POST">
+    <form action="/api/signin" method="POST">
         <div class="form_group">
             <label class="form_group--title" for="account-name">Account Name</label>
-            <input class="form_group--input" type="text" id="account-name" placeholder="Insert account name...!" />
+            <input class="form_group--input" type="text" id="account-name" name="accountName" placeholder="Insert account name...!" />
         </div>
         <div class="form_group">
             <label class="form_group--title" for="password">Password</label>
-            <input class="form_group--input" type="password" id="password" placeholder="Insert your password...!" />
+            <input class="form_group--input" type="password" id="password" name="password" placeholder="Insert your password...!" />
         </div>
         <div class="form_group">
             <button class="btn">Sign In</button>

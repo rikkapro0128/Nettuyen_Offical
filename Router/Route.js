@@ -1,7 +1,9 @@
-import Public from './Public.js';
+import Views from './Views.js';
+import Signs from './Signs.js';
 
 function Router(app) {
-    app.use('/', Public);
+    app.use('/', Views);
+    app.use('/check', Signs);
 }
 
 export default Router;

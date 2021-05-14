@@ -1,0 +1,11 @@
+.form-sign {
+    width: 100%;
+    height: 100vh;
+    @include contentCenter;
+    form {
+        background-color: var(--bg-fg);
+        border-radius: var(--fg-border);
+        @include inputForm;
+        @include btn;
+    }
+}

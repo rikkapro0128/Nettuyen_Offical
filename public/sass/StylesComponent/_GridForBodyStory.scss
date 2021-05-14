@@ -1,0 +1,28 @@
+.wraper {
+    .block-story {
+        grid-row: 1;
+        grid-column: span 8;
+        &__title {
+            color: var(--color-title);
+            font-size: var(--title-size);
+        }
+        .show-story {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -5px;
+            margin-right: -5px;
+            &__item {
+                @include story($isHover: true);
+                width: 18.63%;
+                min-width: 11.875em;
+                margin: 5px;
+            }
+        }
+    }
+    .block-story_meadia {
+        grid-row: 1;
+        grid-column: span 4;
+        color: var(--color-title);
+        font-size: var(--title-size);
+    }
+}

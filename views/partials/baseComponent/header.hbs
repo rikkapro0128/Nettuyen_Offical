@@ -7,15 +7,10 @@
         </a>
     </div>
     <div class="header__right">
-        <a href="/views/signin">
-            <div class="header__right--signin">
-                <span class="header__right--signin-text">Sign In</span>
-            </div>
-        </a>
-        <a href="/views/signup">
-            <div class="header__right--signup">
-                <span class="header__right--signup-text">Sign Up</span>    
-            </div>
-        </a>
+        {{#if IS_LOG}}
+            {{> baseComponent/ComponentHeader/loged}}
+        {{else}}
+            {{> baseComponent/ComponentHeader/log}}
+        {{/if}}
     </div>
 </header>

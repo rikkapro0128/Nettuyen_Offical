@@ -11,6 +11,10 @@ class Views {
     about(req, res, next) {
         res.render('about');
     }
+    showData(req, res, next) {
+        console.log(req.cookies)
+        res.redirect('/');
+    }
 }
 
 export default new Views;

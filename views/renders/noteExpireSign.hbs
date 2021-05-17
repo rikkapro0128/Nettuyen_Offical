@@ -1,0 +1,15 @@
+<div class="view__empty"></div>
+<script>
+    const urlRedirect = '/views/signin';
+    $(function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Trời ơi...',
+            text: 'Đã hết phiên đăng nhập, phiền bạn đăng nhập lại nhé!',
+        });
+    }).then((result) => {
+        if(result.isConfirmed || result.isDismissed) {
+            window.location.href = urlRedirect;
+        }
+    });
+</script>

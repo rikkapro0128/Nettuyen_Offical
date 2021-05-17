@@ -6,7 +6,10 @@ import Router from './Router/Route.js';
 import exphbs from 'express-handlebars';
 import { fileURLToPath } from 'url';
 import connectDb from './config/Database.js';
-import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import bodyPaser from 'body-parser';
+import helper from './helper/handleLog.js'
+
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -20,10 +23,11 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
+app.use(bodyPaser.json());
+app.use(bodyPaser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(morgan('combined'));
+helper.setVarApp(app);
 
 Router(app);
 

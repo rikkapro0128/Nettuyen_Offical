@@ -8,10 +8,13 @@ import { fileURLToPath } from 'url';
 import connectDb from './config/Database.js';
 import cookieParser from 'cookie-parser';
 import bodyPaser from 'body-parser';
-import helper from './helper/handleLog.js'
+import methodOverride from 'method-override';
+import hbsHelper from 'handlebars';
+import helperViewHbs from './helper/handleBar.js';
 
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+helperViewHbs(hbsHelper);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views', 'renders'));
@@ -27,7 +30,7 @@ app.use(bodyPaser.json());
 app.use(bodyPaser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('combined'));
-helper.setVarApp(app);
+app.use(methodOverride('_method'));
 
 Router(app);
 

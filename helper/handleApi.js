@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { Account } from '../models/account.js';
 
-class helper {
+class helperApi {
     getToken(payload) {
         return `Miru ${jwt.sign(payload, process.env.TOKEN_SCRET, { expiresIn: process.env.EXPIRE_TOKEN })}`;
     }
@@ -10,7 +11,7 @@ class helper {
     }
     tokenExpire(code, scret) {
         let state = false;
-        let payload;
+        let payload = {};
         const token = code ? code.split(' ')[1] : null;
         jwt.verify(token, scret, function(err, decode) {
             if(!err) {
@@ -19,7 +20,29 @@ class helper {
             }
             //console.log({err: err ? err.message : err, decode});
         });
-        return { state, payload };
+        return { state, payload, token };
+    }
+    getInfo(code) {
+        let payload = {};
+        let isErr = true;
+        const token = code ? code.split(' ')[1] : null;
+        jwt.verify(token, process.env.TOKEN_SCRET, function(err, decode) {
+            if(!err) {
+                isErr = false;
+                payload = decode;
+            }
+            //console.log({err: err ? err.message : err, decode});
+        });
+        return isErr ? new Error('Dont throw data from token!') : payload;
+    }
+    getInfoAccount(_id) {
+        return new Promise(async (res, rej) => {
+            const data = await Account.findById(_id).exec();
+            res(data.info);
+            if(!data) {
+                rej(null);
+            }
+        })
     }
     getRefTokenAndToken(payload) {
         const token = this.getToken(payload);
@@ -34,4 +57,4 @@ class helper {
     }
 }
 
-export default new helper;
+export default new helperApi;

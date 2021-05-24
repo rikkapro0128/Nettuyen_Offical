@@ -41,8 +41,21 @@ class Signs {
             next(error);
         }
     }
-    signout(req, res, next) {
-        res.send('you click signout!');
+    async signout(req, res, next) {
+        // do move ref token in database
+        const refToken = req.cookies._code_ref_sign || null;
+        if(refToken) {
+            const { payload, token } = helper.tokenExpire(refToken, process.env.REFRESH_TOKEN_SCRET);
+            const doc = await Account.findOne({_id: payload._id}).exec();
+            if(doc.refreshToken === refToken) {
+                await Account.updateOne({ _id: payload._id }, { refreshToken: '' });
+                return res
+                .clearCookie('_code_sign')
+                .clearCookie('_code_ref_sign')
+                .json({message: 'success!'});
+            }
+        }
+        return res.redirect('/');
     }
 }
 

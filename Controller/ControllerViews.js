@@ -1,3 +1,6 @@
+import { Account } from '../models/account.js';
+import helper from '../helper/handleApi.js';
+
 class Views {
     home(req, res, next) {
         res.render('home');
@@ -11,9 +14,12 @@ class Views {
     about(req, res, next) {
         res.render('about');
     }
-    showData(req, res, next) {
-        console.log(req.cookies)
-        res.redirect('/');
+    async profile(req, res, next) {
+        let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
+        info = info.toObject();
+        res.render('profile', {
+            info,
+        });
     }
 }
 

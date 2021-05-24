@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import helper from '../helper/handleApi.js';
 const Schema = mongoose.Schema;
-// const ObjectId = Schema.ObjectId;
 
 const account = new Schema({
     accountName: {
@@ -29,7 +28,17 @@ const account = new Schema({
     dateCreate: {
         type: Date,
         default: Date.now,
-    }
+    },
+    info: {
+        lastName: { type: String, default: '' },
+        firstName: { type: String, default: '' },
+        email: { type: String, default: '' },
+        numberPhone: { type: String, default: '' },
+        dateToBirthday: { type: Date, default: Date.now },
+        address: { type: String, default: '' },
+        gender: { type: String, enum: ['Nữ', 'Nam'], default: 'Nam' },
+        lover: { type: String, enum: ['Có rồi', 'Đang ế!'], default: 'Đang ế!' },
+    },
 });
 
 account.pre('save', async function(next) {

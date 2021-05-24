@@ -25,6 +25,15 @@
             background-color: var(--btn-active);
         }
     }
+    .btn-upgrade {
+        background-color: var(--btn-upgrade);
+        &:hover {
+            background-color: var(--btn-hover-upgrade);
+        }
+        &:active {
+            background-color: var(--btn-active-upgrade);
+        }
+    }
 }
 
 @mixin story($isHover: false) {

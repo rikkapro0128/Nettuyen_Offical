@@ -6,7 +6,9 @@
 	--bg-dark: #242629;
 	--bg-fg: #242629;
 	--bg-card: #16161a;
+	--hover-bg-card: #252529;
 	--fg-font-input: 1.3rem;
+	--fg-font-profile-input: 1rem;
 	--fg-font-title: 1.2rem;
 	--card-font-input: 1.3rem;
 	--card-font-title: 1.8rem;
@@ -19,8 +21,12 @@
 	--card-m-tb-title: 0.5rem;
 	--fg-border: 4px;
 	--btn-primary: #7F5AF0;
+	--btn-upgrade: #2cb67d;
+	--bg-bar: #2cb67d;
 	--btn-hover: #7f5af0b4;
 	--btn-active: transparent;
+	--btn-hover-upgrade: #2cb67dad;
+	--btn-active-upgrade: transparent;
 	--btn-pd: 0.7rem;
 	--btn-border: 4px;
 	--word-space: -0.5rem;
@@ -37,4 +43,5 @@
 	--color-chapter: rgb(231, 0, 0);
 	--color-love: rgb(21, 184, 56);
 	--color-view: rgb(251, 255, 41);
+	--outline-ip: rgb(0, 89, 255);
 }

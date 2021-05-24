@@ -4,11 +4,17 @@
     </div>
     <div class="header__right--loged-name-account">
         <span class="header__right--signup-text">
-            {{ACCOUNT_NAME}}
+            {{INFO_USER.accountName}}
         </span>
     </div>
     <div class="header__right--loged-option">
-        <span class="header__right--loged-option-select">Trang cá nhân</span>
-        <span class="header__right--loged-option-select">Đăng xuất</span>
+        <a href="/user/info" class="header__right--loged-option-select">
+            <i class="far fa-address-card"></i>
+            Trang cá nhân
+        </a>
+        <a class="header__right--loged-option-select" id="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            Đăng xuất
+        </a>
     </div>
 </div>

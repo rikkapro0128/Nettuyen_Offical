@@ -53,6 +53,38 @@ function handleForm(option) {
             })
         })
     }
+    // handle logout
+    const logout = $('#logout');
+    logout.click(function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Bạn muốn đăng xuất à?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đúng rồi',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Bạn đã đăng xuất!',
+                ).then(data => {
+                    if(data.isConfirmed || data.isDismissed) {
+                        fetch(`http://localhost:3300/api/signout`, {
+                            method: 'POST',
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if(data.message === 'success!') {
+                                window.location.href = '/';
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    })
 }
 
 export { handleForm };

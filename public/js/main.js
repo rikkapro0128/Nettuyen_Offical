@@ -1,7 +1,8 @@
 import '../owlcarousel/owl.carousel.min.js';
 import '../owlcarousel/jquery.mousewheel.min.js'
 import owl from './optionOwl.js';
-import { handleForm } from './handleForm.js'
+import { handleForm, handleLoadImage } from './handleForm.js';
+import { inputStyle, renderTypeStory, mutifileUpload } from './style.js';
 
 $(function() {
     // do something!
@@ -17,8 +18,8 @@ $(function() {
         },
         domain: 'localhost',
         message: {
-            signin: 'Bạn đã đăng nhập thành công, nhấn OK để quay lại trang chủ nha!',
-            signup: 'Bạn đã đăng ký thành công, nhấn OK để quay lại trang chủ nha!',
+            signin: 'Bạn đã đăng nhập thành công!',
+            signup: 'Bạn đã đăng ký thành công!',
         },
         urlRedirect: {
             signin: '/',
@@ -27,4 +28,9 @@ $(function() {
     }
     owl();
     handleForm(option);
+    handleLoadImage();
+    inputStyle();
+    renderTypeStory();
+    mutifileUpload();
+    
 });

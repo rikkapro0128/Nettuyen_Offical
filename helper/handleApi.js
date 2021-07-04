@@ -13,10 +13,16 @@ class helperApi {
         let state = false;
         let payload = {};
         const token = code ? code.split(' ')[1] : null;
-        jwt.verify(token, scret, function(err, decode) {
+        jwt.verify(token, scret, async function(err, decode) {
             if(!err) {
-                state = true;
-                payload = decode;
+                try {
+                    state = true;
+                    payload = decode;
+                    const { info } = await Account.findById(decode._id, 'info').exec();
+                    payload['avatarPath'] = info.avatarPath;
+                } catch (error) {
+                    console.log(error)
+                }
             }
             //console.log({err: err ? err.message : err, decode});
         });

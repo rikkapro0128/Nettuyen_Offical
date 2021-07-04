@@ -1,0 +1,25 @@
+<div class="your-post">
+    <h1 class="your-post__title"><a href="/user/your-storys">Your Story</a></h1>
+    <div class="your-post__list">
+        <table class="your-post__list--table">
+            <tr class="your-post__list--table-row--add-story">
+                <a href="/user/add-your-storys" class="your-post__list--table-row--add-story--link effect-underline">Click to add story</a>
+            </tr>
+            <tr class="your-post__list--table-row--title">
+                <th class="your-post__list--table-row--title-name">STT</th>
+                <th class="your-post__list--table-row--title-name">Name</th>
+                <th class="your-post__list--table-row--title-name">Time Up</th>
+                <th class="your-post__list--table-row--title-name">Number Chapter</th>
+                <th class="your-post__list--table-row--title-name">Action Delete</th>
+            </tr>
+            {{#each yourPosts}}
+                <tr class="your-post__list--table-row--content">
+                    <td class="your-post__list--table-row--content-show">{{ yourPosts.stt }}</td>
+                    <td class="your-post__list--table-row--content-show">{{ yourPosts.name }}</td>
+                    <td class="your-post__list--table-row--content-show">{{ yourPosts.time }}</td>
+                    <td class="your-post__list--table-row--content-show">{{ yourPosts.numberChapter }}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>

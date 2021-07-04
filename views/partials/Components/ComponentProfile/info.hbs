@@ -1,0 +1,97 @@
+<form action="/user/update/info/{{INFO_USER._id}}?_method=put" method="post" id="upload-info-account">
+    <div class="about-user">
+        <h1 class="about-user__title">Information User</h1>
+        <ul class="about-user__info">
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="id-account-name" class="formRow--input-wrapper js-inputWrapper">
+                            <input type="text" class="formRow--input js-input" type="text" id="id-account-name" name="id" value="{{INFO_USER._id}}" readonly="true" placeholder="id">
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="lastName" class="formRow--input-wrapper js-inputWrapper">
+                            <input type="text" class="formRow--input js-input" id="lastName" name="lastName" value="{{info.lastName}}" placeholder="Last name">
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="firstname" class="formRow--input-wrapper js-inputWrapper">
+                            <input type="text" class="formRow--input js-input" id="firstName" name="firstName" value="{{info.firstName}}" placeholder="First name">
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="email" class="formRow--input-wrapper js-inputWrapper">
+                            <input type="text" class="formRow--input js-input" id="email" name="email" value="{{info.email}}" placeholder="Email">
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="numberPhone" class="formRow--input-wrapper js-inputWrapper">
+                            <input type="text" class="formRow--input js-input" id="numberPhone" name="numberPhone" value="{{info.numberPhone}}" placeholder="Number phone">
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="address" class="formRow--input-wrapper js-inputWrapper">
+                            <input type="text" class="formRow--input js-input" id="address" name="address" value="{{info.address}}" placeholder="Address">
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="dateToBirthday" class="formRow--input-wrapper js-inputWrapper">
+                            <input type="date" class="formRow--input js-input" id="dateToBirthday" name="dateToBirthday" value="{{getDate info.dateToBirthday}}" placeholder="Birthday">
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="gender" class="formRow--input-wrapper js-inputWrapper">
+                            <select class="formRow--input js-input" id="gender" name="gender" placeholder="Gender">
+                                <option value="Nữ" {{option info.gender "Nữ" }}>Nữ</option>
+                                <option value="Nam" {{option info.gender "Nam" }}>Nam</option>
+                            </select>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <fieldset class="formRow">
+                    <div class="formRow--item">
+                        <label for="lover" class="formRow--input-wrapper js-inputWrapper">
+                            <select class="formRow--input js-input" id="lover" name="lover" placeholder="Do you have a girlfriend or boyfriend?">
+                                <option value="Có rồi" {{option info.lover "Có rồi" }}>Có rồi</option>
+                                <option value="Đang ế!" {{option info.lover "Đang ế!" }}>Đang ế!</option>
+                            </select>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form_group">
+                <button class="btn btn-upgrade">Cập nhật thông tin của bạn</button>
+            </div>
+        </ul>
+    </div>
+</form>

@@ -1,0 +1,95 @@
+.profile {
+    width: 80%;
+    .profile-wrap {
+        display: flex;
+        padding: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        &-col-left {
+            width: fit-content;
+            .avatar {
+                max-width: 12rem;
+                height: fit-content;
+                border: solid 1px rgb(149, 152, 154);
+                border-radius: 4px;
+                padding: 0.8rem;
+                &__box--img {
+                    width: 100%;
+                    height: fit-content;
+                    overflow: hidden;
+                    border: solid 1px rgb(149, 152, 154);
+                    border-radius: 4px;
+                    img {
+                        border-radius: 4px;
+                        width: 100%;
+                    }
+                }
+                &__name--user {
+                    display: block;
+                    width: auto;
+                    height: fit-content;
+                    color: #fff;
+                    border: solid 1px rgb(149, 152, 154);
+                    text-align: center;
+                    padding: 10px 0;
+                    margin: 10px 0;
+                    font-size: 1.5rem;
+                    border-radius: 5px;
+                    &:hover {
+                        color: #fd999a;
+                    }
+                }
+                &__upgrade {
+                    &--load-file {
+                        div {
+                            display: flex;
+                            border: solid 1px rgb(149, 152, 154);
+                            border-radius: 4px;
+                            margin-top: 0.5rem;
+                            padding: 0.5rem;
+                            align-items: center;
+                            flex-direction: column;
+                            text-align: center;
+                            label {
+                                color: var(--color-title);
+                                width: 100%;
+                                padding: 0.3rem 0;
+                            }
+                            input {
+                                width: 100%;  
+                            }
+                        }
+                        @include btn;
+                    }
+                }
+            }
+            .view__options {
+                display: flex;
+                background-color: var(--bg-bar);
+                flex-direction: column;
+                margin: 1rem 0;
+                &--item {
+                    display: block;
+                    &-link {
+                        display: block;
+                        padding: 1rem 0;
+                        color: var(--color-title);
+                        margin: 0 1rem;
+                    }
+                    &:hover {
+                        transition: background-color 0.2s;
+                        background-color: var(--bg-dark);
+                    }
+                }
+            }
+        }
+        &-col-right {
+            padding-left: 1rem;
+            flex: 1;
+        }
+    }
+    @include btn;
+    .btn {
+        width: 100%;
+    }
+}

@@ -1,7 +1,13 @@
 <div class="header__right--loged">
-    <div class="header__right--loged-icon">
-        <i class="far fa-user"></i>
-    </div>
+    {{#if INFO_USER.avatarPath}}
+        <div class="header__right--loged-icon">
+            <img src="{{INFO_USER.avatarPath}}" alt="">
+        </div>
+    {{else}}
+        <div class="header__right--loged-icon">
+            <i class="far fa-user"></i>
+        </div>
+    {{/if}}
     <div class="header__right--loged-name-account">
         <span class="header__right--signup-text">
             {{INFO_USER.accountName}}

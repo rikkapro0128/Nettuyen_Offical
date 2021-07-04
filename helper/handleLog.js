@@ -8,20 +8,20 @@ class helperLog {
         const { state, payload } = helper.tokenExpire(_code_sign, process.env.TOKEN_SCRET);
         if(state) {
             res.locals.IS_LOG = true;
-            res.locals.INFO_USER = (payload ? payload : null);
+            res.locals.INFO_USER = payload;
         }else {
             res.locals.IS_LOG = false;
         }
         next();
     }
-    async checkSign(req, res, next) {
+    checkSign(req, res, next) {
         const { _code_sign, _code_ref_sign } = req.cookies;
         if(_code_sign && _code_ref_sign) {
             const state_code_sign = helper.tokenExpire(_code_sign, process.env.TOKEN_SCRET);
-            const state_code_ref_sign = helper.tokenExpire(_code_ref_sign, process.env.REFRESH_TOKEN_SCRET);
             // true when token is not expire
-            // false when token is not expire
+            // false when token is expire
             if(!state_code_sign.state) {
+                const state_code_ref_sign = helper.tokenExpire(_code_ref_sign, process.env.REFRESH_TOKEN_SCRET);
                 //refresh token
                 if(state_code_ref_sign.state) {
                     const token = helper.getToken({_id: state_code_ref_sign.payload._id, accountName: state_code_ref_sign.payload.accountName});
@@ -33,12 +33,6 @@ class helperLog {
             }
         }
         next();
-    }
-    checkInfoUser(req, res, next) {
-        if(res.locals.INFO_USER) {
-            return next();
-        }
-        next(new Error('Don\'t looking info_user in request!'));
     }
 }
  

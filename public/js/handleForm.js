@@ -1,3 +1,53 @@
+function aleartSuccess(message, urlRedirect, setTime) {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: message || 'Bạn đã cập nhật thành công!',
+        showConfirmButton: true,
+        timer: undefined || setTime,
+    }).then((result) => {
+        if(result.isConfirmed || result.isDismissed) {
+            window.location.href = urlRedirect;
+        }
+    });
+}
+function aleartFail(message, urlRedirect) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Úi!',
+        text: message,
+    }).then((result) => {
+        if(result.isConfirmed || result.isDismissed) {
+            window.location.href = urlRedirect;
+        }
+    });
+}
+
+function getValueForm(forminput) {
+    const data = {};
+    (forminput.serializeArray()).forEach((item) => {
+        data[item.name] = item.value;
+    });
+    return data;
+}
+
+function uploadImage(elementInput, renderThisElement) {
+    elementInput.change(() => {
+        const fileReader = new FileReader();
+        const img = new Image();
+        fileReader.onload = function() {
+            img.src = this.result;
+            renderThisElement.append(img);
+            if(renderThisElement.children('img').length > 1) {
+                renderThisElement.children('img').remove();
+                renderThisElement.append(img);
+            }
+        }
+        fileReader.readAsDataURL(elementInput[0].files[0]);
+    });
+}
+
+// handle signin, signup & logout
 function handleForm(option) {
     const { idElement, domain, port, path, message, urlRedirect } = option;
     const infoSignIn = $(idElement.signin)[0] ? {
@@ -19,43 +69,29 @@ function handleForm(option) {
     const infoOffical = infoSignIn ? infoSignIn : infoSignUp;
     if(infoOffical) {
         const form = $(infoOffical.idElement);
-        let data = {};
-        form.change(function() {
-            ($(this).serializeArray()).forEach((item) => {
-                data[item.name] = item.value;
-            });
-        });
         form.submit(function(event) {
             event.preventDefault();
+            const valueForm = getValueForm($(this));
             fetch(`http://${infoOffical.domain}:${infoOffical.port}/${infoOffical.path}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(valueForm),
             })
             .then(res => res.json())
             .then(data => {
                 if(data.token && data.refreshToken) {
                     Cookies.set('_code_sign', data.token);
                     Cookies.set('_code_ref_sign', data.refreshToken);
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: infoOffical.message,
-                        showConfirmButton: true,
-                    }).then((result) => {
-                        if(result.isConfirmed || result.isDismissed) {
-                            window.location.href = infoOffical.urlRedirect;
-                        }
-                    });
+                    aleartSuccess(infoOffical.message, infoOffical.urlRedirect);
                 }
             })
         })
     }
     // handle logout
     const logout = $('#logout');
-    logout.click(function(e) {
+    logout.click(function(e) { 
         e.preventDefault();
         Swal.fire({
             title: 'Bạn muốn đăng xuất à?',
@@ -85,6 +121,65 @@ function handleForm(option) {
             }
         })
     })
+    // handle changePassword
+    const formChangePass = $('#change-password');
+    formChangePass.submit(function(e) {
+        e.preventDefault();
+        const valueForm = getValueForm($(this));
+        fetch(`http://localhost:3300/user/change-password?_method=put`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(valueForm),
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.result) {
+                aleartSuccess(data.mess, 'http://localhost:3300/user/change-password');
+            }else {
+                aleartFail(data.mess, 'http://localhost:3300/user/change-password');
+            }
+        })
+    });
 }
 
-export { handleForm };
+function handleLoadImage() {
+    const inputImage = $('#load-file-avatar');
+    const showImage = $('#image-view-loading');
+    const form = $('#upload-info-account');
+    uploadImage(inputImage, showImage);
+    form.submit(function(e) {
+        e.preventDefault();
+        // do something!
+        const formData = new FormData();
+        const data = {};
+        (form.serializeArray()).forEach((item) => {
+            data[item.name] = item.value;
+        });
+        data.dateToBirthday = new Date(data.dateToBirthday);
+        const id = data.id;
+        delete data.id;
+        console.log(data);
+        // that code belows, it will be upload info user when this user change data
+        if(inputImage[0].files[0]) {
+            formData.append('avatar', inputImage[0].files[0]);
+        }
+        formData.append('info', JSON.stringify(data));
+        fetch(`http://localhost:3300/user/update/info/${id}`, {
+            method: 'PUT',
+            body: formData,
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            if(result.status) {
+                aleartSuccess('Bạn đã cập nhật thông tin!', 'http://localhost:3300/user/info/');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+}
+
+export { handleForm, handleLoadImage };

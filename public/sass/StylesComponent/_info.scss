@@ -1,0 +1,31 @@
+.about-user {
+    &__title {
+        font-size: var(--title-size);
+        color: var(--color-title);
+    }
+    &__info {
+        @include inputForm;
+        &--item {
+            width: 100%;
+            span {
+                color: var(--color-title);
+                display: block;
+                padding: 0.6rem 0;
+            }
+            input {
+                width: 100%;
+                height: 1.4rem;
+                border-radius: 4px;
+                font-size: var(--fg-font-profile-input);
+                background-color: #16161A;
+                outline: none;
+                border: none;
+                color: var(--input-primary);
+                font-family: 'JetBrains Mono', monospace;
+                font-weight: 200;
+                padding: var(--fg-p-tb-input) 1rem;
+                margin: var(--fg-m-tb-input) 0;
+            }
+        }
+    }
+}

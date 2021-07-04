@@ -1,55 +1,49 @@
 <div class="profile">
-    <form action="/user/update/info/{{INFO_USER._id}}?_method=put" method="post">
-        <div class="profile-wrap">
-            <div class="profile-wrap-col-left">
-                <div class="avatar">
+    <div class="profile-wrap">
+        <div class="profile-wrap-col-left">
+            <div class="avatar">
+                {{#unless info.avatarPath}}
                     <div class="avatar__box--img">
-                        <img src="https://upanh123.com/wp-content/uploads/2020/10/anh-avatar-anime6.jpg" alt="">
+                        <img src="{{INFO_USER.avatarPath}}" alt="Ảnh đại diện!">
                     </div>
+                    {{else}}
+                    <div class="avatar__box--img">
+                        <img src="{{getAvatarDefault info.avatarPath info.gender}}" alt="Ảnh đại diện!">
+                    </div>
+                    <span class="avatar__name--user">{{INFO_USER.accountName}}</span>
                     <div class="avatar__upgrade">
                         <div class="avatar__upgrade--load-file">
                             <div class="avatar__upgrade--load-file-wrap">
                                 <label for="load-file-avatar">Tải ảnh</label>
-                                <input type="file" name="" id="load-file-avatar">
+                                <input type="file" name="avatar" id="load-file-avatar">
                             </div>
                         </div>
                     </div>
-                </div>
-                <ul class="view__options">
-                    <li class="view__options--item"><a href="" class="view__options--item-link">Thông tin cá nhân</a></li>
-                    <li class="view__options--item"><a href="" class="view__options--item-link">Bình luận của bạn</a></li>
-                    <li class="view__options--item"><a href="" class="view__options--item-link">Truyện bạn đã đăng</a></li>
-                    <li class="view__options--item"><a href="" class="view__options--item-link">Tin nhắn</a></li>
-                    <li class="view__options--item"><a href="" class="view__options--item-link">Đổi mật khẩu</a></li>
-                </ul>
+                    <div class="avatar__box--img" id="image-view-loading"></div>
+                {{/unless}}
+                
             </div>
-            <div class="profile-wrap-col-right">
-                <div class="about-user">
-                    <h1 class="about-user__title">Thông tin cá nhân</h1>
-                    <ul class="about-user__info">
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">ID</span><input type="text" class="about-user__info--this-name" value="{{INFO_USER._id}}" disabled></li>
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">Họ</span><input type="text" class="about-user__info--this-name" name="lastName" value="{{info.lastName}}"></li>
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">Tên</span><input type="text" class="about-user__info--this-name" name="firstName" value="{{info.firstName}}"></li>
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">Email</span><input type="text" class="about-user__info--this-name" name="email" value="{{info.email}}"></li>
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">Số điện thoại</span><input type="text" class="about-user__info--this-name" name="numberPhone" value="{{info.numberPhone}}"></li>
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">ngày sinh</span><input type="date" class="about-user__info--this-name" name="dateToBirthday" value="{{getDate info.dateToBirthday}}"></li>
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">Địa chỉ</span><input type="text" class="about-user__info--this-name" name="address" value="{{info.address}}"></li>
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">Giới tính</span>
-                            <select class="about-user__info--this-name" name="gender">
-                                    <option value="Nữ" {{option info.gender 'Nữ'}}>Nữ</option>
-                                    <option value="Nam" {{option info.gender 'Nam'}}>Nam</option>
-                            </select>
-                        </li>
-                        <li class="about-user__info--item"><span class="about-user__info--name-info">Bạn có người yêu chưa</span>
-                            <select class="about-user__info--this-name" name="lover">
-                                    <option value="Có rồi" {{option info.lover 'Có rồi'}}>Có rồi</option>
-                                    <option value="Đang ế!" {{option info.lover 'Đang ế!'}}>Đang ế!</option>
-                            </select>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <ul class="view__options">
+                <li class="view__options--item"><a href="/user/info" class="view__options--item-link">Thông tin cá nhân</a></li>
+                <li class="view__options--item"><a href="" class="view__options--item-link">Bình luận của bạn</a></li>
+                <li class="view__options--item"><a href="/user/your-storys" class="view__options--item-link">Truyện bạn đã đăng</a></li>
+                <li class="view__options--item"><a href="" class="view__options--item-link">Tin nhắn</a></li>
+                <li class="view__options--item"><a href="/user/change-password" class="view__options--item-link">Đổi mật khẩu</a></li>
+            </ul>
         </div>
-        <button class="btn btn-upgrade">Cập nhật thông tin của bạn</button>
-    </form>
+        <div class="profile-wrap-col-right">
+            {{#if INFO_ACCOUNT}}
+                {{> Components/ComponentProfile/info}}
+            {{/if}}
+            {{#if CHANGE_PASSWORD}}
+                {{> Components/ComponentProfile/changePassword}}
+            {{/if}}
+            {{#if YOUR_STORYS}}
+                {{> Components/ComponentProfile/yourStorys}}
+            {{/if}}
+            {{#if ADD_YOUR_STORYS}}
+                {{> Components/ComponentProfile/addYourStorys}}
+            {{/if}}
+        </div>
+    </div>
 </div>

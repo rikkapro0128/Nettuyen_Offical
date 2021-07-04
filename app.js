@@ -11,12 +11,14 @@ import bodyPaser from 'body-parser';
 import methodOverride from 'method-override';
 import hbsHelper from 'handlebars';
 import helperViewHbs from './helper/handleBar.js';
+env.config();
 
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 helperViewHbs(hbsHelper);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('e:\\DATA_IMAGE'));
 app.set('views', path.join(__dirname, 'views', 'renders'));
 app.engine('.hbs', exphbs({
     extname: '.hbs',
@@ -33,8 +35,6 @@ app.use(morgan('combined'));
 app.use(methodOverride('_method'));
 
 Router(app);
-
-env.config();
 
 connectDb();
 

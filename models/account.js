@@ -38,6 +38,7 @@ const account = new Schema({
         address: { type: String, default: '' },
         gender: { type: String, enum: ['Nữ', 'Nam'], default: 'Nam' },
         lover: { type: String, enum: ['Có rồi', 'Đang ế!'], default: 'Đang ế!' },
+        avatarPath: { type: String, default: '' },
     },
 });
 

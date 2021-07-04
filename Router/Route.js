@@ -6,8 +6,8 @@ import helper from '../helper/handleLog.js'
 function Router(app) {
     app.use('*', helper.checkSign, helper.showOptionSigned);
     app.use('/', viewsMain);
-    app.use('/api', Signs);
-    app.use('/user', helper.checkInfoUser, viewsAuth);
+    app.use('/api', Signs); // api sign
+    app.use('/user', viewsAuth); // api for profile
 }
 
 export default Router;

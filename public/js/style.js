@@ -161,6 +161,7 @@ function mutifileUpload() {
     const showImageUploaded = $('.box__show--image-loaded');
     const showImageUploadLeft = $('.box__show--image-loaded--left');
     const storageImage = [];
+    let orderImage = [];
     showImageUploaded.hide();
     let temp = 0, hold = 0;
     inputMutiFile.change(function(event) {
@@ -172,11 +173,16 @@ function mutifileUpload() {
             }
             storageImage.push({data: file});
             showImageUploadLeft.append(`
-                <div class="image__story" id="" position="${temp++}" value-name="${file.name}">
+                <div class="image__story" id="" position="${temp}" value-name="${file.name}">
                     <span class="image__story--name">${file.name}</span>
                     <span class="image__story--size">${formatBytes(file.size)}</span>
+                    <select name="order-${temp}" class="image__story--order">
+                        <option value="null">No Tick</option>
+                        <option selected value="${temp + 1}">${temp + 1}</option>
+                    </select>
                 </div>
             `);
+            temp++;
         }
         $('.image__story').click(function() {
             const thisName = this;
@@ -194,7 +200,40 @@ function mutifileUpload() {
                 }
             })
         });
-        console.log(storageImage)
+        // default run this code below
+        if(!hold) {
+            $('.box__show--image-loaded--right').append(`
+            <img value-name="${storageImage[0].data.name}" src="${URL.createObjectURL(storageImage[0].data)}">
+            `);
+        }
+        $('.image__story--order').change(function () {
+            const position = parseInt($(this).closest('div').attr('position'));
+            let state = false;
+            orderImage = orderImage.filter((ele, index) => {
+                if(ele.index === position) {
+                    state = true;
+                }
+                return ele.index !== position;
+            });
+            if(!state) {
+                orderImage.push({
+                    index: position,
+                    value: $(this).val()
+                });
+            }
+            // orderImage.forEach((item) => {
+            //     $(`.image__story[position=${item.index}] > select`).empty();
+            //     $(`.image__story[position=${item.index}] > select`).append(`
+            //         <option value="null">No Tick</option>
+            //     `);
+            //     orderImage.forEach((item) => {
+            //         $(`.image__story[position=${item.index}] > select`).append(`
+            //             <option value="${item.index + 1}">${item.index + 1}</option>
+            //         `);
+            //     })
+            // })
+            console.log(orderImage);
+        })
     });
 }
 

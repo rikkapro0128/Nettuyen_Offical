@@ -162,6 +162,7 @@ function mutifileUpload() {
     const showImageUploadLeft = $('.box__show--image-loaded--left');
     const storageImage = [];
     let orderImage = [];
+    let missOrderImage = [];
     showImageUploaded.hide();
     let temp = 0, hold = 0;
     inputMutiFile.change(function(event) {
@@ -171,13 +172,13 @@ function mutifileUpload() {
             if(storageImage.find((obj) => obj.data.name === file.name)) {
                 continue;
             }
-            storageImage.push({data: file});
+            storageImage.push({position: (temp + 1), data: file});
             showImageUploadLeft.append(`
                 <div class="image__story" id="" position="${temp}" value-name="${file.name}">
                     <span class="image__story--name">${file.name}</span>
                     <span class="image__story--size">${formatBytes(file.size)}</span>
                     <select name="order-${temp}" class="image__story--order">
-                        <option value="null">No Tick</option>
+                        <option value="NaN">No Tick</option>
                         <option selected value="${temp + 1}">${temp + 1}</option>
                     </select>
                 </div>
@@ -203,36 +204,63 @@ function mutifileUpload() {
         // default run this code below
         if(!hold) {
             $('.box__show--image-loaded--right').append(`
-            <img value-name="${storageImage[0].data.name}" src="${URL.createObjectURL(storageImage[0].data)}">
+                <img value-name="${storageImage[0].data.name}" src="${URL.createObjectURL(storageImage[0].data)}">
             `);
         }
+        // do something when tag select to change!
         $('.image__story--order').change(function () {
-            const position = parseInt($(this).closest('div').attr('position'));
-            let state = false;
-            orderImage = orderImage.filter((ele, index) => {
-                if(ele.index === position) {
-                    state = true;
+            // re-render html check number is NaN or isNumber to render suitable for this state!
+            $.each($('.image__story--order'), function (index, param) {
+                const getVal = parseInt($(param).val());
+                $(param).empty();
+                if(getVal) {
+                    $(param).append(`
+                        <option value="NaN">No Tick</option>
+                        <option selected value="${getVal}">${getVal}</option>
+                    `);
+                }else {
+                    $(param).append(`
+                        <option value="NaN">No Tick</option>
+                    `);
                 }
-                return ele.index !== position;
-            });
-            if(!state) {
-                orderImage.push({
-                    index: position,
-                    value: $(this).val()
-                });
+            })
+            // find list number is shortcoming!
+            $.each($('.image__story--order'), function (index, param) {
+                const status = !parseInt(param.value) ? 'no-checked' : 'checked';
+                orderImage.push({position: parseInt(index), value: parseInt(param.value), status});
+            })
+            for(let run = 0; run < orderImage.length; run++) {
+                let isMiss = true;
+                orderImage.forEach((item, index) => {
+                    if((run + 1) === item.value) {
+                        isMiss = false;
+                        return;
+                    }
+                })
+                if(isMiss) {
+                    missOrderImage.push(run + 1);
+                }
             }
-            // orderImage.forEach((item) => {
-            //     $(`.image__story[position=${item.index}] > select`).empty();
-            //     $(`.image__story[position=${item.index}] > select`).append(`
-            //         <option value="null">No Tick</option>
-            //     `);
-            //     orderImage.forEach((item) => {
-            //         $(`.image__story[position=${item.index}] > select`).append(`
-            //             <option value="${item.index + 1}">${item.index + 1}</option>
-            //         `);
-            //     })
-            // })
-            console.log(orderImage);
+            // render code html option with number shortcoming!
+            $.each($('.image__story--order'), function (index, param) {
+                missOrderImage.forEach((item) => {
+                    $(param).append(`
+                        <option value="${item}">${item}</option>
+                    `);
+                });
+            })
+            // sort list position number
+            orderImage.forEach((item, index) => {
+                storageImage[index].position = item.value;
+            })
+            storageImage.sort(function(a, b) {
+                return b.position - a.position;
+            })
+            // reset list number shortcoming and orderImage(position and state value is tag select)
+            console.log(orderImage)
+            console.log(storageImage)
+            orderImage = [];
+            missOrderImage = [];
         })
     });
 }

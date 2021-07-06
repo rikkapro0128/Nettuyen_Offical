@@ -1,3 +1,5 @@
+let missOrderImageLenght;
+// declare variable
 function inputStyle()  {
     var $inputItem = $(".js-inputWrapper");
     $inputItem.length && $inputItem.each(function() {
@@ -159,13 +161,13 @@ function formatBytes(bytes, decimals = 2) {
 function mutifileUpload() {
     const inputMutiFile = $('#mutifile-upload-story');
     const showImageUploaded = $('.box__show--image-loaded');
-    const showImageUploadLeft = $('.box__show--image-loaded--left');
+    const showImageUploadLeft = $('.image__story--content');
     const storageImage = [];
     let orderImage = [];
     let missOrderImage = [];
     showImageUploaded.hide();
     let temp = 0, hold = 0;
-    inputMutiFile.change(function(event) {
+    inputMutiFile.on('change', function(event) {
         const files = event.target.files;
         showImageUploaded.show();
         for(const file of files) {
@@ -185,22 +187,6 @@ function mutifileUpload() {
             `);
             temp++;
         }
-        $('.image__story').click(function() {
-            const thisName = this;
-            $(thisName).css("background-color", "#1FB264");
-            if(hold !== parseInt($(thisName).attr('position'))) {
-                $(`.image__story[position=${hold}]`).css("background-color", "transparent");
-            }
-            hold = parseInt($(thisName).attr('position'));
-            storageImage.forEach((objData) => {
-                if($(thisName).attr('value-name') === objData.data.name) {
-                    $('.box__show--image-loaded--right').empty();
-                    $('.box__show--image-loaded--right').append(`
-                        <img value-name="${objData.data.name}" src="${URL.createObjectURL(objData.data)}">
-                    `);
-                }
-            })
-        });
         // default run this code below
         if(!hold) {
             $('.box__show--image-loaded--right').append(`
@@ -208,7 +194,7 @@ function mutifileUpload() {
             `);
         }
         // do something when tag select to change!
-        $('.image__story--order').change(function () {
+        $('.image__story--order').on('change', function () {
             // re-render html check number is NaN or isNumber to render suitable for this state!
             $.each($('.image__story--order'), function (index, param) {
                 const getVal = parseInt($(param).val());
@@ -253,16 +239,49 @@ function mutifileUpload() {
             orderImage.forEach((item, index) => {
                 storageImage[index].position = item.value;
             })
-            storageImage.sort(function(a, b) {
-                return b.position - a.position;
-            })
-            // reset list number shortcoming and orderImage(position and state value is tag select)
-            console.log(orderImage)
-            console.log(storageImage)
+            console.log(missOrderImage)
+            missOrderImageLenght = missOrderImage.length;
             orderImage = [];
             missOrderImage = [];
         })
+        $('.image__story').on('click', function() {
+            console.log('click')
+            const thisName = this;
+            $(thisName).css("background-color", "#1FB264");
+            if(hold !== parseInt($(thisName).attr('position'))) {
+                $(`.image__story[position=${hold}]`).css("background-color", "transparent");
+            }
+            hold = parseInt($(thisName).attr('position'));
+            storageImage.forEach((objData) => {
+                if($(thisName).attr('value-name') === objData.data.name) {
+                    $('.box__show--image-loaded--right').empty();
+                    $('.box__show--image-loaded--right').append(`
+                        <img value-name="${objData.data.name}" src="${URL.createObjectURL(objData.data)}">
+                    `);
+                }
+            })
+        });
     });
+    $('#sort-list-image').on('click', function() {
+        if(missOrderImageLenght === 0) {
+            storageImage.sort(function(a, b) {
+                return a.position - b.position;
+            })
+            showImageUploadLeft.empty();
+            storageImage.forEach((item, index) => {
+                showImageUploadLeft.append(`
+                    <div class="image__story" id="" position="${index}" value-name="${item.data.name}">
+                        <span class="image__story--name">${item.data.name}</span>
+                        <span class="image__story--size">${formatBytes(item.data.size)}</span>
+                        <select name="order-${index}" class="image__story--order">
+                            <option value="NaN">No Tick</option>
+                            <option selected value="${item.position}">${item.position}</option>
+                        </select>
+                    </div>
+                `);
+            });
+        }
+    })
 }
 
-export { inputStyle, renderTypeStory, mutifileUpload };
+export { inputStyle, renderTypeStory, mutifileUpload, };

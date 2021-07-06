@@ -166,7 +166,7 @@ function mutifileUpload() {
     let orderImage = [];
     let missOrderImage = [];
     showImageUploaded.hide();
-    let temp = 0, hold = 0;
+    let temp = 0, hold = 0, status = true;
     inputMutiFile.on('change', function(event) {
         const files = event.target.files;
         showImageUploaded.show();
@@ -188,10 +188,11 @@ function mutifileUpload() {
             temp++;
         }
         // default run this code below
-        if(!hold) {
-            $('.box__show--image-loaded--right').append(`
+        if(status) {
+            $('.box__show--image-loaded--right > .view-image').append(`
                 <img value-name="${storageImage[0].data.name}" src="${URL.createObjectURL(storageImage[0].data)}">
             `);
+            status = !status;
         }
         // do something when tag select to change!
         $('.image__story--order').on('change', function () {
@@ -239,11 +240,11 @@ function mutifileUpload() {
             orderImage.forEach((item, index) => {
                 storageImage[index].position = item.value;
             })
-            console.log(missOrderImage)
             missOrderImageLenght = missOrderImage.length;
+            console.log(storageImage)
             orderImage = [];
             missOrderImage = [];
-        })
+        });
         $('.image__story').on('click', function() {
             console.log('click')
             const thisName = this;
@@ -254,8 +255,8 @@ function mutifileUpload() {
             hold = parseInt($(thisName).attr('position'));
             storageImage.forEach((objData) => {
                 if($(thisName).attr('value-name') === objData.data.name) {
-                    $('.box__show--image-loaded--right').empty();
-                    $('.box__show--image-loaded--right').append(`
+                    $('.box__show--image-loaded--right > .view-image').empty();
+                    $('.box__show--image-loaded--right > .view-image').append(`
                         <img value-name="${objData.data.name}" src="${URL.createObjectURL(objData.data)}">
                     `);
                 }
@@ -267,21 +268,28 @@ function mutifileUpload() {
             storageImage.sort(function(a, b) {
                 return a.position - b.position;
             })
-            showImageUploadLeft.empty();
             storageImage.forEach((item, index) => {
-                showImageUploadLeft.append(`
-                    <div class="image__story" id="" position="${index}" value-name="${item.data.name}">
-                        <span class="image__story--name">${item.data.name}</span>
-                        <span class="image__story--size">${formatBytes(item.data.size)}</span>
-                        <select name="order-${index}" class="image__story--order">
-                            <option value="NaN">No Tick</option>
-                            <option selected value="${item.position}">${item.position}</option>
-                        </select>
-                    </div>
+                $(`.image__story[position=${index}]`).attr('value-name', item.data.name);
+                $(`.image__story[position=${index}]`).children('.image__story--name').text(item.data.name);
+                $(`.image__story[position=${index}]`).children('select').empty();
+                $(`.image__story[position=${index}]`).children('select').append(`
+                    <option value="NaN">No Tick</option>
+                    <option selected value="${item.position}">${item.position}</option>
                 `);
             });
         }
     })
+    // $('.view-image').on('mousemove', function (event) {
+    //     const src = $(this).children('img').attr('src');
+    //     const { imageX, imageY } = { imageX: $('.view-image > img')[0].naturalWidth, imageY: $('.view-image > img')[0].naturalHeight };
+    //     const { mouseX, mouseY } = { mouseX: imageX - event.pageX, mouseY: imageY - event.pageY };
+    //     // const { zoomX, zoomY } = { zoomX: mouseX * (imageX / mouseX), zoomY: mouseY * (imageY / mouseY) };
+    //     console.log({ mouseX, mouseY })
+    //     // $('.zoom-image').empty();
+    //     // $('.zoom-image').append(`
+    //     //     <img src="${src}" style="transform: translate(${-zoomX}px, ${-zoomY}px);"/>   
+    //     // `);
+    // })
 }
 
 export { inputStyle, renderTypeStory, mutifileUpload, };

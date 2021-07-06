@@ -370,14 +370,29 @@ table, td, th {
             .box__show--image-loaded--right {
                 max-width: 20rem;
                 height: 25rem;
-                overflow: hidden;
-                position: sticky;
                 top: 0;
-                img {
-                    max-width: 100%; 
-                    border-radius: 5px;
-                    border: 1px solid #fff;
-                    box-sizing: border-box;
+                .view-image {
+                    height: 100%;
+                    overflow: hidden;
+                    position: sticky;
+                    img {
+                        max-width: 100%; 
+                        border-radius: 5px;
+                        border: 1px solid #fff;
+                        box-sizing: border-box;
+                    }    
+                }
+                .zoom-image {
+                    max-width: 20rem;
+                    height: 25rem;
+                    overflow: hidden;
+                    position: sticky;
+                    top: 180px;
+                    img { 
+                        border-radius: 5px;
+                        border: 1px solid #fff;
+                        box-sizing: border-box;
+                    }
                 }
             }
         }

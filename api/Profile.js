@@ -18,6 +18,11 @@ class Profile {
             next(error)
         }
     }
+    
+    uploadStorys(req, res, next) {
+        
+    }
+
 }
 
 export default new Profile;

@@ -18,7 +18,11 @@ function aleartFail(message, urlRedirect) {
         text: message,
     }).then((result) => {
         if(result.isConfirmed || result.isDismissed) {
-            window.location.href = urlRedirect;
+            if(urlRedirect) {
+                window.location.href = urlRedirect;
+            }else {
+                return;
+            }
         }
     });
 }
@@ -182,4 +186,4 @@ function handleLoadImage() {
     });
 }
 
-export { handleForm, handleLoadImage };
+export { handleForm, handleLoadImage, aleartFail };

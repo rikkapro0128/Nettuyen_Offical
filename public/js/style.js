@@ -1,4 +1,8 @@
+import { aleartFail } from './handleForm.js';
+
 let missOrderImageLenght;
+const storageImage = [];
+const objTypeStory = { type: [], details: {}, dataImage: []};
 // declare variable
 function inputStyle()  {
     var $inputItem = $(".js-inputWrapper");
@@ -144,6 +148,22 @@ function renderTypeStory() {
             </li>   
         `);
     })
+    $('.add-your-story__type > li > input[type=checkbox]').change(function() {
+        let objTypeStoryStack = [];
+        if($(this).prop('checked')) {
+            objTypeStoryStack.push({
+                id: parseInt($(this).attr('id')),
+                value: $(this).prop('checked'),
+            })
+        }else {
+            objTypeStoryStack = objTypeStoryStack.filter((ele) => ele.id !== parseInt($(this).attr('id')));
+            objTypeStory.type = objTypeStory.type.filter((ele, index) => ele !== typeStory[parseInt($(this).attr('id'))].name)
+        }
+        objTypeStoryStack.forEach((item, index) => {
+            objTypeStory.type.push(typeStory[item.id].name);
+        })
+        console.log(objTypeStory)
+    })
 }
 
 function formatBytes(bytes, decimals = 2) {
@@ -158,11 +178,10 @@ function formatBytes(bytes, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 } 
 
-function mutifileUpload() {
+function actionViewLoadStory() {
     const inputMutiFile = $('#mutifile-upload-story');
     const showImageUploaded = $('.box__show--image-loaded');
     const showImageUploadLeft = $('.image__story--content');
-    const storageImage = [];
     let orderImage = [];
     let missOrderImage = [];
     showImageUploaded.hide();
@@ -189,9 +208,10 @@ function mutifileUpload() {
         }
         // default run this code below
         if(status) {
-            $('.box__show--image-loaded--right > .view-image').append(`
-                <img value-name="${storageImage[0].data.name}" src="${URL.createObjectURL(storageImage[0].data)}">
-            `);
+            $('.box__show--image-loaded--right > .view-image > img').attr({
+                value_name: storageImage[0].data.name,
+                src: URL.createObjectURL(storageImage[0].data),
+            });
             status = !status;
         }
         // do something when tag select to change!
@@ -246,7 +266,6 @@ function mutifileUpload() {
             missOrderImage = [];
         });
         $('.image__story').on('click', function() {
-            console.log('click')
             const thisName = this;
             $(thisName).css("background-color", "#1FB264");
             if(hold !== parseInt($(thisName).attr('position'))) {
@@ -255,21 +274,13 @@ function mutifileUpload() {
             hold = parseInt($(thisName).attr('position'));
             storageImage.forEach((objData) => {
                 if($(thisName).attr('value-name') === objData.data.name) {
-                    $('.box__show--image-loaded--right > .view-image').empty();
-                    $('.box__show--image-loaded--right > .view-image').append(`
-                        <img value-name="${objData.data.name}" src="${URL.createObjectURL(objData.data)}">
-                    `);
+                    $('.box__show--image-loaded--right > .view-image > img').attr({
+                        value_name: objData.data.name,
+                        src: URL.createObjectURL(objData.data),
+                    });
                 }
             })
         });
-        $('.view-image > img').on('mousemove', function (event) {
-            const src = $(this).children('img').attr('src');
-            const coordinateEleX = $(this).offset().left;
-            const coordinateEleY = $(this).offset().top;
-            const { mouseX, mouseY } = { mouseX: event.pageX - coordinateEleX, mouseY: event.pageY - coordinateEleY };
-            // const { zoomX, zoomY } = { zoomX: mouseX * (imageX / mouseX), zoomY: mouseY * (imageY / mouseY) };
-            console.log({ mouseX, mouseY })
-        })
     });
     $('#sort-list-image').on('click', function() {
         if(missOrderImageLenght === 0) {
@@ -287,6 +298,22 @@ function mutifileUpload() {
             });
         }
     })
+    $('.add-your-story__context--name--number-chapter input[id=name-story]').change(function() {
+        objTypeStory.details.name = $(this).val();
+    })
+    $('.add-your-story__context--name--number-chapter input[id=number-chapter]').change(function() {
+        objTypeStory.details.chapter = $(this).val();
+    })
 }
 
-export { inputStyle, renderTypeStory, mutifileUpload, };
+function uploadStory() {
+    $('.submit-story').on('click', function() {
+        if(!storageImage.length) {
+            aleartFail('Bạn chưa có dữ liệu nào!');
+        }
+        objTypeStory.dataImage = [...storageImage];
+        console.log(objTypeStory)
+    })
+}
+
+export { inputStyle, renderTypeStory, actionViewLoadStory, uploadStory };

@@ -1070,14 +1070,10 @@ table, td, th {
           max-width: 100%;
           border-radius: 5px;
           border: 1px solid #fff;
-          box-sizing: border-box; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .zoom-image {
-        max-width: 20rem;
-        height: 25rem;
-        overflow: hidden;
-        position: sticky;
-        top: 180px; }
-        .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .zoom-image img {
-          border-radius: 5px;
+          box-sizing: border-box;
+          position: absolute; }
+        .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .view-image #len-zoom {
+          max-width: 100%;
+          position: absolute;
           border: 1px solid #fff;
-          box-sizing: border-box; }
+          border-radius: 5px; }

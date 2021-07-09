@@ -21,5 +21,6 @@ router.get('/add-your-storys', ControllerViews.addYourStory);
 router.get('/change-password', ControllerViews.changePasswordView);
 router.put('/change-password', ControllerViews.changePassword);
 router.put('/update/info/:id_user', optionMulter.single('avatar'), Profile.updateInfoAccount);
+router.put('/upload-storys', Profile.uploadStorys);
 
 export default router;

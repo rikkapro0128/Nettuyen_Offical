@@ -2,7 +2,7 @@ import '../owlcarousel/owl.carousel.min.js';
 import '../owlcarousel/jquery.mousewheel.min.js'
 import owl from './optionOwl.js';
 import { handleForm, handleLoadImage } from './handleForm.js';
-import { inputStyle, renderTypeStory, mutifileUpload, } from './style.js';
+import { inputStyle, renderTypeStory, actionViewLoadStory, uploadStory } from './style.js';
 
 $(function() {
     // do something!
@@ -31,6 +31,6 @@ $(function() {
     handleLoadImage();
     inputStyle();
     renderTypeStory();
-    mutifileUpload();
-    
+    actionViewLoadStory();
+    uploadStory();
 });

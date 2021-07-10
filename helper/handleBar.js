@@ -9,8 +9,8 @@ export default (hbs) => {
         }
         return '';
     })
-    hbs.registerHelper('getAvatarDefault', function(nameImage, gender) {
-        if(nameImage) return nameImage;
+    hbs.registerHelper('getAvatarDefault', function(gender) {
+        // if(nameImage) return nameImage;
         if(gender === 'Nam') return process.env.AVATAR_MALE;
         if(gender === 'Nữ') return process.env.AVATAR_FEMALE;
     })

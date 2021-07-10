@@ -2,26 +2,25 @@
     <div class="profile-wrap">
         <div class="profile-wrap-col-left">
             <div class="avatar">
-                {{#unless info.avatarPath}}
+                {{#if info.avatarPath}}
                     <div class="avatar__box--img">
                         <img src="{{INFO_USER.avatarPath}}" alt="Ảnh đại diện!">
                     </div>
                     {{else}}
                     <div class="avatar__box--img">
-                        <img src="{{getAvatarDefault info.avatarPath info.gender}}" alt="Ảnh đại diện!">
+                        <img src="{{getAvatarDefault info.gender}}" alt="Ảnh đại diện!">
                     </div>
-                    <span class="avatar__name--user">{{INFO_USER.accountName}}</span>
-                    <div class="avatar__upgrade">
-                        <div class="avatar__upgrade--load-file">
-                            <div class="avatar__upgrade--load-file-wrap">
-                                <label for="load-file-avatar">Tải ảnh</label>
-                                <input type="file" name="avatar" id="load-file-avatar">
-                            </div>
+                {{/if}}
+                <span id_user="{{INFO_USER._id}}" class="avatar__name--user">{{INFO_USER.accountName}}</span>
+                <div class="avatar__upgrade">
+                    <div class="avatar__upgrade--load-file">
+                        <div class="avatar__upgrade--load-file-wrap">
+                            <label for="load-file-avatar">Tải ảnh</label>
+                            <input type="file" name="avatar" id="load-file-avatar">
                         </div>
                     </div>
-                    <div class="avatar__box--img" id="image-view-loading"></div>
-                {{/unless}}
-                
+                </div>
+                <div class="avatar__box--img" id="image-view-loading"></div>
             </div>
             <ul class="view__options">
                 <li class="view__options--item"><a href="/user/info" class="view__options--item-link">Thông tin cá nhân</a></li>

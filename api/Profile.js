@@ -20,7 +20,7 @@ class Profile {
     }
     
     uploadStorys(req, res, next) {
-        
+        console.log({files: req.files, data: JSON.parse(req.body.data_info)});
     }
 
 }

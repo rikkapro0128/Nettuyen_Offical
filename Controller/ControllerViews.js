@@ -3,9 +3,9 @@ import helper from '../helper/handleApi.js';
 import bcrypt from 'bcrypt';
 
 class Views {
+
     home(req, res, next) {
         res.render('home');
-        Account.updateOne()
     }
     signin(req, res, next) {
         res.render('signin');
@@ -24,8 +24,11 @@ class Views {
             info,
         });
     }
-    changePasswordView(req, res, next) {
+    async changePasswordView(req, res, next) {
+        let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
+        info = info.toObject();
         res.render('profile', {
+            info,
             CHANGE_PASSWORD: true,
         });
     }
@@ -55,14 +58,20 @@ class Views {
         }
     }
 
-    yourStorys(req, res, next) {
+    async yourStorys(req, res, next) {
+        let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
+        info = info.toObject();
         res.render('profile', {
+            info,
             YOUR_STORYS: true,
         });
     }
 
-    addYourStory(req, res, next) {
+    async addYourStory(req, res, next) {
+        let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
+        info = info.toObject();
         res.render('profile', {
+            info,
             ADD_YOUR_STORYS: true,
         });
     }

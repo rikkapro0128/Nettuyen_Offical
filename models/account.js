@@ -2,6 +2,13 @@ import mongoose from 'mongoose';
 import helper from '../helper/handleApi.js';
 const Schema = mongoose.Schema;
 
+// const imageStory = new Schema({
+//     fileName: { type: String, default: '' }, 
+//     path: { type: String, default: '' }, 
+//     size: { type: Number, default: 0 },
+//     ext: { type: String, default: '' },
+// });
+
 const account = new Schema({
     accountName: {
         type: String, 
@@ -40,6 +47,15 @@ const account = new Schema({
         lover: { type: String, enum: ['Có rồi', 'Đang ế!'], default: 'Đang ế!' },
         avatarPath: { type: String, default: '' },
     },
+    yourStorys: [new Schema({
+        nameStory: { type: String, default: '' },
+        imageStory: {
+            fileName: { type: String, default: '' }, 
+            path: { type: String, default: '' }, 
+            size: { type: Number, default: 0 },
+            ext: { type: String, default: '' },
+        },
+    })],
 });
 
 account.pre('save', async function(next) {

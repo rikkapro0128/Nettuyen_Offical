@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Account } from '../models/account.js';
+import fs from 'fs';
+import uniqid from 'uniqid';
 
 class helperApi {
     getToken(payload) {
@@ -60,6 +62,16 @@ class helperApi {
     }
     compareHashString(password, hashString) {
         return bcrypt.compare(password, hashString);
+    }
+    createMyStory(req, res, next) {
+        let idStory = uniqid();
+        if(!fs.existsSync(`e:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`)) {
+            fs.mkdirSync(`e:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`, { recursive: true }, (err) => {
+                if (err) throw err;
+            });
+        }
+        req.pathStory = `e:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`;
+        next();
     }
 }
 

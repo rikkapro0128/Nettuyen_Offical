@@ -308,11 +308,27 @@ function actionViewLoadStory() {
 
 function uploadStory() {
     $('.submit-story').on('click', function() {
+        const formStory = new FormData();
+        const id = $('.avatar__name--user').attr('id_user');
         if(!storageImage.length) {
             aleartFail('Bạn chưa có dữ liệu nào!');
         }
         objTypeStory.dataImage = [...storageImage];
-        console.log(objTypeStory)
+        objTypeStory.dataImage.forEach((item, index) => {
+            formStory.append('story', item.data);
+        });
+        formStory.append('data_info', JSON.stringify({type: objTypeStory.type, details: objTypeStory.details}));
+        fetch(`http://localhost:3300/user/upload-story/${id}`, {
+            method: 'POST',
+            body: formStory,
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     })
 }
 

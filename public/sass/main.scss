@@ -370,11 +370,11 @@ table, td, th {
             .box__show--image-loaded--right {
                 max-width: 20rem;
                 height: 25rem;
-                top: 0;
+                position: sticky;
+                top: 10px;
                 .view-image {
                     height: 100%;
                     overflow: hidden;
-                    position: sticky;
                     img {
                         max-width: 100%; 
                         border-radius: 5px;

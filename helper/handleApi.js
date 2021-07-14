@@ -65,12 +65,12 @@ class helperApi {
     }
     createMyStory(req, res, next) {
         let idStory = uniqid();
-        if(!fs.existsSync(`e:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`)) {
-            fs.mkdirSync(`e:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`, { recursive: true }, (err) => {
+        if(!fs.existsSync(`d:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`)) {
+            fs.mkdirSync(`d:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`, { recursive: true }, (err) => {
                 if (err) throw err;
             });
         }
-        req.pathStory = `e:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`;
+        req.pathStory = `d:\\DATA_IMAGE${process.env.DIR_STORY}\\${req.params.id_user}\\${idStory}`;
         next();
     }
 }

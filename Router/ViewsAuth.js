@@ -8,7 +8,7 @@ import fs from 'fs';
 let router = express.Router();
 const storageAvatar = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, `e:\\DATA_IMAGE${process.env.DIR_AVATAR}`);
+      cb(null, `d:\\DATA_IMAGE${process.env.DIR_AVATAR}`);
     },
     filename: function (req, file, cb) {
         //console.log({req, file})
@@ -18,7 +18,7 @@ const storageAvatar = multer.diskStorage({
 });
 const storageStory = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, req.pathStory);
+      cb(null, `${req.pathStory}`);
     },
     filename: function (req, file, cb) {
         const ext = file.originalname.split('.')[1];
@@ -34,6 +34,6 @@ router.get('/add-your-storys', ControllerViews.addYourStory);
 router.get('/change-password', ControllerViews.changePasswordView);
 router.put('/change-password', ControllerViews.changePassword);
 router.put('/update/info/:id_user', optionAvatarMulter.single('avatar'), Profile.updateInfoAccount);
-router.post('/upload-story/:id_user', helper.createMyStory, optionStoryMulter.array('story', 12), Profile.uploadStorys);
+router.post('/upload-story/:id_user', helper.createMyStory, optionStoryMulter.array('story', 100), Profile.uploadStorys);
 
 export default router;

@@ -1,3 +1,5 @@
+import "./cookie.js";
+
 function aleartSuccess(message, urlRedirect, setTime) {
     Swal.fire({
         position: 'center',
@@ -186,4 +188,4 @@ function handleLoadImage() {
     });
 }
 
-export { handleForm, handleLoadImage, aleartFail };
+export { handleForm, handleLoadImage, aleartFail, aleartSuccess };

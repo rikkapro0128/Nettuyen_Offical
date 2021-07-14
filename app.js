@@ -18,13 +18,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 helperViewHbs(hbsHelper);
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('e:\\DATA_IMAGE'));
+app.use(express.static('d:\\DATA_IMAGE'));
 app.set('views', path.join(__dirname, 'views', 'renders'));
 app.engine('.hbs', exphbs({
     extname: '.hbs',
     defaultLayout: 'main',
     partialsDir: path.join(__dirname, 'views', 'partials'),
     layoutsDir: path.join(__dirname, 'views', 'layouts'),
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    },
 }));
 app.set('view engine', '.hbs');
 

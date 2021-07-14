@@ -2,12 +2,30 @@ import mongoose from 'mongoose';
 import helper from '../helper/handleApi.js';
 const Schema = mongoose.Schema;
 
-// const imageStory = new Schema({
-//     fileName: { type: String, default: '' }, 
-//     path: { type: String, default: '' }, 
-//     size: { type: Number, default: 0 },
-//     ext: { type: String, default: '' },
-// });
+const chapter = new Schema({
+    number: { type: Number, default: 0 },
+    storyOwner: { type: Schema.Types.ObjectId },
+    listImage: [new Schema({
+        fileName: { type: String, default: '' }, 
+        path: { type: String, default: '' }, 
+        size: { type: Number, default: 0 },
+        ext: { type: String, default: '' },
+    })],
+    dateCreate: { type: Date, default: Date.now },
+    dateUpdate: { type: Date, default: Date.now }
+});
+
+const storys = new Schema({
+    name: { type: String, default: '' },
+    type: { type: String, default: '' },
+    owner: { type: Schema.Types.ObjectId },
+    listChapter: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Chapter'
+    }],
+    dateCreate: { type: Date, default: Date.now },
+    dateUpdate: { type: Date, default: Date.now }
+});
 
 const account = new Schema({
     accountName: {
@@ -47,15 +65,12 @@ const account = new Schema({
         lover: { type: String, enum: ['Có rồi', 'Đang ế!'], default: 'Đang ế!' },
         avatarPath: { type: String, default: '' },
     },
-    yourStorys: [new Schema({
-        nameStory: { type: String, default: '' },
-        imageStory: {
-            fileName: { type: String, default: '' }, 
-            path: { type: String, default: '' }, 
-            size: { type: Number, default: 0 },
-            ext: { type: String, default: '' },
-        },
-    })],
+    storys: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Storys'
+    }],
+    dateCreate: { type: Date, default: Date.now },
+    dateUpdate: { type: Date, default: Date.now }
 });
 
 account.pre('save', async function(next) {
@@ -74,8 +89,12 @@ account.pre('save', async function(next) {
     }
 });
 
-const Account = mongoose.model('account', account);
+const Account = mongoose.model('Account', account);
+const Storys = mongoose.model('Storys', storys);
+const Chapter = mongoose.model('Chapter', chapter);
 
 export { 
     Account,
+    Storys,
+    Chapter,
 }

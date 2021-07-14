@@ -1,4 +1,4 @@
-import { aleartFail } from './handleForm.js';
+import { aleartFail, aleartSuccess } from './handleForm.js';
 
 let missOrderImageLenght;
 const storageImage = [];
@@ -302,7 +302,7 @@ function actionViewLoadStory() {
         objTypeStory.details.name = $(this).val();
     })
     $('.add-your-story__context--name--number-chapter input[id=number-chapter]').change(function() {
-        objTypeStory.details.chapter = $(this).val();
+        objTypeStory.details.chapter = parseInt($(this).val());
     })
 }
 
@@ -325,6 +325,9 @@ function uploadStory() {
         .then(response => response.json())
         .then(result => {
             console.log('Success:', result);
+            if(result) {
+                aleartSuccess('Update successful!', 'http://localhost:3300/user/add-your-storys');
+            }
         })
         .catch(error => {
             console.error('Error:', error);

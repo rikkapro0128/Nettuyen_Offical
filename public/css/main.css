@@ -1061,11 +1061,11 @@ table, td, th {
     .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right {
       max-width: 20rem;
       height: 25rem;
-      top: 0; }
+      position: sticky;
+      top: 10px; }
       .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .view-image {
         height: 100%;
-        overflow: hidden;
-        position: sticky; }
+        overflow: hidden; }
         .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .view-image img {
           max-width: 100%;
           border-radius: 5px;

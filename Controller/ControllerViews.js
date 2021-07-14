@@ -1,4 +1,4 @@
-import { Account } from '../models/account.js';
+import { Account, Storys, Chapter, } from '../models/account.js';
 import helper from '../helper/handleApi.js';
 import bcrypt from 'bcrypt';
 
@@ -59,10 +59,14 @@ class Views {
     }
 
     async yourStorys(req, res, next) {
-        let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
+        const idUser = res.locals.INFO_USER._id;
+        let info = await helper.getInfoAccount(idUser);
         info = info.toObject();
+        let data = await Storys.find({ owner: idUser }).populate('listChapter').exec();
+        console.log(data)
         res.render('profile', {
             info,
+            listStory: data,
             YOUR_STORYS: true,
         });
     }

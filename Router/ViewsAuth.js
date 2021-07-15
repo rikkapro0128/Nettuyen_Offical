@@ -31,6 +31,7 @@ const optionStoryMulter = multer({ storage: storageStory });
 router.get('/info', ControllerViews.profile);
 router.get('/your-storys', ControllerViews.yourStorys);
 router.get('/add-your-storys', ControllerViews.addYourStory);
+router.get('/edit-your-storys/:id_user', ControllerViews.editYourStory);
 router.get('/change-password', ControllerViews.changePasswordView);
 router.put('/change-password', ControllerViews.changePassword);
 router.put('/update/info/:id_user', optionAvatarMulter.single('avatar'), Profile.updateInfoAccount);

@@ -255,10 +255,21 @@ table, td, th {
         padding: 0.6rem 0; 
     }
     &__list {
+        width: 100%;
         a {
             display: block;
             margin: 0.6rem 0;
             font-size: 1rem; 
+        }
+        table {
+            width: 100%;
+            tr:not(:first-child) {
+                cursor: pointer;
+                transition: all .1s ease;
+                &:hover {
+                    background-color: #2CB67D;
+                }
+            }
         }
     }
 }

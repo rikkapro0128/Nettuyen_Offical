@@ -335,4 +335,11 @@ function uploadStory() {
     })
 }
 
-export { inputStyle, renderTypeStory, actionViewLoadStory, uploadStory };
+function handleClickListStory() {
+    $('.your-post__list--table-row--content').click(function() {
+        const idUser = $(this).attr('id_story');
+        window.location.href = `http://localhost:3300/user/edit-your-storys/${idUser}`;
+    })
+}
+
+export { inputStyle, renderTypeStory, actionViewLoadStory, uploadStory, handleClickListStory };

@@ -973,10 +973,19 @@ table, td, th {
   color: #fff;
   padding: 0.6rem 0; }
 
-.your-post__list a {
-  display: block;
-  margin: 0.6rem 0;
-  font-size: 1rem; }
+.your-post__list {
+  width: 100%; }
+  .your-post__list a {
+    display: block;
+    margin: 0.6rem 0;
+    font-size: 1rem; }
+  .your-post__list table {
+    width: 100%; }
+    .your-post__list table tr:not(:first-child) {
+      cursor: pointer;
+      transition: all .1s ease; }
+      .your-post__list table tr:not(:first-child):hover {
+        background-color: #2CB67D; }
 
 .add-your-story {
   color: #fff; }

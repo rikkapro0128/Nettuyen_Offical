@@ -2,18 +2,20 @@
     <h1 class="your-post__title"><a href="/user/your-storys">Your Story</a></h1>
     <div class="your-post__list">
         <table class="your-post__list--table">
-            <tr class="your-post__list--table-row--add-story">
-                <a href="/user/add-your-storys" class="your-post__list--table-row--add-story--link effect-underline">Click to add story</a>
-            </tr>
+            <a href="/user/add-your-storys" class="your-post__list--table-row--add-story--link effect-underline">Click to add story</a>
             <tr class="your-post__list--table-row--title">
+                <th class="your-post__list--table-row--title-name">Select</th>
                 <th class="your-post__list--table-row--title-name">STT</th>
                 <th class="your-post__list--table-row--title-name">Name</th>
                 <th class="your-post__list--table-row--title-name">Time Up</th>
                 <th class="your-post__list--table-row--title-name">Number Chapter</th>
-                <th class="your-post__list--table-row--title-name">Action Delete</th>
+                <th class="your-post__list--table-row--title-name">Type</th>
             </tr>
             {{#each listStory}}
-                <tr class="your-post__list--table-row--content">
+                <tr class="your-post__list--table-row--content" id_story="{{ this._id }}">    
+                    <td class="your-post__list--table-row--content-show">
+                        <input type="checkbox" class="your-post__select--element" name="select-behavior" for="select-element-story-{{ @index }}">
+                    </td>
                     <td class="your-post__list--table-row--content-show">{{ @index }}</td>
                     <td class="your-post__list--table-row--content-show">{{ this.name }}</td>
                     <td class="your-post__list--table-row--content-show">{{ this.dateCreate }}</td>

@@ -63,7 +63,6 @@ class Views {
         let info = await helper.getInfoAccount(idUser);
         info = info.toObject();
         let data = await Storys.find({ owner: idUser }).populate('listChapter').exec();
-        console.log(data)
         res.render('profile', {
             info,
             listStory: data,
@@ -77,6 +76,18 @@ class Views {
         res.render('profile', {
             info,
             ADD_YOUR_STORYS: true,
+        });
+    }
+
+    async editYourStory(req, res, next) {
+        const idUser = req.params.id_user;
+        let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
+        info = info.toObject();
+        let data = await Storys.findOne({ _id: idUser }).populate('listChapter').exec();
+        res.render('profile', {
+            info,
+            story: data,
+            EDIT_YOUR_STORYS: true,
         });
     }
 

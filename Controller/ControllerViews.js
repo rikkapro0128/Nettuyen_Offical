@@ -84,9 +84,16 @@ class Views {
         let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
         info = info.toObject();
         let data = await Storys.findOne({ _id: idUser }).populate('listChapter').exec();
+        console.log(data)
         res.render('profile', {
             info,
-            story: data,
+            story: { 
+                data, 
+                numberChapter: (data.listChapter.length - 1),
+                type: data.type.split('-'),
+                decription: 'No decription!', // no-data
+                release: 2020, // no-data
+            },
             EDIT_YOUR_STORYS: true,
         });
     }

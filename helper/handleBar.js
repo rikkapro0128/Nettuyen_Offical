@@ -14,4 +14,7 @@ export default (hbs) => {
         if(gender === 'Nam') return process.env.AVATAR_MALE;
         if(gender === 'Nữ') return process.env.AVATAR_FEMALE;
     })
+    hbs.registerHelper('getIntroStory', function(link, isAvatar) {
+        return link ? link : (isAvatar ? process.env.AVATAR_STORY : process.env.COVER_STORY);
+    })
 };

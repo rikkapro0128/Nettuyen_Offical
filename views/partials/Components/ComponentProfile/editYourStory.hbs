@@ -1,21 +1,29 @@
 <div class="edit__your-story">
-    <h1 class="edit__your-story--title"><a href="">Your Story</a> >> <a href="">Edit</a></h1>
-    <h1 class="name__story">{{ story.name }}</h1>
+    <h1 class="edit__your-story--title"><a href="http://localhost:3300/user/your-storys">Your Story</a> >> <a href="http://localhost:3300/user/edit-your-storys/{{story.data._id}}">Edit</a></h1>
+    <h1 class="name__story">{{ story.data.name }}</h1>
     <div class="story__pic">
         <div class="story__pic--avatar-story">
-            <img src="" alt="">
+            <img src="{{getIntroStory story.data.avatar true}}" alt="avatar of story">
         </div>
         <div class="story__pic--cover-story">
-            <img src="" alt="">
+            <img src="{{getIntroStory story.data.avatar false}}" alt="cover of story">
         </div>
     </div>
     <div class="story__decription">
         <div class="story__decription--information">
-            <span class="story__decription--information-chapter"></span>
-            <span class="story__decription--information-type"></span>
+            <h1 class="story__decription--information-title">Information</h1>
+            <p class="story__decription--information-chapter">Chapter Present: <span> {{story.numberChapter}} </span></p>
+            <p class="story__decription--release">Release Year: <span> {{story.release}} </span></p>
+            <p class="story__decription--information-type">
+                <span>Type Story:</span>
+                {{#each story.type}}
+                    <span>{{ this }}</span>
+                {{/each}}
+            </p>
         </div>
         <div class="story__decription--content">
-            <span class="story__decription--content-box"></span>
+            <h1 class="story__decription--information-title">Content Story</h1>
+            <p class="story__decription--content-box">{{ story.decription }}</p>
         </div>
     </div>
 </div>

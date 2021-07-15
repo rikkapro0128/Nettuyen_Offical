@@ -1086,3 +1086,73 @@ table, td, th {
           position: absolute;
           border: 1px solid #fff;
           border-radius: 5px; }
+
+.edit__your-story--title {
+  color: #fff; }
+  .edit__your-story--title a {
+    color: #fff; }
+    .edit__your-story--title a:hover {
+      color: #fd999a; }
+
+.edit__your-story .name__story {
+  margin-top: 15px;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #2CB67D;
+  border-radius: 2px;
+  font-size: 1rem; }
+
+.edit__your-story .story__pic {
+  display: flex;
+  height: 300px;
+  margin: 15px 0;
+  width: 100%; }
+  .edit__your-story .story__pic--avatar-story {
+    width: 250px;
+    position: relative;
+    overflow: hidden;
+    margin-right: 15px;
+    border-radius: 2px;
+    border: 1px solid #fff; }
+    .edit__your-story .story__pic--avatar-story img {
+      position: absolute;
+      width: 100%; }
+  .edit__your-story .story__pic--cover-story {
+    width: inherit;
+    overflow: hidden;
+    border-radius: 2px;
+    border: 1px solid #fff; }
+    .edit__your-story .story__pic--cover-story img {
+      width: 100%; }
+
+.edit__your-story .story__decription {
+  display: flex;
+  color: #fff; }
+  .edit__your-story .story__decription--information h1 {
+    font-size: 1.2rem; }
+  .edit__your-story .story__decription--information p {
+    margin: 10px 0; }
+  .edit__your-story .story__decription--information-chapter {
+    display: flex;
+    align-items: center; }
+    .edit__your-story .story__decription--information-chapter span {
+      display: block;
+      padding: 5px 8px;
+      border: 1px solid #fff;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-left: 5px; }
+  .edit__your-story .story__decription--information-type {
+    display: flex;
+    align-items: center; }
+    .edit__your-story .story__decription--information-type span:not(:first-child) {
+      padding: 5px 8px;
+      border: 1px solid #fff;
+      border-radius: 3px;
+      cursor: pointer;
+      display: block;
+      margin-left: 5px; }
+  .edit__your-story .story__decription--content h1 {
+    font-size: 1.2rem; }
+  .edit__your-story .story__decription--content p {
+    margin: 10px 0; }

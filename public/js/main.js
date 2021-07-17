@@ -9,6 +9,7 @@ import {
     uploadStory,
     handleClickListStory
 } from './style.js';
+import { uploadSinglefile } from './mixin.js';
 
 $(function() {
     // do something!
@@ -40,4 +41,6 @@ $(function() {
     actionViewLoadStory();
     uploadStory();
     handleClickListStory();
+    uploadSinglefile($('.story__pic--avatar-story'), 'x');
+    uploadSinglefile($('.story__pic--cover-story'), 'y');
 });

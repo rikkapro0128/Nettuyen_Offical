@@ -84,7 +84,7 @@ class Views {
         let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
         info = info.toObject();
         let data = await Storys.findOne({ _id: idUser }).populate('listChapter').exec();
-        console.log(data)
+        // console.log(data)
         res.render('profile', {
             info,
             story: { 

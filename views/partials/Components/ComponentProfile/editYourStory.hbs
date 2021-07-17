@@ -3,10 +3,20 @@
     <h1 class="name__story">{{ story.data.name }}</h1>
     <div class="story__pic">
         <div class="story__pic--avatar-story">
-            <img src="{{getIntroStory story.data.avatar true}}" alt="avatar of story">
+            <button class="btn">
+                <i class="fas fa-upload"></i>
+                Upload Image
+            </button>
+            <input type="file" name="upload--avatar-story" id="" hidden>
+            <i class="far fa-trash-alt" hidden></i>
         </div>
         <div class="story__pic--cover-story">
-            <img src="{{getIntroStory story.data.avatar false}}" alt="cover of story">
+            <button class="btn">
+                <i class="fas fa-upload"></i>
+                Upload Image
+            </button>
+            <input type="file" name="pic--cover-story" id="" hidden>
+            <i class="far fa-trash-alt" hidden></i>
         </div>
     </div>
     <div class="story__decription">

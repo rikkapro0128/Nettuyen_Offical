@@ -1,6 +1,5 @@
 import '../jquery-ui-1.12.1/jquery-ui-1.12.1/jquery-ui.min.js';
 
-
 function uploadSinglefile(thisObj, controllAxis) {
     let file;
     const objDrag = thisObj;
@@ -14,7 +13,7 @@ function uploadSinglefile(thisObj, controllAxis) {
         event.preventDefault();  
         event.stopPropagation();
         $(this).removeClass('drag__element');
-        console.log('Drag leave element!');
+        //console.log('Drag leave element!');
     }).on('drop', function(event) {
         event.preventDefault();  
         event.stopPropagation();
@@ -31,24 +30,31 @@ function uploadSinglefile(thisObj, controllAxis) {
         $(this).val('');
     })
     function getFileElement(file, element) {
-        if(!element.children('img')[0]) {
-            element.append(`<img id="show-img" src="${file ? URL.createObjectURL(file) : ''}"/>`);
+        if(!element.find('div > img')[0]) {
+            element.find('div').append(`<img id="show-img" src="${file ? URL.createObjectURL(file) : ''}"/>`);
         }else {
-            element.children('img').attr('src', `${file ? URL.createObjectURL(file) : ''}`);
+            element.find('div > img').attr('src', `${file ? URL.createObjectURL(file) : ''}`);
         }
-        dragElement(element.children('img'), controllAxis);
-        cancelImage(element.children('img'), element);
+        dragImage(element.find('div'), controllAxis);
+        cancelImage(element.find('div > img'), element);
     }
 }
 
-function dragElement(element, controllAxis) {
-    element.css({'left': '0'});
-    element.draggable({
-        axis: controllAxis,
-        drag: function(event, ui) {
-            
-        }
-    });
+function dragImage(element, direction) {
+    element.on('mousedown', function(event) {
+        const pos = {scrollX: element.scrollLeft(), scrollY: element.scrollTop(), mouseX: event.offsetX,mouseY: event.offsetY};
+        $(this).on('mousemove', function(event) {
+            const long = { x: event.offsetX - pos.mouseX, y: event.offsetY - pos.mouseY }
+            if(direction === 'x') {
+                $(this).scrollLeft(pos.scrollX - long.x);
+            }else {
+                $(this).scrollTop(pos.scrollY - long.y);
+            }
+        })
+        $('html').on('mouseup', function(event) {
+            element.unbind('mousemove');  
+        });
+    })
 }
 
 function cancelImage(element, eleParent) {

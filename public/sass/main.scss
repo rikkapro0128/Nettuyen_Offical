@@ -470,10 +470,21 @@ table, td, th {
             border-radius: 2px;
             box-shadow: 3px 3px 5px 0px #000;
             position: relative;
-            img {
+            div {
+                width: 100%;
                 height: 100%;
                 position: absolute;
                 top: 0;
+                overflow-x: scroll;
+                overflow-y: clip;
+                img {
+                    height: 100%;
+                    -webkit-user-drag: none;
+                    -khtml-user-drag: none;
+                    -moz-user-drag: none;
+                    -o-user-drag: none;
+                    user-drag: none;
+                }
             }
             button {
                 position: absolute;
@@ -481,6 +492,7 @@ table, td, th {
                 width: fit-content;
                 left: 50%;
                 transform: translate(-50%, -50%);
+                z-index: 1;
             }
             &:before {
                 content: '';
@@ -495,10 +507,21 @@ table, td, th {
             border-radius: 2px;
             box-shadow: 3px 3px 5px 0px #000;
             position: relative;
-            img {
+            div {
                 width: 100%;
+                height: 100%;
                 position: absolute;
                 top: 0;
+                overflow-y: scroll;
+                overflow-x: clip;
+                img {
+                    width: 100%;
+                    -webkit-user-drag: none;
+                    -khtml-user-drag: none;
+                    -moz-user-drag: none;
+                    -o-user-drag: none;
+                    user-drag: none;
+                }
             }
             button {
                 position: absolute;
@@ -506,6 +529,7 @@ table, td, th {
                 width: fit-content;
                 left: 50%;
                 transform: translate(-50%, -50%);
+                z-index: 1;
             }
             &:before {
                 content: '';

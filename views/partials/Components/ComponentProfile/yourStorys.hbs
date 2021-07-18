@@ -1,15 +1,31 @@
 <div class="your-post">
-    <h1 class="your-post__title"><a href="/user/your-storys">Your Story</a></h1>
+    <h1 class="your-post__title"><a href="/user/your-storys">Your Story
+        <i class="fas fa-book"></i>
+    </a> / </h1>
     <div class="your-post__list">
         <table class="your-post__list--table">
-            <a href="/user/add-your-storys" class="your-post__list--table-row--add-story--link effect-underline">Click to add story</a>
+            <a href="/user/add-your-storys" class="your-post__list--table-row--add-story--link btn">Click to add story
+                <i class="fas fa-plus"></i>
+            </a>
             <tr class="your-post__list--table-row--title">
-                <th class="your-post__list--table-row--title-name">Select</th>
-                <th class="your-post__list--table-row--title-name">STT</th>
-                <th class="your-post__list--table-row--title-name">Name</th>
-                <th class="your-post__list--table-row--title-name">Time Up</th>
-                <th class="your-post__list--table-row--title-name">Number Chapter</th>
-                <th class="your-post__list--table-row--title-name">Type</th>
+                <th class="your-post__list--table-row--title-name">Select
+                    <i class="far fa-hand-point-up"></i>
+                </th>
+                <th class="your-post__list--table-row--title-name">Index
+                    <i class="fas fa-indent"></i>
+                </th>
+                <th class="your-post__list--table-row--title-name">Name
+                    <i class="fas fa-signature"></i>
+                </th>
+                <th class="your-post__list--table-row--title-name">Time Up
+                    <i class="far fa-clock"></i>
+                </th>
+                <th class="your-post__list--table-row--title-name">Number Chapter
+                    <i class="fas fa-book"></i>
+                </th>
+                <th class="your-post__list--table-row--title-name">Type
+                    <i class="fas fa-filter"></i>
+                </th>
             </tr>
             {{#each listStory}}
                 <tr class="your-post__list--table-row--content" id_story="{{ this._id }}">    

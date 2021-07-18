@@ -162,7 +162,6 @@ function renderTypeStory() {
         objTypeStoryStack.forEach((item, index) => {
             objTypeStory.type.push(typeStory[item.id].name);
         })
-        console.log(objTypeStory)
     })
 }
 
@@ -261,7 +260,6 @@ function actionViewLoadStory() {
                 storageImage[index].position = item.value;
             })
             missOrderImageLenght = missOrderImage.length;
-            console.log(storageImage)
             orderImage = [];
             missOrderImage = [];
         });

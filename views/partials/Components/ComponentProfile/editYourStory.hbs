@@ -1,5 +1,9 @@
 <div class="edit__your-story">
-    <h1 class="edit__your-story--title"><a href="http://localhost:3300/user/your-storys">Your Story</a> >> <a href="http://localhost:3300/user/edit-your-storys/{{story.data._id}}">Edit</a></h1>
+    <h1 class="edit__your-story--title"><a href="http://localhost:3300/user/your-storys">Your Story
+        <i class="fas fa-book"></i>
+    </a> / <a href="http://localhost:3300/user/edit-your-storys/{{story.data._id}}">Edit Story
+        <i class="far fa-edit"></i>
+    </a></h1>
     <h1 class="name__story">{{ story.data.name }}</h1>
     <div class="story__pic">
         <div class="story__pic--avatar-story">

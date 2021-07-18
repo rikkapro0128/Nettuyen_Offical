@@ -41,15 +41,14 @@ function uploadImage(elementInput, renderThisElement) {
     elementInput.change(() => {
         const fileReader = new FileReader();
         const img = new Image();
-        fileReader.onload = function() {
-            img.src = this.result;
+        const fileImage = elementInput[0].files[0];
+        renderThisElement.show();
+        img.src = URL.createObjectURL(fileImage);
+        renderThisElement.append(img);
+        if(renderThisElement.children('img').length > 1) {
+            renderThisElement.children('img').remove();
             renderThisElement.append(img);
-            if(renderThisElement.children('img').length > 1) {
-                renderThisElement.children('img').remove();
-                renderThisElement.append(img);
-            }
         }
-        fileReader.readAsDataURL(elementInput[0].files[0]);
     });
 }
 
@@ -154,6 +153,7 @@ function handleLoadImage() {
     const inputImage = $('#load-file-avatar');
     const showImage = $('#image-view-loading');
     const form = $('#upload-info-account');
+    showImage.hide();
     uploadImage(inputImage, showImage);
     form.submit(function(e) {
         e.preventDefault();
@@ -166,7 +166,6 @@ function handleLoadImage() {
         data.dateToBirthday = new Date(data.dateToBirthday);
         const id = data.id;
         delete data.id;
-        console.log(data);
         // that code belows, it will be upload info user when this user change data
         if(inputImage[0].files[0]) {
             formData.append('avatar', inputImage[0].files[0]);

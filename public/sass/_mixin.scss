@@ -173,7 +173,7 @@
                     .placeholder {
                         top: -5px;
                         background-color: #242629;
-                        color: #fd999a;
+                        color: #7f5af0;
                         text-transform: uppercase;
                         letter-spacing: .8px;
                         font-size: 11px;
@@ -182,14 +182,14 @@
                     }
                     .formRow--input:not(:focus):not(:hover) {
                         & ~ .placeholder {
-                            color: #fec8c9;
+                            color: #2CB67D;
                         }
                     }
                 }
                 .formRow--input {
                     &:focus,
                     &:hover {
-                        border-color: #fd999a;
+                        border-color: #7f5af0;
                     }
                 }
             }

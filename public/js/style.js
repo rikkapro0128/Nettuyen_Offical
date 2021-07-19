@@ -1,7 +1,6 @@
 import { aleartFail, aleartSuccess } from './handleForm.js';
 
 let missOrderImageLenght;
-const storageImage = [];
 const objTypeStory = { type: [], details: {}, dataImage: []};
 // declare variable
 function inputStyle()  {
@@ -177,10 +176,7 @@ function formatBytes(bytes, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 } 
 
-function actionViewLoadStory() {
-    const inputMutiFile = $('#mutifile-upload-story');
-    const showImageUploaded = $('.box__show--image-loaded');
-    const showImageUploadLeft = $('.image__story--content');
+function loadImageStory(inputMutiFile, showImageUploaded) {
     let orderImage = [];
     let missOrderImage = [];
     showImageUploaded.hide();
@@ -189,11 +185,11 @@ function actionViewLoadStory() {
         const files = event.target.files;
         showImageUploaded.show();
         for(const file of files) {
-            if(storageImage.find((obj) => obj.data.name === file.name)) {
+            if(objTypeStory.dataImage.find((obj) => obj.data.name === file.name)) {
                 continue;
             }
-            storageImage.push({position: (temp + 1), data: file});
-            showImageUploadLeft.append(`
+            objTypeStory.dataImage.push({position: (temp + 1), data: file});
+            showImageUploaded.find('.image__story--content').append(`
                 <div class="image__story" id="" position="${temp}" value-name="${file.name}">
                     <span class="image__story--name">${file.name}</span>
                     <span class="image__story--size">${formatBytes(file.size)}</span>
@@ -208,8 +204,8 @@ function actionViewLoadStory() {
         // default run this code below
         if(status) {
             $('.box__show--image-loaded--right > .view-image > img').attr({
-                value_name: storageImage[0].data.name,
-                src: URL.createObjectURL(storageImage[0].data),
+                value_name: objTypeStory.dataImage[0].data.name,
+                src: URL.createObjectURL(objTypeStory.dataImage[0].data),
             });
             status = !status;
         }
@@ -257,7 +253,7 @@ function actionViewLoadStory() {
             })
             // sort list position number
             orderImage.forEach((item, index) => {
-                storageImage[index].position = item.value;
+                objTypeStory.dataImage[index].position = item.value;
             })
             missOrderImageLenght = missOrderImage.length;
             orderImage = [];
@@ -270,7 +266,7 @@ function actionViewLoadStory() {
                 $(`.image__story[position=${hold}]`).css("background-color", "transparent");
             }
             hold = parseInt($(thisName).attr('position'));
-            storageImage.forEach((objData) => {
+            objTypeStory.dataImage.forEach((objData) => {
                 if($(thisName).attr('value-name') === objData.data.name) {
                     $('.box__show--image-loaded--right > .view-image > img').attr({
                         value_name: objData.data.name,
@@ -282,10 +278,10 @@ function actionViewLoadStory() {
     });
     $('#sort-list-image').on('click', function() {
         if(missOrderImageLenght === 0) {
-            storageImage.sort(function(a, b) {
+            objTypeStory.dataImage.sort(function(a, b) {
                 return a.position - b.position;
             })
-            storageImage.forEach((item, index) => {
+            objTypeStory.dataImage.forEach((item, index) => {
                 $(`.image__story[position=${index}]`).attr('value-name', item.data.name);
                 $(`.image__story[position=${index}]`).children('.image__story--name').text(item.data.name);
                 $(`.image__story[position=${index}]`).children('select').empty();
@@ -308,14 +304,14 @@ function uploadStory() {
     $('.submit-story').on('click', function() {
         const formStory = new FormData();
         const id = $('.avatar__name--user').attr('id_user');
-        if(!storageImage.length) {
+        if(!objTypeStory.dataImage.length) {
             aleartFail('Bạn chưa có dữ liệu nào!');
         }
-        objTypeStory.dataImage = [...storageImage];
         objTypeStory.dataImage.forEach((item, index) => {
             formStory.append('story', item.data);
         });
         formStory.append('data_info', JSON.stringify({type: objTypeStory.type, details: objTypeStory.details}));
+        console.log(objTypeStory)
         fetch(`http://localhost:3300/user/upload-story/${id}`, {
             method: 'POST',
             body: formStory,
@@ -340,4 +336,4 @@ function handleClickListStory() {
     })
 }
 
-export { inputStyle, renderTypeStory, actionViewLoadStory, uploadStory, handleClickListStory };
+export { inputStyle, renderTypeStory, loadImageStory, uploadStory, handleClickListStory };

@@ -369,100 +369,7 @@ table, td, th {
         }
     }
     .upload-image-story {
-        .box__show--image-loaded {
-            border: 4px dashed #1FB264;
-            margin-top: 14px;
-            display: flex;
-            padding: 10px;
-            position: relative;
-            div {
-                flex: 1;
-            }
-            .box__show--image-loaded--left {
-                margin-right: 10px;
-                div {
-                    position: relative;
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        width: 100%;
-                        height: 1px;
-                        background-color: #fff;
-                        bottom: 0;
-                        left: 50%;
-                        transform: translateX(-50%);
-                    }
-                }
-                .image__story {
-                    font-size: 14px;
-                    padding: 0.8rem 0.2rem;
-                    cursor: pointer;
-                    display: flex;
-                    &:hover {
-                        background-color: #1FB264 !important;
-                    }
-                    span {
-                        display: block;
-                        font-size: 14px;
-                    }
-                    &--name {
-                        width: 12rem;
-                        text-overflow: ellipsis;
-                        overflow: hidden;
-                    }
-                    &--size {
-                        width: 10rem;
-                    }
-                    &--order {
-                        width: calc(100% - 22rem);
-                    }
-                }
-                .image__story--heading {
-                    width: 100%;
-                    display: flex;
-                    font-size: 14px;
-                    cursor: pointer;
-                    box-sizing: border-box;
-                    position: relative;
-                    span {
-                        line-height: 2.5;
-                        display: block;
-                    }
-                    &-name {
-                        width: 12rem;
-                    }
-                    &-size {
-                        width: 10rem;
-                    }
-                    &-order {
-                        width: calc(100% - 22rem);
-                    }
-                }
-            }
-            .box__show--image-loaded--right {
-                max-width: 20rem;
-                height: 25rem;
-                position: sticky;
-                top: 10px;
-                .view-image {
-                    height: 100%;
-                    overflow: hidden;
-                    img {
-                        max-width: 100%; 
-                        border-radius: 5px;
-                        border: 1px solid #fff;
-                        box-sizing: border-box;
-                        position: absolute;
-                    }
-                    #len-zoom {
-                        max-width: 100%;
-                        position: absolute;
-                        border: 1px solid #fff;
-                        border-radius: 5px;
-                    }
-                }
-            }
-        }
+        @include viewLoadImage;
     }
 
 }
@@ -583,6 +490,7 @@ table, td, th {
     .story__decription {
         display: flex;
         color: #fff;
+        margin-bottom: 15px;
         :where(div) {
             transition: box-shadow 0.2s; 
             &:hover {
@@ -595,6 +503,7 @@ table, td, th {
             margin-right: 15px;
             background-color: #3A3C3E;
             box-shadow: 3px 3px 5px 0px #000;
+            border-radius: 2px;
             &:hover {
                 h1:before{
                     background-color: #2CB67D;
@@ -657,9 +566,10 @@ table, td, th {
         }
         &--content {
             width: 60%;
-            padding: 12px;
             background-color: #3A3C3E;
+            padding: 12px;
             box-shadow: 3px 3px 5px 0px #000;
+            border-radius: 2px;
             &:hover{
                 :before {
                     background-color: #2CB67D;
@@ -683,6 +593,112 @@ table, td, th {
             p {
                 margin: 10px 0;
             }
+        }
+    }
+    .story__add--chapter {
+        width: 100%;
+        height: fit-content;
+        background-color: #3A3C3E;
+        padding: 12px;
+        box-shadow: 3px 3px 5px 0px #000;
+        border-radius: 2px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+        &:hover{
+            ::before {
+                background-color: #2CB67D;
+            }
+            h1 {
+                i::before {
+                    background-color: transparent;
+                }
+            }
+        }
+        &-title {
+            font-size: 1.2rem;
+            padding-bottom: 10px;
+            position: relative;
+            color: #fff;
+            cursor: pointer;
+            margin-bottom: 15px;
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 1px;
+                background-color: #7f5af0;
+                transition: background-color 0.2s ease;
+                bottom: 0;
+            }
+            i {
+                position: relative;
+                transform: translateY(8%);
+            }
+        }
+        &-content-box {
+            width: 100%;
+            transition: display .2s ease;
+            &--title {
+                font-size: 1.2rem;
+                color: #fff;
+                margin-bottom: 10px;
+            }
+            &--info { 
+                display: flex;
+                margin-bottom: 15px;
+                div {
+                    width: 100%;
+                }
+                div:first-child {
+                    margin-right: 20px;
+                }
+            }
+            &--upload {
+                margin-bottom: 15px;
+                &-drag-file {
+                    width: 100%;
+                    position: relative;
+                    background-color: #242629;
+                    &-area {
+                        width: 100%;
+                        height: 100px;
+                        border: 5px dashed #7F5AF0; 
+                        display: block;
+                        box-sizing: border-box;
+                        transition: border-color .2s ease;
+                        cursor: pointer;
+                        position: relative;
+                        z-index: 1;
+                        background-color: transparent;
+                        &:hover {
+                            border-color: #2CB67D;
+                            ~ h1 {
+                                color: #2CB67D;
+                            }
+                        }
+                    }
+                    &-title {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        font-size: 1rem;
+                        color: #7F5AF0;
+                        transition: color .2s ease;
+                    }
+                }
+            }
+            @include viewLoadImage;
+        }
+    }
+    .submit__update--story {
+        margin-bottom: 15px;
+        height: fit-content;
+        overflow: auto;
+        button {
+            width: fit-content;
+            float: right;
         }
     }
 }

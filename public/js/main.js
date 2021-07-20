@@ -1,15 +1,12 @@
 import '../owlcarousel/owl.carousel.min.js';
 import '../owlcarousel/jquery.mousewheel.min.js'
 import owl from './optionOwl.js';
-import { handleForm, handleLoadImage } from './handleForm.js';
+import { handleForm, handleLoadImage, addStory } from './handleForm.js';
 import { 
     inputStyle,
-    renderTypeStory,
-    loadImageStory,
-    uploadStory,
     handleClickListStory
 } from './style.js';
-import { uploadSinglefile, showChildBox, loadImage, uploadChapterStory } from './mixin.js';
+import { uploadSinglefile, showChildBox, loadImage, } from './mixin.js';
 
 $(function() {
     // do something!
@@ -37,13 +34,20 @@ $(function() {
     handleForm(option);
     handleLoadImage();
     inputStyle();
-    renderTypeStory();
-    uploadStory();
     handleClickListStory();
     uploadSinglefile($('.story__pic--avatar-story'), 'x');
     uploadSinglefile($('.story__pic--cover-story'), 'y');
     showChildBox($('.story__add--chapter-title#show-box'), $('.story__add--chapter-content-box'), ['<i class="fas fa-caret-right"></i>', '<i class="fas fa-caret-down"></i>']);
-    loadImage($('#add-chapter'), $('.box__show--image-loaded'));
-    loadImageStory($('#mutifile-upload-story'), $('.box__show--image-loaded'));
-    uploadChapterStory($('#update-chapter > button'));
+    addStory({
+        elementClick: '.submit-story.btn',
+        linkPost: 'http://localhost:3300/user/upload-story',
+    });
+    loadImage({
+        inputMutiFile: '#add-chapter',
+        showImageUploaded: '.box__show--image-loaded',
+        elementClick: '#update-chapter > button',
+        linkPost: 'http://localhost:3300/user/upload-chapter',
+        typeUpload: 'chapter',
+    });
+    
 });

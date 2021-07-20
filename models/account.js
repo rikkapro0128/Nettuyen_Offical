@@ -3,8 +3,10 @@ import helper from '../helper/handleApi.js';
 const Schema = mongoose.Schema;
 
 const chapter = new Schema({
+    name: { type: String, default: '' },
     number: { type: Number, default: 0 },
     storyOwner: { type: Schema.Types.ObjectId },
+    nameDir: { type: String, default: '' },
     listImage: [new Schema({
         fileName: { type: String, default: '' }, 
         path: { type: String, default: '' }, 
@@ -19,6 +21,8 @@ const storys = new Schema({
     name: { type: String, default: '' },
     type: { type: String, default: '' },
     owner: { type: Schema.Types.ObjectId },
+    nameDir: { type: String, default: '' },
+    chapterPresent: { type: Number, default: 0 },
     listChapter: [{
         type: Schema.Types.ObjectId,
         ref: 'Chapter'
@@ -87,6 +91,11 @@ account.pre('save', async function(next) {
     } catch (error) {
         next(error);
     }
+});
+
+storys.pre('save', function(next) {
+    this.chapterPresent = this.listChapter.length;
+    next();
 });
 
 const Account = mongoose.model('Account', account);

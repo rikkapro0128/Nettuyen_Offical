@@ -314,11 +314,16 @@
 
 @mixin viewLoadImage {
     .box__show--image-loaded {
-        border: 4px dashed #1FB264;
+        border: 5px dashed #7F5AF0;
         margin-top: 14px;
         display: flex;
         padding: 10px;
         position: relative;
+        transition: border-color 0.2s ease;
+        background-color: #3A3C3E;
+        &:hover {
+            border-color: #2CB67D;
+        }
         div {
             flex: 1;
         }
@@ -342,6 +347,7 @@
                 padding: 0.8rem 0.2rem;
                 cursor: pointer;
                 display: flex;
+                color: #fff;
                 &:hover {
                     background-color: #1FB264 !important;
                 }
@@ -358,7 +364,7 @@
                     width: 10rem;
                 }
                 &--order {
-                    width: calc(100% - 22rem);
+                    width: 5rem;
                 }
             }
             .image__story--heading {
@@ -368,6 +374,7 @@
                 cursor: pointer;
                 box-sizing: border-box;
                 position: relative;
+                color: #fff;
                 span {
                     line-height: 2.5;
                     display: block;
@@ -379,7 +386,7 @@
                     width: 10rem;
                 }
                 &-order {
-                    width: calc(100% - 22rem);
+                    width: 5rem;
                 }
             }
         }

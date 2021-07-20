@@ -88,9 +88,9 @@ class Views {
         res.render('profile', {
             info,
             story: { 
-                data, 
-                numberChapter: (data.listChapter.length - 1),
+                data,
                 type: data.type.split('-'),
+                nextChapter: data.chapterPresent + 1,
                 decription: 'No decription!', // no-data
                 release: 2020, // no-data
             },

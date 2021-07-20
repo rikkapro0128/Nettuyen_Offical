@@ -1,9 +1,6 @@
 import '../jquery-ui-1.12.1/jquery-ui-1.12.1/jquery-ui.min.js';
 import { aleartFail, aleartSuccess } from './handleForm.js';
 
-let missOrderImageLenght;
-const objTypeStory = { type: [], details: {}, dataImage: []}; // obj data handle send sever
-
 function uploadSinglefile(thisObj, controllAxis) {
     let file;
     const objDrag = thisObj;
@@ -73,6 +70,145 @@ function formatBytes(bytes, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 } 
 
+function renderTypeStory(objStory) {
+    const typeStory = [
+        {
+            "name": "Tiên Hiệp"
+        },
+        {
+            "name": "Kiếm Hiệp"
+        },
+        {
+            "name": "Ngôn Tình"
+        },
+        {
+            "name": "Đô Thị"
+        },
+        {
+            "name": "Quan Trường"
+        },
+        {
+            "name": "Võng Du"
+        },
+        {
+            "name": "Khoa Huyễn"
+        },
+        {
+            "name": "Hệ Thống"
+        },
+        {
+            "name": "Huyền Huyễn"
+        },
+        {
+            "name": "Dị Giới"
+        },
+        {
+            "name": "Dị Năng"
+        },
+        {
+            "name": "Quân Sự"
+        },
+        {
+            "name": "Lịch Sử"
+        },
+        {
+            "name": "Xuyên Không"
+        },
+        {
+            "name": "Xuyên Nhanh"
+        },
+        {
+            "name": "Trọng Sinh"
+        },
+        {
+            "name": "Trinh Thám"
+        },
+        {
+            "name": "Thám Hiểm"
+        },
+        {
+            "name": "Linh Dị"
+        },
+        {
+            "name": "Ngược"
+        },
+        {
+            "name": "Sủng"
+        },
+        {
+            "name": "Cung Đấu"
+        },
+        {
+            "name": "Nữ Cường"
+        },
+        {
+            "name": "Gia Đấu"
+        },
+        {
+            "name": "Đông Phương"
+        },
+        {
+            "name": "Đam Mỹ"
+        },
+        {
+            "name": "Bách Hợp"
+        },
+        {
+            "name": "Hài Hước"
+        },
+        {
+            "name": "Điền Văn"
+        },
+        {
+            "name": "Cổ Đại"
+        },
+        {
+            "name": "Mạt Thế"
+        },
+        {
+            "name": "Truyện Teen"
+        },
+        {
+            "name": "Phương Tây"
+        },
+        {
+            "name": "Nữ Phụ"
+        },
+        {
+            "name": "Light Novel"
+        },
+        {
+            "name": "Việt Nam"
+        },
+        {
+            "name": "Đoản Văn"
+        },
+    ];
+    typeStory.forEach((item, index) => {
+        $('.add-your-story__type').append(`
+            <li>
+                <input type="checkbox" id="${index}" value="${item.name}">
+                <label for="${index}">${item.name}</label>
+            </li>   
+        `);
+    })
+    $('.add-your-story__type > li > input[type=checkbox]').change(function() {
+        let objTypeStoryStack = [];
+        if($(this).prop('checked')) {
+            objTypeStoryStack.push({
+                id: parseInt($(this).attr('id')),
+                value: $(this).prop('checked'),
+            })
+        }else {
+            objTypeStoryStack = objTypeStoryStack.filter((ele) => ele.id !== parseInt($(this).attr('id')));
+            objStory.type = objStory.type.filter((ele, index) => ele !== typeStory[parseInt($(this).attr('id'))].name)
+        }
+        objTypeStoryStack.forEach((item, index) => {
+            objStory.type.push(typeStory[item.id].name);
+        })
+    })
+}
+
 function cancelImage(element, eleParent) {
     eleParent.children('i.fa-trash-alt').on('click', function(event) {
         element.attr('src', '');
@@ -98,20 +234,23 @@ function showChildBox(elementClick, elementShow, listIcon) {
     });
 }
 
-function loadImage(inputMutiFile, showImageUploaded) {
+function loadImage(option) {
+    const { inputMutiFile, showImageUploaded, elementClick, linkPost, typeUpload } = option;
+    let missOrderImageLenght;
+    const objTypeStory = { type: [], details: {}, dataImage: []}; // obj data handle send sever
     let orderImage = [];
     let missOrderImage = [];
-    showImageUploaded.hide();
     let temp = 0, hold = 0, status = true;
-    inputMutiFile.on('change', function(event) {
+    $(showImageUploaded).hide();
+    $(inputMutiFile).on('change', function(event) {
         const files = event.target.files;
-        showImageUploaded.show();
+        $(showImageUploaded).show();
         for(const file of files) {
             if(objTypeStory.dataImage.find((obj) => obj.data.name === file.name)) {
                 continue;
             }
             objTypeStory.dataImage.push({position: (temp + 1), data: file});
-            showImageUploaded.find('.image__story--content').append(`
+            $(showImageUploaded).find('.image__story--content').append(`
                 <div class="image__story" id="" position="${temp}" value-name="${file.name}">
                     <span class="image__story--name">${file.name}</span>
                     <span class="image__story--size">${formatBytes(file.size)}</span>
@@ -214,40 +353,38 @@ function loadImage(inputMutiFile, showImageUploaded) {
             });
         }
     })
-    $('.story__add--chapter-content-box--info input[id=name-story]').change(function() {
+    $('#name-story').change(function() {
         objTypeStory.details.name = $(this).val();
+        objTypeStory.details.chapter = parseInt($('#number-chapter').val());
     })
-    $('.story__add--chapter-content-box--info input[id=number-chapter]').change(function() {
-        objTypeStory.details.chapter = parseInt($(this).val());
-    })
-}
-
-function uploadChapterStory(element) {
-    element.on('click', function() {
+    $(elementClick).on('click', function() {
         const formStory = new FormData();
-        const lengthString = document.URL.split('/').length;
-        const id = document.URL.split('/')[lengthString - 1];
         if(!objTypeStory.dataImage.length) {
             aleartFail('Bạn chưa có dữ liệu nào!');
+            return;
         }
         objTypeStory.dataImage.forEach((item, index) => {
             formStory.append('chapter', item.data);
         });
+        const lengthString = document.URL.split('/').length;
+        const id = document.URL.split('/')[lengthString - 1];
+        //console.log(objTypeStory)
+        // console.log(id)
         formStory.append('data_info', JSON.stringify({type: objTypeStory.type, details: objTypeStory.details}));
-        // fetch(`http://localhost:3300/user/upload-story/${id}`, {
-        //     method: 'POST',
-        //     body: formStory,
-        // })
-        // .then(response => response.json())
-        // .then(result => {
-        //     console.log('Success:', result);
-        //     if(result) {
-        //         aleartSuccess('Update successful!', 'http://localhost:3300/user/add-your-storys');
-        //     }
-        // })
-        // .catch(error => {
-        //     console.error('Error:', error);
-        // });
+        fetch(`${linkPost}/${id}`, {
+            method: 'POST',
+            body: formStory,
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+            if(result) {
+                aleartSuccess('Update successful!', `http://localhost:3300/user/edit-your-storys/${id}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     })
 }
 
@@ -255,5 +392,5 @@ export {
     uploadSinglefile,
     showChildBox,
     loadImage,
-    uploadChapterStory,
+    renderTypeStory,
 };

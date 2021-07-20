@@ -1,4 +1,5 @@
 import "./cookie.js";
+import { renderTypeStory }  from './mixin.js';
 
 function aleartSuccess(message, urlRedirect, setTime) {
     Swal.fire({
@@ -49,6 +50,36 @@ function uploadImage(elementInput, renderThisElement) {
             renderThisElement.children('img').remove();
             renderThisElement.append(img);
         }
+    });
+}
+
+function addStory(option) {
+    const objStory  = { type: [], details: {} };
+    const { elementClick, linkPost } = option;
+    const id = $('span.avatar__name--user').attr('id_user');
+    renderTypeStory(objStory);
+    $('#name-story').change(function() {
+        objStory.details.name = $(this).val();
+        objStory.details.chapter = parseInt($('#number-chapter').val());
+    });
+    $(elementClick).on('click', function() {
+        fetch(`${linkPost}/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(objStory),
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+            if(result) {
+                aleartSuccess('Update successful!', 'http://localhost:3300/user/add-your-storys');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
 }
 
@@ -187,4 +218,4 @@ function handleLoadImage() {
     });
 }
 
-export { handleForm, handleLoadImage, aleartFail, aleartSuccess };
+export { handleForm, handleLoadImage, aleartFail, aleartSuccess, addStory };

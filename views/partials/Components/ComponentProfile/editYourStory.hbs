@@ -28,7 +28,7 @@
     <div class="story__decription">
         <div class="story__decription--information">
             <h1 class="story__decription--information-title">Information</h1>
-            <p class="story__decription--information-chapter">Chapter Present: <span> {{story.numberChapter}} </span></p>
+            <p class="story__decription--information-chapter">Chapter Present: <span> {{story.data.chapterPresent}} </span></p>
             <p class="story__decription--release">Release Year: <span> {{story.release}} </span></p>
             <p class="story__decription--information-type">
                 <span>Type Story:</span>
@@ -67,7 +67,7 @@
                         <div class="formRow--item">
                             <label for="number-chapter" class="formRow--input-wrapper js-inputWrapper">
                                 <input type="text" class="formRow--input js-input" id="number-chapter" name="number-chapter"
-                                    placeholder="Number Chapter" value="0" readonly>
+                                    placeholder="Number Chapter" value="{{story.nextChapter}}" readonly>
                             </label>
                         </div>
                     </fieldset>

@@ -7,22 +7,34 @@
     <h1 class="name__story">{{ story.data.name }}</h1>
     <div class="story__pic">
         <div class="story__pic--avatar-story">
-            <button class="btn">
-                <i class="fas fa-upload"></i>
-                Upload Image
-            </button>
-            <input type="file" name="upload--avatar-story" id="" hidden>
-            <i class="far fa-trash-alt" hidden></i>
-            <div class="render__avatar-story"></div>
+            {{#if story.path.avatar}}
+                <div class="show__avatar-story">
+                    <img src="{{story.path.avatar}}" alt="avatar-story" style="transform: translate3d(-{{story.path.avatarPosition}}px, 0px, 0px);">
+                </div>
+                {{else}}
+                <button class="btn">
+                    <i class="fas fa-upload"></i>
+                    Upload Image
+                </button>
+                <input type="file" name="upload--avatar-story" id="" hidden>
+                <i class="far fa-trash-alt" hidden></i>
+                <div class="render__avatar-story"></div>
+            {{/if}}
         </div>
         <div class="story__pic--cover-story">
-            <button class="btn">
-                <i class="fas fa-upload"></i>
-                Upload Image
-            </button>
-            <input type="file" name="pic--cover-story" id="" hidden>
-            <i class="far fa-trash-alt" hidden></i>
-            <div class="render__avatar-story"></div>
+            {{#if story.path.cover}}
+                <div class="show__cover-story">
+                    <img src="{{story.path.cover}}" alt="cover-story" style="transform: translate3d(0px, -{{story.path.coverPosition}}px, 0px);">
+                </div>
+                {{else}}
+                <button class="btn">
+                    <i class="fas fa-upload"></i>
+                    Upload Image
+                </button>
+                <input type="file" name="pic--cover-story" id="" hidden>
+                <i class="far fa-trash-alt" hidden></i>
+                <div class="render__avatar-story"></div>
+            {{/if}}
         </div>
     </div>
     <div class="story__decription">

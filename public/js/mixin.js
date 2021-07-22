@@ -1,10 +1,18 @@
-import '../jquery-ui-1.12.1/jquery-ui-1.12.1/jquery-ui.min.js';
 import { aleartFail, aleartSuccess } from './handleForm.js';
 
-function uploadSinglefile(thisObj, controllAxis) {
+const fileImageStory = {};
+
+function uploadSinglefile(thisObj, controllAxis, speed) {
     let file;
     const objDrag = thisObj;
     const inputFile = objDrag.children('input');
+    function getDataFile(controllAxis, file) {
+        if(controllAxis === 'x') {
+            fileImageStory.avatar = file;
+        }else {
+            fileImageStory.cover = file;
+        }
+    }
     objDrag.on('dragover', function(event) {
         event.preventDefault();  
         event.stopPropagation();
@@ -21,12 +29,14 @@ function uploadSinglefile(thisObj, controllAxis) {
         $(this).removeClass('drag__element');
         //console.log('Drag droped on element!');
         file = event.originalEvent.dataTransfer.files[0];
+        getDataFile(controllAxis, file);
         getFileElement(file, $(this));
     }).children('button').on('click', function(event) {
         inputFile.trigger('click');
     });
     inputFile.on('change', function(event) {
         file = $(this)[0].files[0];
+        getDataFile(controllAxis, file);
         getFileElement(file, objDrag);
         $(this).val('');
     })
@@ -36,25 +46,37 @@ function uploadSinglefile(thisObj, controllAxis) {
         }else {
             element.find('div > img').attr('src', `${file ? URL.createObjectURL(file) : ''}`);
         }
-        dragImage(element.find('div'), controllAxis);
+        dragImage(element.find('div'), controllAxis, speed);
         cancelImage(element.find('div > img'), element);
     }
 }
 
-function dragImage(element, direction) {
+function dragImage(element, direction = 'y', speed) {
+    let pos = {}, nextPoint = { x: 0, y: 0}, present = {};
+    function getPostion(event) {
+        return {
+            x: event.clientX - event.currentTarget.offsetLeft,
+            y: event.clientY - event.currentTarget.offsetTop,
+        }
+    }
     element.on('mousedown', function(event) {
-        const pos = {scrollX: element.scrollLeft(), scrollY: element.scrollTop(), mouseX: event.offsetX,mouseY: event.offsetY};
-        $(this).on('mousemove', function(event) {
-            const long = { x: event.offsetX - pos.mouseX, y: event.offsetY - pos.mouseY }
-            if(direction === 'x') {
-                $(this).scrollLeft(pos.scrollX - long.x);
-            }else {
-                $(this).scrollTop(pos.scrollY - long.y);
-            }
-        })
-        $('html').on('mouseup', function(event) {
-            element.unbind('mousemove');  
-        });
+        pos = getPostion(event);
+        present.x = -$(this).scrollLeft();
+        present.y = -$(this).scrollTop();
+        $(this).find('img').css("cursor", "grabbing");
+    }).on('mousemove', function(event) {
+        if(event.buttons !== 1) {
+            return;
+        };
+        if(direction === 'x') {
+            nextPoint.x = present.x + (getPostion(event).x - pos.x) / speed;
+            $(this).scrollLeft(-nextPoint.x);
+        }else {
+            nextPoint.y = present.y + (getPostion(event).y - pos.y) / speed;
+            $(this).scrollTop(-nextPoint.y);
+        }
+    }).on('mouseup', function() {
+        $(this).find('img').css("cursor", "grab");
     })
 }
 
@@ -388,9 +410,41 @@ function loadImage(option) {
     })
 }
 
+function updateStory(linkPost) {
+    const btn = $('#update-story').find('.btn');
+    const eleScroll = $('.render__avatar-story');
+    const formStory = new FormData();
+    const lengthString = document.URL.split('/').length;
+    const id = document.URL.split('/')[lengthString - 1];
+    btn.on('click', function(event) {
+        fileImageStory.positionTransform = {
+            avatar: $(eleScroll[0]).scrollLeft(),
+            cover: $(eleScroll[1]).scrollTop(),
+        };
+        formStory.append('avatar', fileImageStory.avatar); // set avatar
+        formStory.append('cover', fileImageStory.cover); // set cover
+        formStory.append('position', JSON.stringify(fileImageStory.positionTransform));
+        fetch(`${linkPost}/${id}`, {
+            method: 'POST',
+            body: formStory,
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+            if(result) {
+                aleartSuccess('Update successful!', `http://localhost:3300/user/edit-your-storys/${id}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+}
+
 export { 
     uploadSinglefile,
     showChildBox,
     loadImage,
     renderTypeStory,
+    updateStory,
 };

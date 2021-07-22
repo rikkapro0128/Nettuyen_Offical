@@ -20,6 +20,14 @@ const chapter = new Schema({
 const storys = new Schema({
     name: { type: String, default: '' },
     type: { type: String, default: '' },
+    avatar: {
+        path: { type: String, default: ''},
+        position: { type: Number, default: 0 }
+    },
+    cover: {
+        path: { type: String, default: ''},
+        position: { type: Number, default: 0 }
+    },
     owner: { type: Schema.Types.ObjectId },
     nameDir: { type: String, default: '' },
     chapterPresent: { type: Number, default: 0 },

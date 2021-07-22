@@ -42,10 +42,11 @@ class Profile {
     
     async uploadChapter(req, res, next) {
         let idStory = req.params.id_story;
-        const idUser = res.locals.INFO_USER._id
+        const idUser = res.locals.INFO_USER._id;
         let idChapter = uniqid();
         const story = await Storys.findById(idStory).populate('listChapter').exec();
         const pathStorageImage = `d:\\DATA_IMAGE${process.env.DIR_STORY}\\${idUser}${story.nameDir}\\chapter-${story.chapterPresent + 1}-${idChapter}`;
+        const linkOffical = `${process.env.DIR_STORY}\\${idUser}${story.nameDir}\\chapter-${story.chapterPresent + 1}-${idChapter}`;
         fs.mkdirSync(pathStorageImage, { recursive: true });
         const form = formidable({
             multiples: true,
@@ -74,7 +75,7 @@ class Profile {
                 listImage: files.chapter.map((item, index) => {
                     return {
                         fileName: nameChapter[index].name, 
-                        path: nameChapter[index].path, 
+                        path: `${linkOffical}\\${nameChapter[index].name}`, 
                         size: item.size,
                         ext: item.type,
                     };
@@ -84,6 +85,43 @@ class Profile {
             await newChapter.save();
             await story.save();
         });
+        res.status(301).json({ result: 'OK!' });
+    }
+
+    async uploadAvatarCover(req, res, next) {
+        const idStory = req.params.id_story;
+        const idUser = res.locals.INFO_USER._id;
+        const story = await Storys.findById(idStory);
+        const pathStorageImage = `d:\\DATA_IMAGE\\${process.env.INTRO_STORY}\\${idUser}\\${story.nameDir.split('\\')[1]}`;
+        const linkOffical = `\\${process.env.INTRO_STORY}\\${idUser}\\${story.nameDir.split('\\')[1]}`;
+        fs.mkdirSync(pathStorageImage, { recursive: true });
+        const form = formidable({
+            multiples: true,
+            uploadDir: pathStorageImage,
+            keepExtensions: true,
+        });
+        form.parse(req, async (err, fields, files) => {
+            const dataReq = JSON.parse(fields.position);
+            if(files.avatar) {
+                fs.rename(files.avatar.path, `${pathStorageImage}\\avatar.${files.avatar.type.split('/')[1]}`, function(err) {
+                    if ( err ) next(err);
+                });
+            }
+            if(files.cover) {
+                fs.rename(files.cover.path, `${pathStorageImage}\\cover.${files.cover.type.split('/')[1]}`, function(err) {
+                    if ( err ) next(err);
+                });
+            }
+            story.avatar = {
+                path: `${linkOffical}\\avatar.${files.avatar.type.split('/')[1]}`,
+                position: dataReq.avatar,
+            }
+            story.cover = {
+                path: `${linkOffical}\\cover.${files.cover.type.split('/')[1]}`,
+                position: dataReq.cover,
+            }
+            await story.save();
+        })
         res.status(301).json({ result: 'OK!' });
     }
 

@@ -2,11 +2,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import '/owl.carousel/dist/assets/owl.carousel.min.css';
+
 /* source font by gg */
 
 @import "mixin";
 @import "variable";
-@import "StylesComponent/SideStory";
 @import "StylesComponent/GridForBodyStory";
 @import "StylesComponent/sign";
 @import "StylesComponent/profile";
@@ -14,11 +15,17 @@
 @import "StylesComponent/info";
 @import "StylesComponent/inputFile";
 
+@include story;
+
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 13px;
 	background-color: var(--bg-dark);
     user-select: none;
+}
+
+.app {
+    width: 80%;
 }
 
 a {
@@ -68,6 +75,21 @@ a {
 .wraper {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+}
+
+// side list story
+
+.story-suggest {
+    &__title {
+        font-size: 1.2rem;
+        color: #fff;
+        padding: 0.8rem 0;
+        display: block;
+    }
+    &__owl {
+        width: 100%;
+        height: fit-content;
+    }
 }
 
 // this is scope header
@@ -413,13 +435,28 @@ table, td, th {
             border-radius: 2px;
             box-shadow: 3px 3px 5px 0px #000;
             position: relative;
-            div {
+            .render__avatar-story {
                 width: 100%;
                 height: 100%;
                 position: absolute;
                 top: 0;
                 overflow-x: scroll;
                 overflow-y: clip;
+                img {
+                    height: 100%;
+                    -webkit-user-drag: none;
+                    -khtml-user-drag: none;
+                    -moz-user-drag: none;
+                    -o-user-drag: none;
+                    user-drag: none;
+                }
+            }
+            .show__avatar-story {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                overflow: hidden;
                 img {
                     height: 100%;
                     -webkit-user-drag: none;
@@ -450,13 +487,28 @@ table, td, th {
             border-radius: 2px;
             box-shadow: 3px 3px 5px 0px #000;
             position: relative;
-            div {
+            .render__avatar-story {
                 width: 100%;
                 height: 100%;
                 position: absolute;
                 top: 0;
                 overflow-y: scroll;
                 overflow-x: clip;
+                img {
+                    width: 100%;
+                    -webkit-user-drag: none;
+                    -khtml-user-drag: none;
+                    -moz-user-drag: none;
+                    -o-user-drag: none;
+                    user-drag: none;
+                }
+            }
+            .show__cover-story {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                overflow: hidden;
                 img {
                     width: 100%;
                     -webkit-user-drag: none;
@@ -484,6 +536,9 @@ table, td, th {
         .render__avatar-story {
             &::-webkit-scrollbar {
                 display: none;
+            }
+            img {
+                cursor: grab;
             }
         }
     }

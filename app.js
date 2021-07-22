@@ -18,6 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 helperViewHbs(hbsHelper);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static('d:\\DATA_IMAGE'));
 app.set('views', path.join(__dirname, 'views', 'renders'));
 app.engine('.hbs', exphbs({

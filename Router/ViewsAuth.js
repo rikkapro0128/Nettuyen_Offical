@@ -25,5 +25,6 @@ router.put('/change-password', ControllerViews.changePassword);
 router.put('/update/info/:id_user', optionAvatarMulter.single('avatar'), Profile.updateInfoAccount);
 router.post('/upload-story/:id_user', Profile.uploadStory);
 router.post('/upload-chapter/:id_story', Profile.uploadChapter);
+router.post('/upload-avatar-cover/:id_story', Profile.uploadAvatarCover);
 
 export default router;

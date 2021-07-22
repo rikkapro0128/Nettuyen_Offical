@@ -89,6 +89,12 @@ class Views {
             info,
             story: { 
                 data,
+                path: { 
+                    avatar: data.avatar.path,
+                    cover: data.cover.path,
+                    avatarPosition: data.avatar.position,
+                    coverPosition: data.cover.position,
+                },
                 type: data.type.split('-'),
                 nextChapter: data.chapterPresent + 1,
                 decription: 'No decription!', // no-data

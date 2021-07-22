@@ -12,7 +12,7 @@
             margin-left: -5px;
             margin-right: -5px;
             &__item {
-                @include story($isHover: true);
+                @include story;
                 width: 18.63%;
                 min-width: 11.875em;
                 margin: 5px;

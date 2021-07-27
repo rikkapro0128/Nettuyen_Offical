@@ -35,6 +35,7 @@ const storys = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Chapter'
     }],
+    state: { type: String, default: 'normal', enum: ['normal', 'removed'] },
     dateCreate: { type: Date, default: Date.now },
     dateUpdate: { type: Date, default: Date.now }
 });

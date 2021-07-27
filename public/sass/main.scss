@@ -1,35 +1,77 @@
 /* source font by gg */
-
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import '/owl.carousel/dist/assets/owl.carousel.min.css';
 
 /* source font by gg */
 
 @import "mixin";
 @import "variable";
+@import "animation";
 @import "StylesComponent/GridForBodyStory";
 @import "StylesComponent/sign";
 @import "StylesComponent/profile";
 @import "StylesComponent/changePassword";
 @import "StylesComponent/info";
 @import "StylesComponent/inputFile";
+@import "StylesComponent/story";
+@import "StylesComponent/chapter";
 
 @include story;
+@include btn;
+@include checkBoxElement;
+@include selectList;
 
 body {
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 13px;
 	background-color: var(--bg-dark);
     user-select: none;
+    font-family: 'UVN Bai Sau';
 }
 
 .app {
     width: 80%;
+    margin: 20px 0;
 }
 
 a {
     text-decoration: none;
+}
+
+a, span, p {
+    -webkit-user-select: none;
+}
+
+img {
+    -webkit-user-drag: none;
+}
+
+.a-warning {
+    &:hover {
+        background-color: rgb(202, 20, 20) !important;
+    }
+}
+
+.a-normal {
+    &:hover {
+        background-color: rgb(22, 153, 51) !important;
+    }
+}
+
+.not-found {
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__number {
+        font-size: 6rem;
+        color: rgb(204, 23, 23);
+    }
+    &__title {
+        display: block;
+        font-size: 2rem;
+        color: rgb(204, 23, 23);
+    }
 }
 
 .context {
@@ -73,9 +115,32 @@ a {
 }
 
 .wraper {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    margin: 14px 0;
+    .block-story__list {
+        &--title {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        .wrap-storys{
+            margin: 0 -10px;
+            display: flex;
+            flex-wrap: wrap;
+            .wrap-story {
+                width: 160px;
+                margin: 10px;                                                                  
+            }
+        }
+    }
+    .block-story__media {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        color: #fff;
+    }
 }
+
 
 // side list story
 
@@ -83,12 +148,13 @@ a {
     &__title {
         font-size: 1.2rem;
         color: #fff;
-        padding: 0.8rem 0;
         display: block;
+        margin-top: 14px;
     }
     &__owl {
         width: 100%;
         height: fit-content;
+        margin: 14px 0;
     }
 }
 
@@ -341,13 +407,23 @@ table, td, th {
                 cursor: pointer;
                 transition: all .1s ease;
                 &:hover {
-                    background-color: #2CB67D;
+                    background-color: #252525;
                 }
             }
             tr {
                 td:not(:last-child), th:not(:last-child) {
                     border-right: 1px solid #575858;
                 }
+            }
+        }
+        &--tool {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.6rem;
+            &-title {
+                font-size: 1.2rem;
+                color: #fff;
+                margin-right: 0.6rem;
             }
         }
     }

@@ -1,0 +1,144 @@
+.story-item {
+    // block code left
+    width: 80%;
+    background-color: #0F1416;
+    margin: 2rem 0;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+    &-single {
+        margin: 0 1rem;
+        &__title {
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: #fff;
+            a {
+                color: #fff;
+                transition: color 0.1s ease-in-out;
+                &:hover {
+                    color: #7f5af0;
+                }
+            }
+        }
+        &__image {
+            width: 100%;
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 5px;
+            div:not(:first-child) {
+                z-index: 2;
+            }
+            &--cover {
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+                &:before {
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    display: block;
+                    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.27) 0%, rgba(0, 0, 0, 0.3) 50%);
+                    z-index: 1;
+                }
+                img {
+                    width: 100%;
+                }
+            }
+            &--avatar {
+                position: absolute;
+                height: 100%;
+                width: 12.595rem;
+                overflow: hidden;
+                border-radius: 5px;
+                cursor: pointer;
+                top: 0;
+                left: 4px;
+                transition: transform 0.2s ease;
+                transform: scale(0.9);
+                img {
+                    height: 300px;
+                }
+                &:hover  {
+                    transition: transform 0.2s ease;
+                    transform: scale(0.95);
+                    &::before {
+                        content: '';
+                        display: block;
+                        width: 40px;
+                        height: 100%;
+                        background-color: rgba(255, 255, 255, 0.096);
+                        box-shadow: 2px 1px 25px #a48e8e57;
+                        position: absolute;
+                        z-index: 1;
+                        transform: skew(-20deg, 0);
+                        left: -50%;
+                        animation: ScanImage 1s ease;
+                    }
+                }
+            }
+            &--detail {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding-left: 24%;
+                padding-top: 1rem;
+                box-sizing: border-box;
+                &-name {
+                    font-size: 2rem;
+                    color: #B5E745;
+                }
+                &-information {
+                    > span {
+                        display: block;
+                        color: #fff;
+                    }
+                    > span:not(:nth-child(4)) {
+                        font-size: 1rem;
+                    }
+                    &-type {
+                        margin: calc(0.3rem - 2px) 0;
+                        display: flex;
+                        span {
+                            display: inline-block;
+                            padding: 5px 6px;
+                            background-color: #7f5af0;
+                            cursor: pointer;
+                            margin: 2px 0;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+                &-follow {
+                    display: flex;
+                    align-items: center;
+                    margin: 0.5rem 0;
+                    margin-left: -0.4rem;
+                    margin-right: -0.4rem;
+                    .btn {
+                        margin: 0 0.4rem;
+                    }
+                    span {
+                        color: #fff;
+                        font-size: 1rem;
+                    }
+                }
+                &-read {
+                    display: flex;
+                    margin: 0.5rem 0;
+                    margin-left: -0.4rem;
+                    margin-right: -0.4rem;
+                    .btn {
+                        margin: 0 0.4rem;
+                    }
+                }
+            }
+        }
+        &__list-chapter {
+            margin: 1rem 0;
+        }
+    }
+    // block code right
+}

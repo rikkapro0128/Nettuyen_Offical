@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./app.js",
-    "build": "node-sass -w -r public/sass/main.scss public/css/main.css"
+    "start": "nodemon -e js,hbs,env,json --inspect ./app.js",
+    "build": "node-sass -w-r public/sass/main.scss -o public/css/"
   },
   "keywords": [],
   "author": "",

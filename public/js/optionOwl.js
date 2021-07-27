@@ -4,11 +4,14 @@ export default function() {
     let owl = $(".owl-carousel");
     owl.owlCarousel({
         margin: 18,
+        rewind: true, 
+        // autoplay: true,
+        dots: false, 
         responsive:{
             0:{
-                items:1,
+                items: 1,
             },
-            460: { 
+            430: { 
                 items: 2,
             },
             720:{

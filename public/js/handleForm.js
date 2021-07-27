@@ -1,6 +1,64 @@
 import "./cookie.js";
 import { renderTypeStory }  from './mixin.js';
 
+function reRenderIndex(selector) {
+    $(selector).each(function(index, element) {
+        $(element).text(index);
+    });
+}
+
+function aleartWarning(urlRedirect, elementRemove) {
+    Swal.fire({
+        title: 'Có chắc con ku chưa?',
+        text: "Ấn phát nữa là xoá luôn á!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Thôi khỏi',
+        confirmButtonText: 'Xoá mẹ đi!'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const length = urlRedirect.split('/').length;
+            const idStory = urlRedirect.split('/')[length - 1];
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            await fetch(`${urlRedirect}?_method=DELETE`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify([idStory]),
+            }).then((result) => {
+                if(result.status === 301 || result.message === 'success') {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Đã xoá thành công!'
+                    });
+                    if(elementRemove) {
+                        elementRemove.remove();
+                        reRenderIndex('tr td#index-story'); // import selector
+                    }
+                }else if(result.status === 404 || result.message === 'fail') {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Không xoá được!'
+                    });
+                }
+            })
+        }
+    })
+}
+
 function aleartSuccess(message, urlRedirect, setTime) {
     Swal.fire({
         position: 'center',
@@ -218,4 +276,4 @@ function handleLoadImage() {
     });
 }
 
-export { handleForm, handleLoadImage, aleartFail, aleartSuccess, addStory };
+export { handleForm, handleLoadImage, aleartFail, aleartSuccess, addStory, aleartWarning };

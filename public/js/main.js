@@ -2,7 +2,11 @@ import owl from './optionOwl.js';
 import { handleForm, handleLoadImage, addStory } from './handleForm.js';
 import { 
     inputStyle,
-    handleClickListStory
+    clickEditListStory,
+    clickRemoveListStory,
+    clickStory,
+    checkBox,
+    selectBox,
 } from './style.js';
 import { uploadSinglefile, showChildBox, loadImage, updateStory } from './mixin.js';
 
@@ -32,7 +36,10 @@ $(function() {
     handleForm(option);
     handleLoadImage();
     inputStyle();
-    handleClickListStory();
+    checkBox();
+    selectBox();
+    clickEditListStory('td button#edit-story'); // query equal class
+    clickRemoveListStory('td button#remove-story'); // query equal class
     uploadSinglefile($('.story__pic--avatar-story'), 'x', 2.5);
     uploadSinglefile($('.story__pic--cover-story'), '', 1);
     showChildBox($('.story__add--chapter-title#show-box'), $('.story__add--chapter-content-box'), ['<i class="fas fa-caret-right"></i>', '<i class="fas fa-caret-down"></i>']);
@@ -48,5 +55,6 @@ $(function() {
         typeUpload: 'chapter',
     });
     updateStory('http://localhost:3300/user/upload-avatar-cover');
-    
+    clickStory($('.story[id-story]'));
+
 });

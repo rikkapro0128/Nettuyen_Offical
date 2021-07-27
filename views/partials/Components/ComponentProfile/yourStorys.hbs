@@ -1,42 +1,68 @@
 <div class="your-post">
-    <h1 class="your-post__title"><a href="/user/your-storys">Your Story
+    <h1 class="your-post__title"><a href="/user/your-storys">Truyện của bạn
         <i class="fas fa-book"></i>
     </a> / </h1>
     <div class="your-post__list">
+        <a href="/user/add-your-storys" class="your-post__list--table-row--add-story--link btn">Tạo truyện mới
+            <i class="fas fa-plus"></i>
+        </a>
+        <div class="your-post__list--tool">
+            <h1 class="your-post__list--tool-title">Tool:</h1>
+            <div class="select">
+                <span class="select__title">--- Tuỳ chọn ---</span>
+                <ul class="select-list" hidden>
+                    <li class="select-list__item" value="1">1</li>
+                    <li class="select-list__item" value="2">2</li>
+                    <li class="select-list__item" value="3">3</li>
+                    <li class="select-list__item" value="4">4</li>
+                </ul>
+            </div>
+        </div>
         <table class="your-post__list--table">
-            <a href="/user/add-your-storys" class="your-post__list--table-row--add-story--link btn">Click to add story
-                <i class="fas fa-plus"></i>
-            </a>
             <tr class="your-post__list--table-row--title">
-                <th class="your-post__list--table-row--title-name">Select
+                <th class="your-post__list--table-row--title-name">Chọn
                     <i class="far fa-hand-point-up"></i>
                 </th>
-                <th class="your-post__list--table-row--title-name">Index
+                <th class="your-post__list--table-row--title-name">STT
                     <i class="fas fa-indent"></i>
                 </th>
-                <th class="your-post__list--table-row--title-name">Name
+                <th class="your-post__list--table-row--title-name">Tên
                     <i class="fas fa-signature"></i>
                 </th>
-                <th class="your-post__list--table-row--title-name">Time Up
+                <th class="your-post__list--table-row--title-name">Thời gian tạo
                     <i class="far fa-clock"></i>
                 </th>
-                <th class="your-post__list--table-row--title-name">Number Chapter
+                <th class="your-post__list--table-row--title-name">Tổng số chapter
                     <i class="fas fa-book"></i>
                 </th>
-                <th class="your-post__list--table-row--title-name">Type
+                <th class="your-post__list--table-row--title-name">Thể Loại 
                     <i class="fas fa-filter"></i>
+                </th>
+                <th class="your-post__list--table-row--title-name">Xoá
+                    <i class="fas fa-exclamation-triangle"></i>
+                </th>
+                <th class="your-post__list--table-row--title-name">Sửa
+                    <i class="fas fa-edit"></i>
                 </th>
             </tr>
             {{#each listStory}}
                 <tr class="your-post__list--table-row--content" id_story="{{ this._id }}">    
                     <td class="your-post__list--table-row--content-show">
-                        <input type="checkbox" class="your-post__select--element" name="select-behavior" for="select-element-story-{{ @index }}">
+                        <div class="checkbox">
+                            <input type="checkbox" name="select-element" hidden>
+                        </div>
                     </td>
-                    <td class="your-post__list--table-row--content-show">{{ @index }}</td>
+                    <td class="your-post__list--table-row--content-show" id="index-story">{{ @index }}</td>
                     <td class="your-post__list--table-row--content-show">{{ this.name }}</td>
                     <td class="your-post__list--table-row--content-show">{{ this.dateCreate }}</td>
                     <td class="your-post__list--table-row--content-show">{{ this.chapterPresent }}</td>
                     <td class="your-post__list--table-row--content-show">{{ this.type }}</td>
+                    <td class="your-post__list--table-row--content-show">
+                        <button class="btn a-warning" id="remove-story">Xoá Truyện</button>
+                    </td>
+                    <td class="your-post__list--table-row--content-show">
+                        <button class="btn a-normal" id="edit-story">Chỉnh sửa</button>
+                    </td>
                 </tr>
             {{/each}}
         </table>

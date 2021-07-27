@@ -1,6 +1,13 @@
 <div class="wraper">
     <div class="body-block block-story__list">
-        <span class="block-story__title">Danh Sách Truyện!</span>
+        <span class="block-story__list--title">Danh Sách Truyện!</span>
+        <div class="wrap-storys">
+            {{#each storys}}
+                <div class="wrap-story">
+                    {{> Components/Component/Story story=this}}
+                </div>
+            {{/each}}
+        </div>
     </div>
-    <div class="body-block block-story__meadia">Ranking Story</div>
+    <div class="body-block block-story__media">Ranking Story</div>
 </div>

@@ -1,0 +1,97 @@
+<section class="story-item">
+    {{!--  --}}
+    <div class="story-item-single">
+        <h1 class="story-item-single__title">
+            <a href="/">Trang chủ
+                <i class="fas fa-home"></i>
+            </a>
+            /
+            <a href="/story/{{ story.id }}">{{ story.name }}
+                <i class="fas fa-book-open"></i>
+            </a>
+            /
+        </h1>
+        {{!--  --}}
+        <div class="story-item-single__image">
+            <div class="story-item-single__image--cover" cover-position="{{ story.path.coverPosition }}">
+                <img src="{{ story.path.cover }}" alt="cover-{{ story.name }}" class="story-item-single__image--cover-link" style="transform: translateY(-{{story.path.coverPosition}}px);">
+            </div>
+            <div class="story-item-single__image--detail">
+                <h1 class="story-item-single__image--detail-name">{{ story.name }}</h1>
+                <div class="story-item-single__image--detail-information">
+                    <span class="story-item-single__image--detail-information-name--other">null</span>
+                    <span class="story-item-single__image--detail-information-author"></span>
+                    <span class="story-item-single__image--detail-information-state">null</span>
+                    <span class="story-item-single__image--detail-information-type">
+                        {{#each story.type}}
+                            <span>
+                                <i class="far fa-bookmark"></i>
+                                {{ this }}
+                            </span>
+                        {{/each}}
+                    </span>
+                    <span class="story-item-single__image--detail-information-view">null</span>
+                    <span class="story-item-single__image--detail-information-rate">null</span>
+                </div>
+                <div class="story-item-single__image--detail-follow">
+                    <button class="btn">
+                        <i class="fas fa-heart"></i>    
+                        Theo dõi
+                    </button>
+                    <span class="story-item-single__image--detail-follow-statistical">null</span>
+                </div>
+                <div class="story-item-single__image--detail-read">
+                    <a href="/story/{{ story.id }}/chapter-1" class="btn">Đọc từ đầu</a>
+                    <a href="/story/{{ story.id }}/chapter-{{story.chapter.length}}" class="btn">Đọc mới nhất</a>
+                </div>
+            </div>
+            <div class="story-item-single__image--avatar" avatar-position="{{ story.path.avatarPosition }}">
+                <img src="{{ story.path.avatar }}" alt="avatar-{{ story.name }}" class="story-item-single__image--avatar-link" style="transform: translateX(-{{story.path.avatarPosition}}px);">
+            </div>
+        </div>
+        {{!--  --}}
+        <div class="story-item-single__decription">
+            <span class="story-item-single__decription--detail">{{ story.decription }}</span>
+        </div>
+        {{!--  --}}
+        <div class="story-item-single__list-chapter">
+            <table class="story-item-single__list--table">
+                <tr class="story-item-single__list--table-row--title">
+                    <th class="story-item-single__list--table-row--title-name">Index
+                        <i class="fas fa-indent"></i>
+                    </th>
+                    <th class="story-item-single__list--table-row--title-name">Chương số
+                        <i class="fas fa-signature"></i>
+                    </th>
+                    <th class="story-item-single__list--table-row--title-name">Tên
+                        <i class="fas fa-signature"></i>
+                    </th>
+                    <th class="story-item-single__list--table-row--title-name">Cập nhật
+                        <i class="far fa-clock"></i>
+                    </th>
+                    <th class="story-item-single__list--table-row--title-name">Lượt xem
+                        <i class="fas fa-book"></i>
+                    </th>
+                </tr>
+                {{#each story.chapter}}
+                    <tr class="story-item-single__list--table-row--content" id_story="{{ this.id }}">
+                            <td class="story-item-single__list--table-row--content-show">{{ @index }}</td>
+                            <td class="story-item-single__list--table-row--content-show">{{ this.number }}</td>
+                            <td class="story-item-single__list--table-row--content-show">
+                                <a href="/story/{{ ../story.id }}/chapter-{{ this.number }}">
+                                    {{ this.name }}
+                                </a>
+                            </td>
+                            <td class="story-item-single__list--table-row--content-show">{{ this.dateUpdate }}</td>
+                            <td class="story-item-single__list--table-row--content-show">null</td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+    {{!--  --}}
+    <div class="story-item-inspire">
+        
+    </div>
+    {{!--  --}}
+</section>

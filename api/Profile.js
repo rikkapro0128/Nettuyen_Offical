@@ -26,7 +26,6 @@ class Profile {
         let idUser = req.params.id_user;
         let idStory = uniqid();
         fs.mkdirSync(`d:\\DATA_IMAGE${process.env.DIR_STORY}\\${idUser}\\${idStory}`, { recursive: true });
-        console.log(req.body)
         const user = await Account.findById(idUser).exec();
         const story = new Storys({
             name: req.body.details.name,

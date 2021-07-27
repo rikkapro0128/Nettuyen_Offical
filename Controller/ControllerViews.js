@@ -1,11 +1,23 @@
 import { Account, Storys, Chapter, } from '../models/account.js';
 import helper from '../helper/handleApi.js';
 import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
 
 class Views {
 
-    home(req, res, next) {
-        res.render('home');
+    async home(req, res, next) {
+        let storys = await Storys.find({ state: {$not: { $eq: 'removed' } } }).exec();
+        res.render('home', {
+            storys: storys.map((item) => {
+                return {
+                    id: item._id.toString(),
+                    name: item.name,
+                    chapter: item.chapterPresent.toString(),
+                    rate: 'null',
+                    image: item.avatar.path,
+                }
+            }),
+        });
     }
     signin(req, res, next) {
         res.render('signin');
@@ -15,6 +27,9 @@ class Views {
     }
     about(req, res, next) {
         res.render('about');
+    }
+    notFound(req, res, next) {
+        res.render('notFound');
     }
     async profile(req, res, next) {
         let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
@@ -62,7 +77,10 @@ class Views {
         const idUser = res.locals.INFO_USER._id;
         let info = await helper.getInfoAccount(idUser);
         info = info.toObject();
-        let data = await Storys.find({ owner: idUser }).populate('listChapter').exec();
+        let data = await Storys.find({ 
+            owner: idUser,
+            state: { $not: { $eq: 'removed' } }
+        }).populate('listChapter').exec();
         res.render('profile', {
             info,
             listStory: data,
@@ -80,11 +98,10 @@ class Views {
     }
 
     async editYourStory(req, res, next) {
-        const idUser = req.params.id_user;
+        const idStory = req.params.id_story;
         let info = await helper.getInfoAccount(res.locals.INFO_USER._id);
         info = info.toObject();
-        let data = await Storys.findOne({ _id: idUser }).populate('listChapter').exec();
-        // console.log(data)
+        let data = await Storys.findOne({ _id: idStory }).populate('listChapter').exec();
         res.render('profile', {
             info,
             story: { 
@@ -102,6 +119,67 @@ class Views {
             },
             EDIT_YOUR_STORYS: true,
         });
+    }
+
+    async removeYourStory(req, res, next) {
+        const idStory = req.body;
+        const story = await Storys.updateMany({ _id: { $in: idStory } }, { $set: { state: 'removed', } }).exec();
+        console.log(story)
+        res.status(301).json({ result: 'success' });
+    }
+
+    async story(req, res, next) {
+        const idStory = req.params.id_story;
+        let data = await Storys.findById(idStory).populate('listChapter').exec();
+        res.render('story', {
+            story: {
+                id: data._id,
+                name: data.name,
+                path: { 
+                    avatar: data.avatar.path || undefined,
+                    cover: data.cover.path || undefined,
+                    avatarPosition: data.avatar.position || undefined,
+                    coverPosition: data.cover.position || undefined,
+                },
+                type: data.type.split('-'),
+                decription: data.decription || undefined,
+                chapter: data.listChapter.length ? data.listChapter.map((item) => {
+                    return {
+                        id: item._id,
+                        name: item.name,
+                        number: item.number,
+                        dateUpdate: item.dateUpdate,
+                    }
+                }) : undefined,
+            }
+        });
+    }
+
+    async chapter(req, res, next) {
+        const idStory = req.params.id_story;
+        const indexChapter = req.params.chapter.split('-')[1];
+        let story = await Storys.findById(idStory).populate({
+            path: 'listChapter',
+            match: { number: indexChapter },
+        }).exec();
+        if(!story.listChapter.length) { 
+            res.status(404).redirect('/404-not-found') 
+        }else {
+            story = {
+                id: story._id,
+                name: story.name,
+                chapter: { name: story.listChapter[0].name, number: story.listChapter[0].number },
+                listImage: story.listChapter[0].listImage.map((item) => {
+                    return {
+                        path: item.path.includes('d:\\DATA_IMAGE') ? item.path.split('d:\\DATA_IMAGE')[1] : item.path,
+                    };
+                }),
+            }
+            // res.json({story});
+            res.render('chapter', {
+                story,
+            });
+        }
     }
 
 }

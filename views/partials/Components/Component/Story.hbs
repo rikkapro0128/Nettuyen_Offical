@@ -1,8 +1,34 @@
-<div class="story">
-    <span class="story__chapter">124</span>
+<div class="story" id-story="{{ story.id }}">
+    {{#if story.chapter }}
+    <span class="story__chapter">
+        <i class="far fa-bookmark"></i>
+        {{ story.chapter }}</span>
+    {{else}}
+    <span class="story__chapter">
+        <i class="far fa-bookmark"></i>
+        124</span>
+    {{/if}}
     <div class="story__box">
-        <img class="story__box--image" src="https://animehay.tv/uploads/images/2021/07/xuan-thu-phong-than-thumbnail-1626138514.jpg" alt="Tuyệt Võ Thần">
+        {{#if story.image }}
+        <img class="story__box--image" src="{{ story.image }}" alt="Tuyệt Võ Thần">
+        {{!-- {{else}}
+        <img class="story__box--image"
+            src="https://lh3.googleusercontent.com/proxy/VpRczicQKdnrzfk0OvFkrC3_b1fpAOhcU5FMLTAVOC3ahD6TaPU9s32raHPTyfbSplkTX7OteYLE5y2kzo0zqJhVsbxnkXT4-OyGtWwntw"
+            alt="Tuyệt Võ Thần"> --}}
+        {{/if}}
     </div>
-    <span class="story__rate">9.2</span>
+    <span class="story__rate">
+        {{#if story.rate }}
+        <i class="far fa-star"></i>
+        {{ story.rate }}
+        {{else}}
+        <i class="far fa-star"></i>
+        9.2
+        {{/if}}
+    </span>
+    {{#if story.name }}
+    <span class="story__name">{{ story.name }}</span>
+    {{else}}
     <span class="story__name">Tuyệt Võ Thần</span>
+    {{/if}}
 </div>

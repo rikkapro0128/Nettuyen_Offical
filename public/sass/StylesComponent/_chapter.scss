@@ -1,0 +1,38 @@
+.chapter-item {
+    // block code left
+    width: 80%;
+    background-color: #0F1416;
+    margin: 2rem 0;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    &-single {
+        margin: 0 1rem;
+        &__title {
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: #fff;
+            a {
+                color: #fff;
+                transition: color 0.1s ease-in-out;
+                &:hover {
+                    color: #7f5af0;
+                }
+            }
+        }
+        &__content {
+            img {
+                width: 100%;
+            }
+        }
+        &__content-null {
+            display: block;
+            color: #fff;
+            font-size: 1.4rem;
+        }
+    }
+    &-inspire {
+
+    }
+    // block code right
+}

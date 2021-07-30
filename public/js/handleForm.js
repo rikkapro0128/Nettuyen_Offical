@@ -7,7 +7,7 @@ function reRenderIndex(selector) {
     });
 }
 
-function aleartWarning(urlRedirect, elementRemove) {
+function aleartWarning(urlRedirect, elementRemove, listStory) {
     Swal.fire({
         title: 'Có chắc con ku chưa?',
         text: "Ấn phát nữa là xoá luôn á!",
@@ -19,8 +19,7 @@ function aleartWarning(urlRedirect, elementRemove) {
         confirmButtonText: 'Xoá mẹ đi!'
     }).then(async (result) => {
         if (result.isConfirmed) {
-            const length = urlRedirect.split('/').length;
-            const idStory = urlRedirect.split('/')[length - 1];
+            const idStory = elementRemove ? elementRemove.attr('id_story') : undefined;
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'bottom-end',
@@ -32,12 +31,13 @@ function aleartWarning(urlRedirect, elementRemove) {
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
+            console.log('Đang gửi => ', listStory)
             await fetch(`${urlRedirect}?_method=DELETE`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify([idStory]),
+                body: listStory ? JSON.stringify(listStory) : JSON.stringify([idStory]),
             }).then((result) => {
                 if(result.status === 301 || result.message === 'success') {
                     Toast.fire({
@@ -47,6 +47,11 @@ function aleartWarning(urlRedirect, elementRemove) {
                     if(elementRemove) {
                         elementRemove.remove();
                         reRenderIndex('tr td#index-story'); // import selector
+                    }else if(listStory.length) {
+                        listStory.forEach(item => {
+                            $(`tr[id_story=${item}]`).remove();
+                        })
+                        reRenderIndex('tr td#index-story');
                     }
                 }else if(result.status === 404 || result.message === 'fail') {
                     Toast.fire({

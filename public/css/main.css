@@ -833,7 +833,8 @@
   height: fit-content;
   background-color: #e7e4e4;
   padding: 2px;
-  border-radius: 20px; }
+  border-radius: 20px;
+  cursor: pointer; }
   .checkbox::before {
     content: '';
     display: block;
@@ -851,14 +852,15 @@
 
 .select {
   background-color: #e7e4e4;
-  width: fit-content;
+  width: 120px;
   padding: 0.5rem;
   border-radius: 5px;
   border: 2px solid #737373;
   display: flex;
   align-items: center;
   cursor: pointer;
-  position: relative; }
+  position: relative;
+  justify-content: center; }
   .select__title {
     color: black;
     font-size: 1rem; }
@@ -1334,12 +1336,14 @@ table, td, th {
       border: none; }
     .your-post__list table tr:first-child {
       background-color: #7f5af0; }
+      .your-post__list table tr:first-child th:first-child {
+        background-color: #169933;
+        border-bottom: 1px solid #575858; }
     .your-post__list table tr:last-child td:first-child {
       border-bottom-left-radius: 10px; }
     .your-post__list table tr:last-child td:last-child {
       border-bottom-right-radius: 10px; }
     .your-post__list table tr:not(:first-child) {
-      cursor: pointer;
       transition: all .1s ease; }
       .your-post__list table tr:not(:first-child):hover {
         background-color: #252525; }
@@ -1353,6 +1357,9 @@ table, td, th {
       font-size: 1.2rem;
       color: #fff;
       margin-right: 0.6rem; }
+    .your-post__list--tool-click {
+      width: fit-content !important;
+      margin-left: 0.6rem; }
 
 .add-your-story__title {
   color: #fff;
@@ -1376,7 +1383,8 @@ table, td, th {
   justify-content: space-around;
   width: 100%;
   height: auto;
-  flex-shrink: inherit; }
+  flex-shrink: inherit;
+  margin-bottom: 1rem; }
   .add-your-story__context--name--number-chapter div:first-child {
     margin-right: 5rem; }
   .add-your-story__context--name--number-chapter div {
@@ -1384,98 +1392,9 @@ table, td, th {
     .add-your-story__context--name--number-chapter div .formRow--item {
       width: 100%; }
 
-.add-your-story .upload-image-story .box__show--image-loaded {
-  border: 5px dashed #7F5AF0;
-  margin-top: 14px;
-  display: flex;
-  padding: 10px;
-  position: relative;
-  transition: border-color 0.2s ease;
-  background-color: #242629; }
-  .add-your-story .upload-image-story .box__show--image-loaded:hover {
-    border-color: #2CB67D; }
-  .add-your-story .upload-image-story .box__show--image-loaded div {
-    flex: 1; }
-  .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left {
-    margin-right: 10px; }
-    .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left div {
-      position: relative; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left div::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 1px;
-        background-color: #fff;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%); }
-    .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story {
-      font-size: 14px;
-      padding: 0.8rem 0.2rem;
-      cursor: pointer;
-      display: flex;
-      color: #fff;
-      display: flex;
-      align-items: center; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story:hover {
-        background-color: #1FB264 !important; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story span {
-        display: block;
-        font-size: 14px; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story--name {
-        width: 12rem;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story--size {
-        width: 10rem; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story--order {
-        width: 5rem; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story select {
-        height: 30px;
-        width: fit-content;
-        border-radius: 5px;
-        outline: none;
-        font-size: 1rem; }
-    .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story--heading {
-      width: 100%;
-      display: flex;
-      font-size: 14px;
-      cursor: pointer;
-      box-sizing: border-box;
-      position: relative;
-      color: #fff; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story--heading span {
-        line-height: 2.5;
-        display: block; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story--heading-name {
-        width: 12rem; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story--heading-size {
-        width: 10rem; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--left .image__story--heading-order {
-        width: 5rem; }
-  .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right {
-    max-width: 20rem;
-    height: 25rem;
-    position: sticky;
-    top: 10px; }
-    .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .view-image {
-      height: 100%;
-      overflow: hidden; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .view-image img {
-        max-width: 100%;
-        border-radius: 5px;
-        border: 1px solid #7f5af0;
-        box-sizing: border-box;
-        position: absolute;
-        transition: box-shadow 0.2s ease; }
-        .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .view-image img:hover {
-          box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px; }
-      .add-your-story .upload-image-story .box__show--image-loaded .box__show--image-loaded--right .view-image #len-zoom {
-        max-width: 100%;
-        position: absolute;
-        border: 1px solid #fff;
-        border-radius: 5px; }
+.add-your-story button {
+  float: right;
+  width: fit-content !important; }
 
 .edit__your-story--title {
   color: #fff;
@@ -1760,98 +1679,21 @@ table, td, th {
           font-size: 1rem;
           color: #7F5AF0;
           transition: color .2s ease; }
-    .edit__your-story .story__add--chapter-content-box .box__show--image-loaded {
-      border: 5px dashed #7F5AF0;
-      margin-top: 14px;
-      display: flex;
-      padding: 10px;
-      position: relative;
-      transition: border-color 0.2s ease;
-      background-color: #242629; }
-      .edit__your-story .story__add--chapter-content-box .box__show--image-loaded:hover {
-        border-color: #2CB67D; }
-      .edit__your-story .story__add--chapter-content-box .box__show--image-loaded div {
-        flex: 1; }
-      .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left {
-        margin-right: 10px; }
-        .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left div {
-          position: relative; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left div::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 1px;
-            background-color: #fff;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%); }
-        .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story {
-          font-size: 14px;
-          padding: 0.8rem 0.2rem;
-          cursor: pointer;
-          display: flex;
-          color: #fff;
-          display: flex;
-          align-items: center; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story:hover {
-            background-color: #1FB264 !important; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story span {
-            display: block;
-            font-size: 14px; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story--name {
-            width: 12rem;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story--size {
-            width: 10rem; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story--order {
-            width: 5rem; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story select {
-            height: 30px;
-            width: fit-content;
-            border-radius: 5px;
-            outline: none;
-            font-size: 1rem; }
-        .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story--heading {
-          width: 100%;
-          display: flex;
-          font-size: 14px;
-          cursor: pointer;
-          box-sizing: border-box;
-          position: relative;
-          color: #fff; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story--heading span {
-            line-height: 2.5;
-            display: block; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story--heading-name {
-            width: 12rem; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story--heading-size {
-            width: 10rem; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--left .image__story--heading-order {
-            width: 5rem; }
-      .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--right {
-        max-width: 20rem;
-        height: 25rem;
-        position: sticky;
-        top: 10px; }
-        .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--right .view-image {
-          height: 100%;
-          overflow: hidden; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--right .view-image img {
-            max-width: 100%;
-            border-radius: 5px;
-            border: 1px solid #7f5af0;
-            box-sizing: border-box;
-            position: absolute;
-            transition: box-shadow 0.2s ease; }
-            .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--right .view-image img:hover {
-              box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px; }
-          .edit__your-story .story__add--chapter-content-box .box__show--image-loaded .box__show--image-loaded--right .view-image #len-zoom {
-            max-width: 100%;
-            position: absolute;
-            border: 1px solid #fff;
-            border-radius: 5px; }
+    .edit__your-story .story__add--chapter-content-box .add-story__tool {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 3fr 1fr; }
+      .edit__your-story .story__add--chapter-content-box .add-story__tool--list-image--title-item:first-child {
+        width: 0; }
+        .edit__your-story .story__add--chapter-content-box .add-story__tool--list-image--title-item:first-child div.checkbox {
+          display: inline-block; }
+      .edit__your-story .story__add--chapter-content-box .add-story__tool--list-image--title-item:nth-child(2) {
+        width: 16rem; }
+      .edit__your-story .story__add--chapter-content-box .add-story__tool--list-image--title-item {
+        text-align: center;
+        font-size: 1rem; }
+        .edit__your-story .story__add--chapter-content-box .add-story__tool--list-image--title-item--text {
+          line-height: initial; }
 
 .edit__your-story .submit__update--story {
   margin-bottom: 15px;

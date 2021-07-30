@@ -257,156 +257,72 @@ function showChildBox(elementClick, elementShow, listIcon) {
 }
 
 function loadImage(option) {
-    const { inputMutiFile, showImageUploaded, elementClick, linkPost, typeUpload } = option;
-    let missOrderImageLenght;
-    const objTypeStory = { type: [], details: {}, dataImage: []}; // obj data handle send sever
-    let orderImage = [];
-    let missOrderImage = [];
-    let temp = 0, hold = 0, status = true;
-    $(showImageUploaded).hide();
-    $(inputMutiFile).on('change', function(event) {
-        const files = event.target.files;
-        $(showImageUploaded).show();
-        for(const file of files) {
-            if(objTypeStory.dataImage.find((obj) => obj.data.name === file.name)) {
-                continue;
-            }
-            objTypeStory.dataImage.push({position: (temp + 1), data: file});
-            $(showImageUploaded).find('.image__story--content').append(`
-                <div class="image__story" id="" position="${temp}" value-name="${file.name}">
-                    <span class="image__story--name">${file.name}</span>
-                    <span class="image__story--size">${formatBytes(file.size)}</span>
-                    <select name="order-${temp}" class="image__story--order">
-                        <option value="NaN">No Tick</option>
-                        <option selected value="${temp + 1}">${temp + 1}</option>
-                    </select>
-                </div>
+    // listener event change file of element by id parameter inputMutiFile
+    let listFile = [];
+    let countPos = 0;
+    function viewImage(urlHashImage) {
+        $(option.showImageUploaded).append(`<img src="${urlHashImage}" id="view-image"/> `)
+    }
+    function addElementInTable(listElement) {
+        listElement.forEach((item) => {
+            $(option.table).append(`
+                <tr class="add-story__tool--list-image--title">
+                    <td class="add-story__tool--list-image--title-item">
+                        <div class="checkbox element-check">
+                            <input type="checkbox" name="select-element" hidden>
+                        </div>
+                    </td>
+                    <td class="add-story__tool--list-image--title-item">
+                        <span class="add-story__tool--list-image--title-item--child-text">${item.data.name}</span>
+                    </td>
+                    <td class="add-story__tool--list-image--title-item">
+                        <span class="add-story__tool--list-image--title-item--child-text">${formatBytes(item.data.size)}</span>
+                    </td>
+                    <td class="add-story__tool--list-image--title-item">
+                        <div class="select">
+                            <input type="text" name="select-value" hidden>
+                            <span class="select__title" content="--- Tuỳ chọn ---">--- Tuỳ chọn ---</span>
+                            <ul class="select-list" hidden>
+                                <li class="select-list__item" value="noSetValue" content="noSetValue">Bỏ chọn!</li>
+                                <li class="select-list__item" value="${item.position}" content="Vị trí ${item.position}">Vị trí ${item.position}</li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="add-story__tool--list-image--title-item">
+                        <button class="btn a-warning" id="remove-story">Xoá Truyện</button>
+                        <button class="btn a-normal" id="edit-story">Chỉnh sửa</button>
+                    </td>
+                </tr>
             `);
-            temp++;
-        }
-        // default run this code below
-        if(status) {
-            $('.box__show--image-loaded--right > .view-image > img').attr({
-                value_name: objTypeStory.dataImage[0].data.name,
-                src: URL.createObjectURL(objTypeStory.dataImage[0].data),
-            });
-            status = !status;
-        }
-        // do something when tag select to change!
-        $('.image__story--order').on('change', function () {
-            // re-render html check number is NaN or isNumber to render suitable for this state!
-            $.each($('.image__story--order'), function (index, param) {
-                const getVal = parseInt($(param).val());
-                $(param).empty();
-                if(getVal) {
-                    $(param).append(`
-                        <option value="NaN">No Tick</option>
-                        <option selected value="${getVal}">${getVal}</option>
-                    `);
-                }else {
-                    $(param).append(`
-                        <option value="NaN">No Tick</option>
-                    `);
-                }
-            })
-            // find list number is shortcoming!
-            $.each($('.image__story--order'), function (index, param) {
-                const status = !parseInt(param.value) ? 'no-checked' : 'checked';
-                orderImage.push({position: parseInt(index), value: parseInt(param.value), status});
-            })
-            for(let run = 0; run < orderImage.length; run++) {
-                let isMiss = true;
-                orderImage.forEach((item, index) => {
-                    if((run + 1) === item.value) {
-                        isMiss = false;
-                        return;
-                    }
-                })
-                if(isMiss) {
-                    missOrderImage.push(run + 1);
-                }
-            }
-            // render code html option with number shortcoming!
-            $.each($('.image__story--order'), function (index, param) {
-                missOrderImage.forEach((item) => {
-                    $(param).append(`
-                        <option value="${item}">${item}</option>
-                    `);
-                });
-            })
-            // sort list position number
-            orderImage.forEach((item, index) => {
-                objTypeStory.dataImage[index].position = item.value;
-            })
-            missOrderImageLenght = missOrderImage.length;
-            orderImage = [];
-            missOrderImage = [];
-        });
-        $('.image__story').on('click', function() {
-            const thisName = this;
-            $(thisName).css("background-color", "#1FB264");
-            if(hold !== parseInt($(thisName).attr('position'))) {
-                $(`.image__story[position=${hold}]`).css("background-color", "transparent");
-            }
-            hold = parseInt($(thisName).attr('position'));
-            objTypeStory.dataImage.forEach((objData) => {
-                if($(thisName).attr('value-name') === objData.data.name) {
-                    $('.box__show--image-loaded--right > .view-image > img').attr({
-                        value_name: objData.data.name,
-                        src: URL.createObjectURL(objData.data),
-                    });
-                }
-            })
-        });
-    });
-    $('#sort-list-image').on('click', function() {
-        if(missOrderImageLenght === 0) {
-            objTypeStory.dataImage.sort(function(a, b) {
-                return a.position - b.position;
-            })
-            objTypeStory.dataImage.forEach((item, index) => {
-                $(`.image__story[position=${index}]`).attr('value-name', item.data.name);
-                $(`.image__story[position=${index}]`).children('.image__story--name').text(item.data.name);
-                $(`.image__story[position=${index}]`).children('select').empty();
-                $(`.image__story[position=${index}]`).children('select').append(`
-                    <option value="NaN">No Tick</option>
-                    <option selected value="${item.position}">${item.position}</option>
-                `);
-            });
-        }
-    })
-    $('#name-story').change(function() {
-        objTypeStory.details.name = $(this).val();
-        objTypeStory.details.chapter = parseInt($('#number-chapter').val());
-    })
-    $(elementClick).on('click', function() {
-        const formStory = new FormData();
-        if(!objTypeStory.dataImage.length) {
-            aleartFail('Bạn chưa có dữ liệu nào!');
-            return;
-        }
-        objTypeStory.dataImage.forEach((item, index) => {
-            formStory.append('chapter', item.data);
-        });
-        const lengthString = document.URL.split('/').length;
-        const id = document.URL.split('/')[lengthString - 1];
-        //console.log(objTypeStory)
-        // console.log(id)
-        formStory.append('data_info', JSON.stringify({type: objTypeStory.type, details: objTypeStory.details}));
-        fetch(`${linkPost}/${id}`, {
-            method: 'POST',
-            body: formStory,
+            $(`.select-list__item[value=${item.position}]`).trigger('click');
+            $(`.select-list__item[value=${item.position}]`).closest('.select-list').prev('.select__title').attr('position', item.position);
+            $('.select-list').removeClass('show');
+            $(`.select-list__item[value=${item.position}]`).remove();
         })
-        .then(response => response.json())
-        .then(result => {
-            console.log('Success:', result);
-            if(result) {
-                aleartSuccess('Update successful!', `http://localhost:3300/user/edit-your-storys/${id}`);
+    }
+    function handleChangeOption(listElement) {
+        const stackPosition = [];
+        console.log('Listening...!')
+        $('.select input[name=select-value]').on('change', function(event) {
+            if($(this).val() === 'noSetValue') {
+                const position = parseInt($(this).siblings('.select__title').attr('position'));
+                const isHas = stackPosition.find(item => item === position);
+                if(!isHas) { stackPosition.push(position); }
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+            console.log(stackPosition)
         });
+    }
+    $(option.inputMutiFile).on('change', function(event) {
+        const files = event.target.files;
+        for(const item of files) {
+            const found = listFile.find(ele => ele.name === item.name);
+            if(found) { continue; }
+            listFile.push({position: (countPos + 1), data: item});
+            countPos++;
+        }
+        addElementInTable(listFile);
+        handleChangeOption(listFile);
+        // listFile = [];
     })
 }
 

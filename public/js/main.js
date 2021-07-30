@@ -7,6 +7,8 @@ import {
     clickStory,
     checkBox,
     selectBox,
+    selectAllCheckBox,
+    handleExecSelectOption,
 } from './style.js';
 import { uploadSinglefile, showChildBox, loadImage, updateStory } from './mixin.js';
 
@@ -42,19 +44,22 @@ $(function() {
     clickRemoveListStory('td button#remove-story'); // query equal class
     uploadSinglefile($('.story__pic--avatar-story'), 'x', 2.5);
     uploadSinglefile($('.story__pic--cover-story'), '', 1);
-    showChildBox($('.story__add--chapter-title#show-box'), $('.story__add--chapter-content-box'), ['<i class="fas fa-caret-right"></i>', '<i class="fas fa-caret-down"></i>']);
+    // showChildBox($('.story__add--chapter-title#show-box'), $('.story__add--chapter-content-box'), ['<i class="fas fa-caret-right"></i>', '<i class="fas fa-caret-down"></i>']);
     addStory({
         elementClick: '.submit-story.btn',
         linkPost: 'http://localhost:3300/user/upload-story',
     });
     loadImage({
         inputMutiFile: '#add-chapter',
-        showImageUploaded: '.box__show--image-loaded',
+        showImageUploaded: 'add-story__tool--show-image',
+        table: '.add-story__tool--list-image',
         elementClick: '#update-chapter > button',
         linkPost: 'http://localhost:3300/user/upload-chapter',
         typeUpload: 'chapter',
     });
     updateStory('http://localhost:3300/user/upload-avatar-cover');
     clickStory($('.story[id-story]'));
+    selectAllCheckBox('#element-check-all', '.checkbox.element-check');
+    handleExecSelectOption();
 
 });

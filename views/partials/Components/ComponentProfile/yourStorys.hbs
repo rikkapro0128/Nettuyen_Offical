@@ -9,19 +9,21 @@
         <div class="your-post__list--tool">
             <h1 class="your-post__list--tool-title">Tool:</h1>
             <div class="select">
-                <span class="select__title">--- Tuỳ chọn ---</span>
+                <input type="text" name="select-value" hidden>
+                <span class="select__title" content="--- Tuỳ chọn ---">--- Tuỳ chọn ---</span>
                 <ul class="select-list" hidden>
-                    <li class="select-list__item" value="1">1</li>
-                    <li class="select-list__item" value="2">2</li>
-                    <li class="select-list__item" value="3">3</li>
-                    <li class="select-list__item" value="4">4</li>
+                    <li class="select-list__item" value="noSetValue" content="noSetValue">Bỏ chọn!</li>
+                    <li class="select-list__item" value="remove-all" content="Xoá tất cả">Xoá tất cả</li>
                 </ul>
             </div>
+            <button class="btn your-post__list--tool-click">Triển</button>
         </div>
         <table class="your-post__list--table">
             <tr class="your-post__list--table-row--title">
-                <th class="your-post__list--table-row--title-name">Chọn
-                    <i class="far fa-hand-point-up"></i>
+                <th class="your-post__list--table-row--title-name">
+                    <div class="checkbox" id="element-check-all">
+                        <input type="checkbox" name="select-element" hidden>
+                    </div>
                 </th>
                 <th class="your-post__list--table-row--title-name">STT
                     <i class="fas fa-indent"></i>
@@ -48,7 +50,7 @@
             {{#each listStory}}
                 <tr class="your-post__list--table-row--content" id_story="{{ this._id }}">    
                     <td class="your-post__list--table-row--content-show">
-                        <div class="checkbox">
+                        <div class="checkbox element-check">
                             <input type="checkbox" name="select-element" hidden>
                         </div>
                     </td>

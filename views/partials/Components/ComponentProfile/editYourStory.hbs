@@ -1,7 +1,7 @@
 <div class="edit__your-story">
-    <h1 class="edit__your-story--title"><a href="http://localhost:3300/user/your-storys">Your Story
+    <h1 class="edit__your-story--title"><a href="http://localhost:3300/user/your-storys">Truyện của bạn
         <i class="fas fa-book"></i>
-    </a> / <a href="http://localhost:3300/user/edit-your-storys/{{story.data._id}}">Edit Story
+    </a> / <a href="http://localhost:3300/user/edit-your-storys/{{story.data._id}}">Chỉnh sửa truyện
         <i class="far fa-edit"></i>
     </a></h1>
     <h1 class="name__story">{{ story.data.name }}</h1>
@@ -58,18 +58,18 @@
         <button class="btn">Update Story</button>
     </div>
     <div class="story__add--chapter">
-        <h1 class="story__add--chapter-title" id="show-box">Add Chapter
+        <h1 class="story__add--chapter-title" id="show-box">Thêm Chapter
             <i class="fas fa-caret-right"></i>
         </h1>
-        <div class="story__add--chapter-content-box" hidden>
-            <h1 class="story__add--chapter-content-box--title">Information</h1>
+        <div class="story__add--chapter-content-box">
+            <h1 class="story__add--chapter-content-box--title">Thông tin truyện</h1>
             <div class="story__add--chapter-content-box--info">
                 <div class="form_group">
                     <fieldset class="formRow">
                         <div class="formRow--item">
                             <label for="name-story" class="formRow--input-wrapper js-inputWrapper">
                                 <input type="text" class="formRow--input js-input" id="name-story" name="name-story"
-                                    placeholder="Name">
+                                    placeholder="Tên">
                             </label>
                         </div>
                     </fieldset>
@@ -79,44 +79,53 @@
                         <div class="formRow--item">
                             <label for="number-chapter" class="formRow--input-wrapper js-inputWrapper">
                                 <input type="text" class="formRow--input js-input" id="number-chapter" name="number-chapter"
-                                    placeholder="Number Chapter" value="{{story.nextChapter}}" readonly>
+                                    placeholder="Số chapter" value="{{story.nextChapter}}" readonly>
                             </label>
                         </div>
                     </fieldset>
                 </div>
             </div>
-            <h1 class="story__add--chapter-content-box--title">Upload List Image</h1>
+            <h1 class="story__add--chapter-content-box--title">Tải lên danh sách ảnh</h1>
             <div class="story__add--chapter-content-box--upload">
                 <div class="story__add--chapter-content-box--upload-drag-file">
                     <label for="add-chapter" class="story__add--chapter-content-box--upload-drag-file-area"></label>
                     <input type="file" class="story__add--chapter-content-box--upload-drag-file-input" name="upload-chapter" id="add-chapter" multiple accept=".jpg, .png" hidden>
-                    <h1 class="story__add--chapter-content-box--upload-drag-file-title">Drag and drop a file or select add Image</h1>
+                    <h1 class="story__add--chapter-content-box--upload-drag-file-title">Kéo file vào đây hoặc chọn tải lên</h1>
                 </div>
             </div>
-            <div class="box__show--image-loaded">
-                <div class="box__show--image-loaded--left">
-                    <div class="image__story--heading">
-                        <span class="image__story--heading-name">Name
+            <div class="add-story__tool">
+                <table class="add-story__tool--list-image">
+                    <tr class="add-story__tool--list-image--title">
+                        <th class="add-story__tool--list-image--title-item">
+                            <div class="checkbox" id="element-check-all">
+                                <input type="checkbox" name="select-element" hidden>
+                            </div>
                             {{!-- <i class="fas fa-sort-up"></i>
                             <i class="fas fa-sort-down"></i> --}}
-                        </span>
-                        <span class="image__story--heading-size">Image Size
+                        </th>
+                        <th class="add-story__tool--list-image--title-item">
+                            <span class="add-story__tool--list-image--title-item--text">Name</span>
                             {{!-- <i class="fas fa-sort-up"></i>
                             <i class="fas fa-sort-down"></i> --}}
-                        </span>
-                        
-                        <span class="image__story--heading-order" id="sort-list-image">Order
+                        </th>
+                        <th class="add-story__tool--list-image--title-item">
+                            <span class="add-story__tool--list-image--title-item--text">Image Size</span>
                             {{!-- <i class="fas fa-sort-up"></i>
                             <i class="fas fa-sort-down"></i> --}}
-                        </span>
-                    </div>
-                    <div class="image__story--content"></div>
-                </div>
-                <div class="box__show--image-loaded--right">
-                    <div class="view-image">
-                        <img id="image-zoom" src="" alt="">
-                    </div>
-                </div>
+                        </th>
+                        <th class="add-story__tool--list-image--title-item" tool="sort">
+                            <span class="add-story__tool--list-image--title-item--text">Order</span>
+                            {{!-- <i class="fas fa-sort-up"></i>
+                            <i class="fas fa-sort-down"></i> --}}
+                        </th>
+                        <th class="add-story__tool--list-image--title-item" tool="sort">
+                            <span class="add-story__tool--list-image--title-item--text">Hành động</span>
+                            {{!-- <i class="fas fa-sort-up"></i>
+                            <i class="fas fa-sort-down"></i> --}}
+                        </th>
+                    </tr>
+                </table>
+                <div class="add-story__tool--show-image"></div>
             </div>
         </div>
     </div>

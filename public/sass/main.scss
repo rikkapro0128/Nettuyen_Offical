@@ -394,6 +394,10 @@ table, td, th {
             }
             tr:first-child {
                 background-color: #7f5af0;
+                th:first-child {
+                    background-color: #169933;
+                    border-bottom: 1px solid #575858;
+                }
             }
             tr:last-child {
                 td:first-child {
@@ -404,7 +408,6 @@ table, td, th {
                 }
             }
             tr:not(:first-child) {
-                cursor: pointer;
                 transition: all .1s ease;
                 &:hover {
                     background-color: #252525;
@@ -424,6 +427,10 @@ table, td, th {
                 font-size: 1.2rem;
                 color: #fff;
                 margin-right: 0.6rem;
+            }
+            &-click {
+                width: fit-content !important;
+                margin-left: 0.6rem;
             }
         }
     }
@@ -456,6 +463,7 @@ table, td, th {
         width: 100%;
         height: auto;
         flex-shrink: inherit;
+        margin-bottom: 1rem;
         div:first-child {
             margin-right: 5rem;
         }
@@ -466,8 +474,9 @@ table, td, th {
             }
         }
     }
-    .upload-image-story {
-        @include viewLoadImage;
+    button {
+        float: right;
+        width: fit-content !important;
     }
 
 }
@@ -820,7 +829,34 @@ table, td, th {
                     }
                 }
             }
-            @include viewLoadImage;
+            .add-story__tool {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 3fr 1fr;
+                &--list-image {
+                    &--title {
+                        &-item:first-child {
+                            width: 0;
+                            div.checkbox {
+                                display: inline-block;
+                            }
+                        }
+                        &-item:nth-child(2) {
+                            width: 16rem;
+                        }
+                        &-item {
+                            text-align: center;
+                            font-size: 1rem;
+                            &--text {
+                                line-height: initial;
+                            }
+                        }
+                    }
+                }
+                &--show-image {
+                    
+                }
+            }
         }
     }
     .submit__update--story {

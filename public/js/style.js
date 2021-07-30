@@ -32,8 +32,7 @@ function clickEditListStory(element) {
 
 function clickRemoveListStory(element) {
     $(element).click(function() {
-        const idStory = $(this).closest('tr').attr('id_story');
-        aleartWarning(`/user/remove-your-storys/${idStory}`, $(this).closest('tr'));
+        aleartWarning(`/user/remove-your-storys/`, $(this).closest('tr'));
     })
 }
 
@@ -47,31 +46,83 @@ function clickStory(listElement) {
 }
 
 function checkBox() {
-    $('.checkbox').click(function() {
+    $('body').on('click', '.checkbox', function () {
+        // console.log('active')
         const state = $(this).find('input[name=select-element]').prop('checked');
         if(state) {
             $(this).removeClass('active');
         }else {
             $(this).addClass('active');
         }
-        $(this).find('input[name=select-element]').prop('checked', !state);
+        $(this).find('input[name=select-element]').prop('checked', !state).trigger("change");
     });
 }
 
 function selectBox() {
-    $('.select').click(function() {
-        const state = $('.select > .select-list').hasClass('show');
+    let clicked = true;
+    const selectElement = '.select';
+    $('body').on('click', selectElement, function() {
+        const state = $(this).find('.select-list').hasClass('show');
         if(state) {
-            $('.select > .select-list').removeClass('show');
+            $(this).find('.select-list').removeClass('show');
         }else {
-            $('.select > .select-list').addClass('show');
+            $(selectElement).css({'z-index': 'unset'});
+            $('.select').find('.select-list').removeClass('show');
+            $(this).find('.select-list').addClass('show');
+            $(this).css({'z-index': 1});
         }
+        clicked = false;
+    }).on('click', function () {
+        const check = $(selectElement).find('.select-list').hasClass('show');
+        if(clicked && check) {
+            $(selectElement).find('.select-list').removeClass('show');
+        }
+        clicked = true;
+    }).on('click', selectElement + ' .select-list__item', function(event) {
+        const value = $(this).attr('value');
+        const content = $(this).attr('content');
+        $(this).closest('.select-list').siblings('.select__title').text(content);
+        if(content === 'noSetValue') { 
+            $(this).closest('.select-list').siblings('.select__title').text($(this).closest('.select-list').siblings('.select__title').attr('content')) 
+        }
+        $(this).closest('.select-list').siblings('input[name=select-value]').val(value).trigger("change");
+        // console.log($(this).closest('.select-list').siblings('input[name=select-value]').val())
     })
 }
 
 function selectAllCheckBox(selectorClick, selectorTrigger) {
-    $(selectorClick).click(function() {
-        $(selectorTrigger).trigger('click');
+    $('body').on('click', selectorClick,function() {
+        const checked = $(this).find('input[name=select-element]').prop('checked');
+        if(checked) {
+            $(selectorTrigger).addClass('active');
+        }else {
+            $(selectorTrigger).removeClass('active');
+        }
+        $(selectorTrigger).find('input[name=select-element]').prop('checked', checked).trigger("change");
+    });
+}
+
+function handleExecSelectOption() {
+    let option;
+    $('.select > input[name=select-value]').on('change', function(event) {
+        option = event.target.value;
+        // console.log(option)
+    });
+    $('button.your-post__list--tool-click').on('click', function() {
+        const listStory = [];
+        if(option === 'noSetValue' || option === undefined) { Swal.fire('Hãy nhập tuỳ chọn!') }
+        else if(option === 'remove-all') {
+            $('.checkbox.element-check > input[name=select-element]').each(function(index, element) {
+                if($(element).prop('checked') === true) {
+                    const parentEle = $(element).closest('tr').attr('id_story');
+                    listStory.push(parentEle);
+                }
+            });
+            if(listStory.length === 0) { Swal.fire('Không có truyện nào được chọn!') }
+            else {
+                aleartWarning('/user/remove-your-storys', undefined, listStory);
+            }
+        }
     });
 }
 
@@ -82,5 +133,6 @@ export {
     clickStory,
     checkBox,
     selectBox,
-    selectAllCheckBox
+    selectAllCheckBox,
+    handleExecSelectOption,
 };

@@ -7,7 +7,7 @@
 @mixin selectList {
     .select {
         background-color: rgb(231, 228, 228);
-        width: fit-content;
+        width: 120px;
         padding: 0.5rem;
         border-radius: 5px;
         border: 2px solid #737373;
@@ -15,6 +15,7 @@
         align-items: center;
         cursor: pointer;
         position: relative;
+        justify-content: center;
         &__title {
             color: rgb(0, 0, 0);
             font-size: 1rem;
@@ -60,6 +61,7 @@
         background-color: rgb(231, 228, 228);
         padding: 2px;
         border-radius: 20px;
+        cursor: pointer;
         &::before {
             content: '';
             display: block;
@@ -430,123 +432,5 @@
     opacity: 1;
         -webkit-transform: scale(1);
         transform: scale(1);
-    }
-}
-
-@mixin viewLoadImage {
-    .box__show--image-loaded {
-        border: 5px dashed #7F5AF0;
-        margin-top: 14px;
-        display: flex;
-        padding: 10px;
-        position: relative;
-        transition: border-color 0.2s ease;
-        background-color: #242629;
-        &:hover {
-            border-color: #2CB67D;
-        }
-        div {
-            flex: 1;
-        }
-        .box__show--image-loaded--left {
-            margin-right: 10px;
-            div {
-                position: relative;
-                &::before {
-                    content: '';
-                    position: absolute;
-                    width: 100%;
-                    height: 1px;
-                    background-color: #fff;
-                    bottom: 0;
-                    left: 50%;
-                    transform: translateX(-50%);
-                }
-            }
-            .image__story {
-                font-size: 14px;
-                padding: 0.8rem 0.2rem;
-                cursor: pointer;
-                display: flex;
-                color: #fff;
-                display: flex;
-                align-items: center;
-                &:hover {
-                    background-color: #1FB264 !important;
-                }
-                span {
-                    display: block;
-                    font-size: 14px;
-                }
-                &--name {
-                    width: 12rem;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                }
-                &--size {
-                    width: 10rem;
-                }
-                &--order {
-                    width: 5rem;
-                }
-                select {
-                    height: 30px;
-                    width: fit-content;
-                    border-radius: 5px;
-                    outline: none;
-                    font-size: 1rem;
-                }
-            }
-            .image__story--heading {
-                width: 100%;
-                display: flex;
-                font-size: 14px;
-                cursor: pointer;
-                box-sizing: border-box;
-                position: relative;
-                color: #fff;
-                span {
-                    line-height: 2.5;
-                    display: block;
-                }
-                &-name {
-                    width: 12rem;
-                }
-                &-size {
-                    width: 10rem;
-                }
-                &-order {
-                    width: 5rem;
-                }
-            }
-        }
-        .box__show--image-loaded--right {
-            max-width: 20rem;
-            height: 25rem;
-            position: sticky;
-            top: 10px;
-            .view-image {
-                height: 100%;
-                overflow: hidden;
-                img {
-                    max-width: 100%; 
-                    border-radius: 5px;
-                    border: 1px solid #7f5af0;
-                    box-sizing: border-box;
-                    position: absolute;
-                    transition: box-shadow 0.2s ease;
-                    &:hover {
-                        box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
-                    }
-                }
-                #len-zoom {
-                    max-width: 100%;
-                    position: absolute;
-                    border: 1px solid #fff;
-                    border-radius: 5px;
-                }
-            }
-        }
     }
 }

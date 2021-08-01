@@ -890,6 +890,18 @@
     .select-list.show {
       display: block; }
 
+.your-tool {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem; }
+  .your-tool__title {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-right: 0.6rem; }
+  .your-tool__click {
+    width: fit-content !important;
+    margin-left: 0.6rem; }
+
 body {
   font-size: 13px;
   background-color: var(--bg-dark);
@@ -1349,17 +1361,6 @@ table, td, th {
         background-color: #252525; }
     .your-post__list table tr td:not(:last-child), .your-post__list table tr th:not(:last-child) {
       border-right: 1px solid #575858; }
-  .your-post__list--tool {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.6rem; }
-    .your-post__list--tool-title {
-      font-size: 1.2rem;
-      color: #fff;
-      margin-right: 0.6rem; }
-    .your-post__list--tool-click {
-      width: fit-content !important;
-      margin-left: 0.6rem; }
 
 .add-your-story__title {
   color: #fff;

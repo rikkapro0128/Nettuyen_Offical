@@ -19,6 +19,7 @@
 @include btn;
 @include checkBoxElement;
 @include selectList;
+@include tool;
 
 body {
     font-size: 13px;
@@ -417,20 +418,6 @@ table, td, th {
                 td:not(:last-child), th:not(:last-child) {
                     border-right: 1px solid #575858;
                 }
-            }
-        }
-        &--tool {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.6rem;
-            &-title {
-                font-size: 1.2rem;
-                color: #fff;
-                margin-right: 0.6rem;
-            }
-            &-click {
-                width: fit-content !important;
-                margin-left: 0.6rem;
             }
         }
     }

@@ -259,6 +259,7 @@ function showChildBox(elementClick, elementShow, listIcon) {
 function loadImage(option) {
     // listener event change file of element by id parameter inputMutiFile
     let listFile = [];
+    let changeOption;
     let countPos = 0;
     function viewImage(urlHashImage) {
         $(option.showImageUploaded).append(`<img src="${urlHashImage}" id="view-image"/> `)
@@ -287,21 +288,20 @@ function loadImage(option) {
                     </div>
                 </td>
                 <td class="add-story__tool--list-image--title-item">
-                    <button class="btn a-warning" id="remove-story">Xoá Truyện</button>
-                    <button class="btn a-normal" id="edit-story">Chỉnh sửa</button>
+                    <button class="btn a-warning" id="remove-chapter">Xoá Truyện</button>
+                    <button class="btn a-normal" id="replace-chapter">Thay thế</button>
                 </td>
             </tr>
         `);
-        $(`.select > input[position=${item.position}]`).val(item.position);
+        $(`table .select > input[position=${item.position}]`).val(item.position);
     }
     (function handleChangeOption() {
         let stackPosition = [];
         let lastValue;
-        console.log('Listening...!')
         function renderOption(listValue) {
-            $('.select-list__item').not('li[value=noSetValue]').remove();
+            $('table .select-list__item').not('li[value=noSetValue]').remove();
             listValue.forEach((item) => {
-                $('.select-list').append(`
+                $('table .select-list').append(`
                     <li class="select-list__item" value="${item}" content="Vị trí ${item}">Vị trí ${item}</li>
                 `);
             })
@@ -311,7 +311,7 @@ function loadImage(option) {
             let isSort = true;
             const lengthElement = $(option.table).children('tr').length;
             if(lengthElement === 0) { Swal.fire('Có cái gì đâu mà sắp xếp!'); return false; }
-            $('.select > input[name=select-value]').each(function(index, element) {
+            $('table .select > input[name=select-value]').each(function(index, element) {
                 const valueItem = parseInt($(element).attr('position'));
                 if(isNaN(valueItem)) { 
                     Swal.fire('Bạn chưa sắp xếp xong!');
@@ -329,14 +329,12 @@ function loadImage(option) {
                 listFile.forEach((item) => {
                     addElementInTable(item);
                 });
-                console.log(listFile)
             }
         })
-        $('body').on('click', '.select', function() {
+        $('body').on('click', 'table .select', function() {
             lastValue = parseInt($(this).children('input[name=select-value]').attr('position'));
-            // console.log(lastValue)
         })
-        $('body').on('change', '.select > input[name=select-value]', function(event) {
+        $('body').on('change', 'table .select > input[name=select-value]', function(event) {
             const value = isNaN(parseInt($(this).val())) ? $(this).val() : parseInt($(this).val());
             const position = parseInt($(this).attr('position'));
             if(value === 'noSetValue') {
@@ -347,15 +345,32 @@ function loadImage(option) {
                     $(this).val('noSetValue');
                 }
             }else if(typeof value === 'number') {
-                // console.log('Deleted value = ', value);
                 if(lastValue !== 'noSetValue' && !isNaN(lastValue)) { stackPosition.push(lastValue); }
                 stackPosition = stackPosition.filter(item => item !== value);
                 $(this).attr('position', value);
                 $(this).val(value);
             }
             renderOption(stackPosition);
-            // console.log('Value = ', $(this).val(), ', Position = ', $(this).attr('position'))
-            // console.log('Value = ', stackPosition)
+        });
+        $('.select > input[name=select-value]').on('change', function(event) {
+            changeOption = event.target.value;
+        });
+        $('button.your-tool__click.chapter').on('click', function() {
+            const listStory = [];
+            if(changeOption === 'noSetValue' || changeOption === undefined) { Swal.fire('Hãy nhập tuỳ chọn!') }
+            else if(changeOption === 'remove-all') {
+                $('.checkbox.element-check > input[name=select-element]').each(function(index, element) {
+                    if($(element).prop('checked') === true) {
+                        const parentEle = parseInt($(element).closest('tr').find('td input[name=select-value]').attr('position'));
+                        listStory.push(parentEle);
+                    }
+                });
+                if(listStory.length === 0) { Swal.fire('Không có truyện nào được chọn!') }
+                else {
+                    // do something!
+                    
+                }
+            }
         });
     })()
     $(option.inputMutiFile).on('change', function(event) {
@@ -367,8 +382,30 @@ function loadImage(option) {
             addElementInTable({position: (countPos + 1), data: item});
             countPos++;
         }
-        // console.log(listFile)
-        // listFile = [];
+    })
+    $('#update-chapter button').on('click', function() {
+        const idStory = document.URL.split('/')[document.URL.split('/').length - 1];
+        const details = { name: $('input#name-story').val() };
+        const formChapter = new FormData();
+        if(!details.name) { Swal.fire('Bạn phải nhập tên chapter!'); return false; }
+        if(listFile.length === 0) { Swal.fire('Bạn chưa có ảnh nào!'); return false; }
+        formChapter.append('data_info', JSON.stringify({ details }));
+        listFile.forEach(item => {
+            formChapter.append('chapter', item.data);
+        })
+        fetch(`/user/upload-chapter/${idStory}`, {
+            method: 'POST',
+            body: formChapter,
+        })
+        .then(response => response.json())
+        .then(result => {
+            if(result) {
+                aleartSuccess('Update successful!', `/user/edit-your-storys/${idStory}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     })
 }
 
@@ -392,7 +429,6 @@ function updateStory(linkPost) {
         })
         .then(response => response.json())
         .then(result => {
-            console.log('Success:', result);
             if(result) {
                 aleartSuccess('Update successful!', `http://localhost:3300/user/edit-your-storys/${id}`);
             }

@@ -108,7 +108,7 @@ function handleExecSelectOption() {
         option = event.target.value;
         // console.log(option)
     });
-    $('button.your-post__list--tool-click').on('click', function() {
+    $('button.your-tool__click.story').on('click', function() {
         const listStory = [];
         if(option === 'noSetValue' || option === undefined) { Swal.fire('Hãy nhập tuỳ chọn!') }
         else if(option === 'remove-all') {

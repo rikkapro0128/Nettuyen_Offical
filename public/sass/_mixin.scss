@@ -4,6 +4,23 @@
     align-items: center;
 }
 
+@mixin tool {
+    .your-tool {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.6rem;
+        &__title {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-right: 0.6rem;
+        }
+        &__click {
+            width: fit-content !important;
+            margin-left: 0.6rem;
+        }
+    }
+}
+
 @mixin selectList {
     .select {
         background-color: rgb(231, 228, 228);

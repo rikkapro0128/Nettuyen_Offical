@@ -263,65 +263,111 @@ function loadImage(option) {
     function viewImage(urlHashImage) {
         $(option.showImageUploaded).append(`<img src="${urlHashImage}" id="view-image"/> `)
     }
-    function addElementInTable(listElement) {
-        listElement.forEach((item) => {
-            $(option.table).append(`
-                <tr class="add-story__tool--list-image--title">
-                    <td class="add-story__tool--list-image--title-item">
-                        <div class="checkbox element-check">
-                            <input type="checkbox" name="select-element" hidden>
-                        </div>
-                    </td>
-                    <td class="add-story__tool--list-image--title-item">
-                        <span class="add-story__tool--list-image--title-item--child-text">${item.data.name}</span>
-                    </td>
-                    <td class="add-story__tool--list-image--title-item">
-                        <span class="add-story__tool--list-image--title-item--child-text">${formatBytes(item.data.size)}</span>
-                    </td>
-                    <td class="add-story__tool--list-image--title-item">
-                        <div class="select">
-                            <input type="text" name="select-value" hidden>
-                            <span class="select__title" content="--- Tuỳ chọn ---">--- Tuỳ chọn ---</span>
-                            <ul class="select-list" hidden>
-                                <li class="select-list__item" value="noSetValue" content="noSetValue">Bỏ chọn!</li>
-                                <li class="select-list__item" value="${item.position}" content="Vị trí ${item.position}">Vị trí ${item.position}</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td class="add-story__tool--list-image--title-item">
-                        <button class="btn a-warning" id="remove-story">Xoá Truyện</button>
-                        <button class="btn a-normal" id="edit-story">Chỉnh sửa</button>
-                    </td>
-                </tr>
-            `);
-            $(`.select-list__item[value=${item.position}]`).trigger('click');
-            $(`.select-list__item[value=${item.position}]`).closest('.select-list').prev('.select__title').attr('position', item.position);
-            $('.select-list').removeClass('show');
-            $(`.select-list__item[value=${item.position}]`).remove();
-        })
+    function addElementInTable(item) {
+        $(option.table).append(`
+            <tr class="add-story__tool--list-image--title">
+                <td class="add-story__tool--list-image--title-item">
+                    <div class="checkbox element-check">
+                        <input type="checkbox" name="select-element" hidden>
+                    </div>
+                </td>
+                <td class="add-story__tool--list-image--title-item">
+                    <span class="add-story__tool--list-image--title-item--child-text">${item.data.name}</span>
+                </td>
+                <td class="add-story__tool--list-image--title-item">
+                    <span class="add-story__tool--list-image--title-item--child-text">${formatBytes(item.data.size)}</span>
+                </td>
+                <td class="add-story__tool--list-image--title-item">
+                    <div class="select">
+                        <input type="text" name="select-value" position="${item.position}" hidden>
+                        <span class="select__title" content="--- Tuỳ chọn ---">Vị trí ${item.position}</span>
+                        <ul class="select-list" hidden>
+                            <li class="select-list__item" value="noSetValue" content="noSetValue">Bỏ chọn!</li>
+                        </ul>
+                    </div>
+                </td>
+                <td class="add-story__tool--list-image--title-item">
+                    <button class="btn a-warning" id="remove-story">Xoá Truyện</button>
+                    <button class="btn a-normal" id="edit-story">Chỉnh sửa</button>
+                </td>
+            </tr>
+        `);
+        $(`.select > input[position=${item.position}]`).val(item.position);
     }
-    function handleChangeOption(listElement) {
-        const stackPosition = [];
+    (function handleChangeOption() {
+        let stackPosition = [];
+        let lastValue;
         console.log('Listening...!')
-        $('.select input[name=select-value]').on('change', function(event) {
-            if($(this).val() === 'noSetValue') {
-                const position = parseInt($(this).siblings('.select__title').attr('position'));
-                const isHas = stackPosition.find(item => item === position);
-                if(!isHas) { stackPosition.push(position); }
+        function renderOption(listValue) {
+            $('.select-list__item').not('li[value=noSetValue]').remove();
+            listValue.forEach((item) => {
+                $('.select-list').append(`
+                    <li class="select-list__item" value="${item}" content="Vị trí ${item}">Vị trí ${item}</li>
+                `);
+            })
+        }
+        $('body').on('click', '#sort-position', function() {
+            let sortList = [];
+            let isSort = true;
+            const lengthElement = $(option.table).children('tr').length;
+            if(lengthElement === 0) { Swal.fire('Có cái gì đâu mà sắp xếp!'); return false; }
+            $('.select > input[name=select-value]').each(function(index, element) {
+                const valueItem = parseInt($(element).attr('position'));
+                if(isNaN(valueItem)) { 
+                    Swal.fire('Bạn chưa sắp xếp xong!');
+                    isSort = false;
+                    return false;
+                }
+                sortList.push(valueItem);
+            })
+            if(isSort) {
+                sortList.forEach((item, index) => {
+                    listFile[index].position = item;
+                })
+                listFile.sort((before, after) => { return before.position - after.position })
+                $(option.table).children('tr').remove();
+                listFile.forEach((item) => {
+                    addElementInTable(item);
+                });
+                console.log(listFile)
             }
-            console.log(stackPosition)
+        })
+        $('body').on('click', '.select', function() {
+            lastValue = parseInt($(this).children('input[name=select-value]').attr('position'));
+            // console.log(lastValue)
+        })
+        $('body').on('change', '.select > input[name=select-value]', function(event) {
+            const value = isNaN(parseInt($(this).val())) ? $(this).val() : parseInt($(this).val());
+            const position = parseInt($(this).attr('position'));
+            if(value === 'noSetValue') {
+                const isHas = stackPosition.find(item => item === position);
+                if(!isHas && !isNaN(position)) {
+                    stackPosition.push(position);
+                    $(this).attr('position', 'noSetValue');
+                    $(this).val('noSetValue');
+                }
+            }else if(typeof value === 'number') {
+                // console.log('Deleted value = ', value);
+                if(lastValue !== 'noSetValue' && !isNaN(lastValue)) { stackPosition.push(lastValue); }
+                stackPosition = stackPosition.filter(item => item !== value);
+                $(this).attr('position', value);
+                $(this).val(value);
+            }
+            renderOption(stackPosition);
+            // console.log('Value = ', $(this).val(), ', Position = ', $(this).attr('position'))
+            // console.log('Value = ', stackPosition)
         });
-    }
+    })()
     $(option.inputMutiFile).on('change', function(event) {
         const files = event.target.files;
         for(const item of files) {
-            const found = listFile.find(ele => ele.name === item.name);
+            const found = listFile.find(ele => ele.data.name === item.name);
             if(found) { continue; }
             listFile.push({position: (countPos + 1), data: item});
+            addElementInTable({position: (countPos + 1), data: item});
             countPos++;
         }
-        addElementInTable(listFile);
-        handleChangeOption(listFile);
+        // console.log(listFile)
         // listFile = [];
     })
 }

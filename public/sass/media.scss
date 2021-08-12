@@ -49,6 +49,14 @@
     }
 }
 
+// setting style
+
+@media screen and (max-width: 75em ) {
+    .container {
+        box-shadow: none !important;
+    }
+}
+
 @media screen and (min-width: 64em) { // hide menu header
     .fr-desktop {
         display: flex !important;

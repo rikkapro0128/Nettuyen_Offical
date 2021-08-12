@@ -88,6 +88,10 @@
   .wraper {
     display: block !important; } }
 
+@media screen and (max-width: 75em) {
+  .container {
+    box-shadow: none !important; } }
+
 @media screen and (min-width: 64em) {
   .fr-desktop {
     display: flex !important; } }
@@ -251,7 +255,7 @@
     .form-sign form .btn {
       display: block;
       width: fit-content;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'UVN Bai Sau';
       font-size: var(--size-paragraph);
       font-weight: 400;
       color: var(--text-btn);
@@ -329,7 +333,7 @@
           .profile .profile-wrap-col-left .avatar__upgrade .btn {
             display: block;
             width: fit-content;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'UVN Bai Sau';
             font-size: var(--size-paragraph);
             font-weight: 400;
             color: var(--text-btn);
@@ -377,7 +381,7 @@
   .profile .btn {
     display: block;
     width: fit-content;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'UVN Bai Sau';
     font-size: var(--size-paragraph);
     font-weight: 400;
     color: var(--text-btn);
@@ -436,7 +440,7 @@
 .change-password__form .btn {
   display: block;
   width: fit-content;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'UVN Bai Sau';
   font-size: var(--size-paragraph);
   font-weight: 400;
   color: var(--text-btn);
@@ -838,7 +842,7 @@
 .btn {
   display: block;
   width: fit-content;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'UVN Bai Sau';
   font-size: var(--size-paragraph);
   font-weight: 400;
   color: var(--text-btn);
@@ -1027,6 +1031,22 @@ img {
         color: #fff; }
       .menu-list__choose--item:nth-child(odd) {
         background-color: #5e37d7; }
+  .menu-list__info {
+    width: 100%;
+    height: fit-content;
+    background-color: #1b0e24; }
+    .menu-list__info--avatar {
+      height: 16.5em;
+      width: 100%;
+      object-fit: cover;
+      transform: scale(0.9); }
+    .menu-list__info--name-user {
+      font-size: 1.4rem;
+      color: #ffffff;
+      padding: 1rem;
+      display: block;
+      background-color: #362045;
+      cursor: pointer; }
 
 .view__empty {
   width: 100%;
@@ -1095,75 +1115,33 @@ img {
         display: none;
         height: 100%;
         align-items: center; }
-        .header__wrap-top--right .fr-desktop--signin {
-          margin: 0 1rem; }
-          .header__wrap-top--right .fr-desktop--signin-text {
-            color: var(--header-sign);
-            font-size: 1.2rem; }
-        .header__wrap-top--right .fr-desktop--signup {
-          margin: 0 1rem; }
-          .header__wrap-top--right .fr-desktop--signup-text {
-            color: var(--header-sign);
-            font-size: 1.2rem; }
-        .header__wrap-top--right .fr-desktop--loged {
+        .header__wrap-top--right .fr-desktop a:first-child {
+          margin-right: 1rem; }
+        .header__wrap-top--right .fr-desktop--signin-text {
+          color: var(--header-sign);
+          font-size: 1.2rem; }
+        .header__wrap-top--right .fr-desktop--signup-text {
+          color: var(--header-sign);
+          font-size: 1.2rem; }
+        .header__wrap-top--right .fr-desktop__loged {
+          width: fit-content;
+          height: 50px;
           display: flex;
-          cursor: pointer;
-          position: relative;
-          z-index: 999; }
-          .header__wrap-top--right .fr-desktop--loged div {
-            margin: 0 0.2rem; }
-          .header__wrap-top--right .fr-desktop--loged-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid var(--title-primary);
-            overflow: hidden; }
-            .header__wrap-top--right .fr-desktop--loged-icon i {
-              font-size: 1rem;
-              color: var(--title-primary); }
-            .header__wrap-top--right .fr-desktop--loged-icon img {
-              width: 100%; }
-          .header__wrap-top--right .fr-desktop--loged-name-account {
-            height: 30px;
-            border: 1px solid var(--title-primary);
-            border-radius: 4px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 0.2rem; }
-          .header__wrap-top--right .fr-desktop--loged-option {
-            display: none; }
-          .header__wrap-top--right .fr-desktop--loged:hover::after {
-            display: block;
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 1rem;
-            background-color: transparent;
-            bottom: 0;
-            transform: translateY(100%); }
-          .header__wrap-top--right .fr-desktop--loged:hover > :last-child {
-            width: 100%;
-            display: block;
-            position: absolute;
-            background-color: var(--bg-card);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid var(--title-primary);
-            border-radius: 4px;
-            transform: translateY(50%);
-            top: 0;
-            margin: 0;
-            box-sizing: border-box; }
-            .header__wrap-top--right .fr-desktop--loged:hover > :last-child a {
-              color: var(--text-primary);
-              font-size: var(--size-paragraph);
-              padding: 1rem; }
-              .header__wrap-top--right .fr-desktop--loged:hover > :last-child a:hover {
-                background-color: var(--hover-bg-card); }
+          align-items: center;
+          padding: 0 0.6rem;
+          background-color: #7F5AF0;
+          border-radius: 4px;
+          cursor: pointer; }
+          .header__wrap-top--right .fr-desktop__loged--avatar {
+            width: 40px;
+            height: 40px; }
+            .header__wrap-top--right .fr-desktop__loged--avatar img {
+              width: 100%;
+              object-fit: cover; }
+          .header__wrap-top--right .fr-desktop__loged--name-user {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-left: 0.6rem; }
       .header__wrap-top--right .fr-moblie {
         display: none;
         height: 50px;
@@ -1251,7 +1229,7 @@ img {
         .footer__right--list-type-story .btn {
           display: block;
           width: fit-content;
-          font-family: 'JetBrains Mono', monospace;
+          font-family: 'UVN Bai Sau';
           font-size: var(--size-paragraph);
           font-weight: 400;
           color: var(--text-btn);

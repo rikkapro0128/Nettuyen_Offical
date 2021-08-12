@@ -23,8 +23,8 @@
     <div class="menu-list">
         {{#if IS_LOG}}
             <div class="menu-list__info">
-                <span class="menu-list__info--name-user"></span>
-                <img src="" alt="" class="menu-list__info--avatar">
+                <img src="{{INFO_USER.avatarPath}}" alt="avatar" class="menu-list__info--avatar">
+                <span class="menu-list__info--name-user">{{INFO_USER.accountName}}</span>
             </div>
         {{/if}}
         <ul class="menu-list__choose">

@@ -140,6 +140,25 @@ img {
             }
         }
     }
+    &__info {
+        width: 100%;
+        height: fit-content;
+        background-color: #1b0e24;
+        &--avatar {
+            height: 16.5em;
+            width: 100%;
+            object-fit: cover;
+            transform: scale(0.9);
+        }
+        &--name-user {
+            font-size: 1.4rem;
+            color: #ffffff;
+            padding: 1rem;
+            display: block;
+            background-color: #362045;
+            cursor: pointer;
+        }
+    }
 }
 
 .view__empty {
@@ -231,86 +250,42 @@ img {
                 display: none;
                 height: 100%;
                 align-items: center;
+                a:first-child {
+                    margin-right: 1rem;
+                }
                 &--signin {
-                    margin: 0 1rem;
                     &-text {
                         color: var(--header-sign);
                         font-size: 1.2rem;
                     }
                 }
                 &--signup {
-                    margin: 0 1rem;
                     &-text {
                         color: var(--header-sign);
                         font-size: 1.2rem;
                     }
                 }
-                &--loged {
+                &__loged {
+                    width: fit-content;
+                    height: 50px;
                     display: flex;
+                    align-items: center;
+                    padding: 0 0.6rem;
+                    background-color: #7F5AF0;
+                    border-radius: 4px;
                     cursor: pointer;
-                    position: relative;
-                    z-index: 999;
-                    div {
-                        margin: 0 0.2rem;
-                    }
-                    &-icon {
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        @include contentCenter;
-                        border: 1px solid var(--title-primary);
-                        overflow: hidden;
-                        i {
-                            font-size: 1rem;
-                            color: var(--title-primary);
-                        }
+                    &--avatar {
+                        width: 40px;
+                        height: 40px;
                         img {
                             width: 100%;
+                            object-fit: cover;
                         }
                     }
-                    &-name-account {
-                        height: 30px;
-                        border: 1px solid var(--title-primary);
-                        border-radius: 4px;
-                        @include contentCenter;
-                        padding: 0 0.2rem;
-                    }
-                    &-option {
-                        display: none;
-                    }
-                    &:hover {
-                        &::after {
-                            display: block;
-                            content: '';
-                            position: absolute;
-                            width: 100%;
-                            height: 1rem;
-                            background-color: transparent;
-                            bottom: 0;
-                            transform: translateY(100%);
-                        }
-                        > :last-child {
-                            width: 100%;
-                            display: block;
-                            position: absolute;
-                            background-color: var(--bg-card);
-                            display: flex;
-                            flex-direction: column;
-                            border: 1px solid var(--title-primary);
-                            border-radius: 4px;
-                            transform: translateY(50%);
-                            top: 0;
-                            margin: 0;
-                            box-sizing: border-box;
-                            a {
-                                color: var(--text-primary);
-                                font-size: var(--size-paragraph);
-                                padding: 1rem;
-                                &:hover {
-                                    background-color: var(--hover-bg-card);
-                                }
-                            }
-                        }
+                    &--name-user {
+                        font-size: 1.2rem;
+                        color: #fff;
+                        margin-left: 0.6rem;
                     }
                 }
             }

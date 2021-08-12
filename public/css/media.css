@@ -32,6 +32,10 @@
   .wraper {
     display: block !important; } }
 
+@media screen and (max-width: 75em) {
+  .container {
+    box-shadow: none !important; } }
+
 @media screen and (min-width: 64em) {
   .fr-desktop {
     display: flex !important; } }

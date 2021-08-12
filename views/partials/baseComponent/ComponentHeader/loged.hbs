@@ -1,24 +1,22 @@
-<div class="header__wrap-top--right--loged">
+<div class="fr-desktop__loged">
     {{#if INFO_USER.avatarPath}}
-        <div class="header__wrap-top--right--loged-icon">
-            <img src="{{INFO_USER.avatarPath}}" alt="">
+        <div class="fr-desktop__loged--avatar">
+            <img src="{{INFO_USER.avatarPath}}" alt="avatar">
         </div>
     {{else}}
-        <div class="header__wrap-top--right--loged-icon">
+        <div class="fr-desktop__loged--icon">
             <i class="far fa-user"></i>
         </div>
     {{/if}}
-    <div class="header__wrap-top--right--loged-name-account">
-        <span class="header__wrap-top--right--signup-text">
-            {{INFO_USER.accountName}}
-        </span>
-    </div>
-    <div class="header__wrap-top--right--loged-option">
-        <a href="/user/info" class="header__wrap-top--right--loged-option-select">
+    <span class="fr-desktop__loged--name-user">
+        {{INFO_USER.accountName}}
+    </span>
+    <div class="fr-desktop__loged--option" style="display: none;">
+        <a href="/user/info" class="fr-desktop__loged--option-item">
             <i class="far fa-address-card"></i>
             Trang cá nhân
         </a>
-        <a class="header__wrap-top--right--loged-option-select" id="logout">
+        <a class="fr-desktop__loged--option-item" id="logout">
             <i class="fas fa-sign-out-alt"></i>
             Đăng xuất
         </a>

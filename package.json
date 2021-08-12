@@ -26,7 +26,8 @@
     "multer": "^1.4.2",
     "node-sass": "^6.0.0",
     "nodemon": "^2.0.7",
-    "owl.carousel": "^2.3.4"
+    "owl.carousel": "^2.3.4",
+    "particles.js": "^2.0.0"
   },
   "devDependencies": {
     "dotenv": "^9.0.0",

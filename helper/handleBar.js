@@ -17,4 +17,20 @@ export default (hbs) => {
     hbs.registerHelper('getIntroStory', function(link, isAvatar) {
         return link ? link : (isAvatar ? process.env.AVATAR_STORY : process.env.COVER_STORY);
     })
+    hbs.registerHelper('toolSum', function(a, b) {
+        return a + b;
+    })
+    hbs.registerHelper('toolMinus', function(a, b) {
+        return a - b;
+    })
+    hbs.registerHelper('checkChapterIsZero', function(a, b) {
+        if(a - b === 0) {
+            return true;
+        }
+    })
+    hbs.registerHelper('checkChapterIsMax', function(a, b) {
+        if(a === b) {
+            return true;
+        }
+    })
 };

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/reset-minify.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="/js/main.js"></script>
@@ -19,5 +20,31 @@
                 {{{body}}}
         {{> baseComponent/footer}}
     </div>
+    <div class="menu-list">
+        {{#if IS_LOG}}
+            <div class="menu-list__info">
+                <span class="menu-list__info--name-user"></span>
+                <img src="" alt="" class="menu-list__info--avatar">
+            </div>
+        {{/if}}
+        <ul class="menu-list__choose">
+            <li class="menu-list__choose--item">
+                <a href="">Trang Chủ</a>
+                </li>
+            <li class="menu-list__choose--item">
+                <a href="">Thể Loại</a>
+                </li>
+            <li class="menu-list__choose--item">
+                <a href="">Xếp Hạng</a>
+                </li>
+            <li class="menu-list__choose--item">
+                <a href="">Season</a>
+                </li>
+            <li class="menu-list__choose--item">
+                <a href="">Group Trò Chuyện</a>
+                </li>
+        </ul>
+    </div>
+    <div id="particles-js"></div>
 </body>
 </html>

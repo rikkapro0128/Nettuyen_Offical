@@ -7,6 +7,7 @@ class Views {
 
     async home(req, res, next) {
         let storys = await Storys.find({ state: {$not: { $eq: 'removed' } } }).exec();
+        // console.log(storys)
         res.render('home', {
             storys: storys.map((item) => {
                 return {
@@ -168,6 +169,7 @@ class Views {
             story = {
                 id: story._id,
                 name: story.name,
+                maxChapter: story.chapterPresent,
                 chapter: { name: story.listChapter[0].name, number: story.listChapter[0].number },
                 listImage: story.listChapter[0].listImage.map((item) => {
                     return {

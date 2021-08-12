@@ -3,9 +3,7 @@
         <span class="block-story__list--title">Danh Sách Truyện!</span>
         <div class="wrap-storys">
             {{#each storys}}
-                <div class="wrap-story">
-                    {{> Components/Component/Story story=this}}
-                </div>
+                {{> Components/Component/Story story=this}}
             {{/each}}
         </div>
     </div>

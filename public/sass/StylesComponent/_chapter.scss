@@ -1,6 +1,6 @@
 .chapter-item {
     // block code left
-    width: 80%;
+    width: 100%;
     background-color: #0F1416;
     margin: 2rem 0;
     border-radius: 5px;
@@ -8,6 +8,18 @@
     grid-template-columns: 2fr 1fr;
     &-single {
         margin: 0 1rem;
+        position: relative;
+        .tool-select {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: sticky;
+            top: 1.2rem;
+            a {
+                margin: 0 1rem;
+            }
+        }
         &__title {
             padding: 1rem;
             font-size: 0.8rem;
@@ -21,6 +33,7 @@
             }
         }
         &__content {
+            margin-bottom: 1rem;
             img {
                 width: 100%;
             }

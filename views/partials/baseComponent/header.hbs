@@ -1,16 +1,57 @@
 <header class="header">
-    <div class="header__left">
-        <a href="/" class=""> 
-            {{!-- comback homepage --}}
-            <div class="header__left--logo"></div> 
-            <span class="header__left--logo-text">MiruStory</span>
-        </a>
+    <div class="header__wrap-top">
+        <div class="header__wrap-top--left">
+            <a href="/" class=""> 
+                {{!-- comback homepage --}}
+                <div class="header__wrap-top--left--logo">
+                    <img src="https://i.pinimg.com/originals/9e/ec/37/9eec37f0efbc0f8044645476e284e741.png" alt="logo">
+                </div> 
+                <span class="header__wrap-top--left--logo-text">MiruStory</span>
+            </a>
+        </div>
+        <div class="header__wrap-top--right">
+            {{#if IS_LOG}}
+                {{> baseComponent/ComponentHeader/loged}}
+            {{else}}
+                {{> baseComponent/ComponentHeader/log}}
+            {{/if}}
+        </div>
     </div>
-    <div class="header__right">
-        {{#if IS_LOG}}
-            {{> baseComponent/ComponentHeader/loged}}
-        {{else}}
-            {{> baseComponent/ComponentHeader/log}}
-        {{/if}}
+    <div class="header__wrap-bottom">
+        <ul class="header__wrap-bottom-select--list">
+            <li class="header__wrap-bottom-select--list-item" alt="Home">
+                <a href="/">Home</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Top trending!">
+                <a href="#">Top trending!</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Danh sách">
+                <a href="#">Danh sách</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Theo dõi">
+                <a href="#">Theo dõi</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Thể loại">
+                <a href="#">Thể loại</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Lịch sử">
+                <a href="#">Lịch sử</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Xếp hạng">
+                <a href="#">Xếp hạng</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Group">
+                <a href="#">Group</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Nhóm Chat">
+                <a href="#">Nhóm Chat</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Sự kiện">
+                <a href="#">Sự kiện</a>
+                </li>
+            <li class="header__wrap-bottom-select--list-item" alt="Thông báo chung">
+                <a href="#">Thông báo chung</a>
+                </li>
+        </ul>
     </div>
 </header>

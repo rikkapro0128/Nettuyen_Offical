@@ -105,19 +105,19 @@ class Profile {
                 fs.rename(files.avatar.path, `${pathStorageImage}\\avatar.${files.avatar.type.split('/')[1]}`, function(err) {
                     if ( err ) next(err);
                 });
+                story.avatar = {
+                    path: `${linkOffical}\\avatar.${files.avatar.type.split('/')[1]}`,
+                    position: dataReq.avatar,
+                }
             }
             if(files.cover) {
                 fs.rename(files.cover.path, `${pathStorageImage}\\cover.${files.cover.type.split('/')[1]}`, function(err) {
                     if ( err ) next(err);
                 });
-            }
-            story.avatar = {
-                path: `${linkOffical}\\avatar.${files.avatar.type.split('/')[1]}`,
-                position: dataReq.avatar,
-            }
-            story.cover = {
-                path: `${linkOffical}\\cover.${files.cover.type.split('/')[1]}`,
-                position: dataReq.cover,
+                story.cover = {
+                    path: `${linkOffical}\\cover.${files.cover.type.split('/')[1]}`,
+                    position: dataReq.cover,
+                }
             }
             await story.save();
         })

@@ -14,39 +14,44 @@
         {{!--  --}}
         <div class="story-item-single__image">
             <div class="story-item-single__image--cover" cover-position="{{ story.path.coverPosition }}">
-                <img src="{{ story.path.cover }}" alt="cover-{{ story.name }}" class="story-item-single__image--cover-link" style="transform: translateY(-{{story.path.coverPosition}}px);">
+                <img src="{{ story.path.cover }}" alt="cover-{{ story.name }}" class="story-item-single__image--cover-link">
+                {{!-- style="transform: translateY(-{{story.path.coverPosition}}px);" --}}
             </div>
-            <div class="story-item-single__image--detail">
-                <h1 class="story-item-single__image--detail-name">{{ story.name }}</h1>
-                <div class="story-item-single__image--detail-information">
-                    <span class="story-item-single__image--detail-information-name--other">null</span>
-                    <span class="story-item-single__image--detail-information-author"></span>
-                    <span class="story-item-single__image--detail-information-state">null</span>
-                    <span class="story-item-single__image--detail-information-type">
-                        {{#each story.type}}
-                            <span>
-                                <i class="far fa-bookmark"></i>
-                                {{ this }}
-                            </span>
-                        {{/each}}
-                    </span>
-                    <span class="story-item-single__image--detail-information-view">null</span>
-                    <span class="story-item-single__image--detail-information-rate">null</span>
+            <div class="wrap-story-item">
+                <div class="wrap-story-item__image--avatar" avatar-position="{{ story.path.avatarPosition }}">
+                    <img src="{{ story.path.avatar }}" alt="avatar-{{ story.name }}" class="story-item-single__image--avatar-link" style="transform: translateX(-{{story.path.avatarPosition}}px);">
                 </div>
-                <div class="story-item-single__image--detail-follow">
-                    <button class="btn">
-                        <i class="fas fa-heart"></i>    
-                        Theo dõi
-                    </button>
-                    <span class="story-item-single__image--detail-follow-statistical">null</span>
+                <div class="wrap-story-item__image--detail">
+                    <h1 class="wrap-story-item__image--detail-name">{{ story.name }}</h1>
+                    <div class="wrap-story-item__image--detail-information">
+                        <span class="wrap-story-item__image--detail-information-name--other">Tên khác: <p>Đang cập nhật</p></span>
+                        <span class="wrap-story-item__image--detail-information-author">Tác giả: <p>Đang cập nhật</p></span>
+                        <span class="wrap-story-item__image--detail-information-state">Trạng thái: <p>Còn tiếp</p></span>
+                        <span class="wrap-story-item__image--detail-information-type">
+                            {{#each story.type}}
+                                <span>
+                                    <i class="far fa-bookmark"></i>
+                                    {{ this }}
+                                </span>
+                            {{/each}}
+                        </span>
+                        <span class="wrap-story-item__image--detail-information-view">Lượt xem: <p>Đang cập nhật</p></span>
+                        <span class="wrap-story-item__image--detail-information-rate">Đánh giá: <p>Đang cập nhật</p></span>
+                    </div>
+                    <div class="wrap-story-item__image--detail-follow">
+                        <button class="btn">
+                            <i class="fas fa-heart"></i>    
+                            Theo dõi
+                        </button>
+                        <span class="wrap-story-item__image--detail-follow-statistical">
+                            Số lượng follow: <p>Đang cập nhật</p>
+                        </span>
+                    </div>
+                    <div class="wrap-story-item__image--detail-read">
+                        <a href="/story/{{ story.id }}/chapter-1" class="btn">Đọc từ đầu</a>
+                        <a href="/story/{{ story.id }}/chapter-{{story.chapter.length}}" class="btn">Đọc mới nhất</a>
+                    </div>
                 </div>
-                <div class="story-item-single__image--detail-read">
-                    <a href="/story/{{ story.id }}/chapter-1" class="btn">Đọc từ đầu</a>
-                    <a href="/story/{{ story.id }}/chapter-{{story.chapter.length}}" class="btn">Đọc mới nhất</a>
-                </div>
-            </div>
-            <div class="story-item-single__image--avatar" avatar-position="{{ story.path.avatarPosition }}">
-                <img src="{{ story.path.avatar }}" alt="avatar-{{ story.name }}" class="story-item-single__image--avatar-link" style="transform: translateX(-{{story.path.avatarPosition}}px);">
             </div>
         </div>
         {{!--  --}}

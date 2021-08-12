@@ -1,6 +1,6 @@
 .story-item {
     // block code left
-    width: 80%;
+    width: 100%;
     background-color: #0F1416;
     margin: 2rem 0;
     border-radius: 5px;
@@ -26,8 +26,96 @@
             height: 300px;
             overflow: hidden;
             border-radius: 5px;
-            div:not(:first-child) {
+            .wrap-story-item {
+                position: absolute;
+                top: 0;
+                display: flex;
                 z-index: 2;
+                &__image--avatar {
+                    height: 100%;
+                    min-width: 12.595rem;
+                    max-width: 12.595rem;
+                    overflow: hidden;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: transform 0.2s ease;
+                    transform: scale(0.9);
+                    img {
+                        height: 300px;
+                    }
+                    &:hover  {
+                        transition: transform 0.2s ease;
+                        transform: scale(0.95);
+                        &::before {
+                            content: '';
+                            display: block;
+                            width: 40px;
+                            height: 100%;
+                            background-color: rgba(255, 255, 255, 0.096);
+                            box-shadow: 2px 1px 25px #a48e8e57;
+                            position: absolute;
+                            z-index: 1;
+                            transform: skew(-20deg, 0);
+                            left: -50%;
+                            animation: ScanImage 1s ease;
+                        }
+                    }
+                }
+                &__image--detail {
+                    box-sizing: border-box;
+                    &-name {
+                        font-size: 2rem;
+                        color: #B5E745;
+                    }
+                    &-information {
+                        > span {
+                            display: block;
+                            color: #fff;
+                            p {
+                                color: #7f5af0;
+                                display: inline;
+                            }
+                        }
+                        > span:not(:nth-child(4)) {
+                            font-size: 1rem;
+                        }
+                        &-type {
+                            margin: calc(0.3rem - 2px) 0;
+                            display: flex;
+                            span {
+                                display: inline-block;
+                                padding: 5px 6px;
+                                background-color: #7f5af0;
+                                cursor: pointer;
+                                margin: 2px 0;
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                    &-follow {
+                        display: flex;
+                        align-items: center;
+                        margin: 0.5rem 0;
+                        margin-left: -0.4rem;
+                        margin-right: -0.4rem;
+                        .btn {
+                            margin: 0 0.4rem;
+                        }
+                        span {
+                            color: #fff;
+                            font-size: 1rem;
+                        }
+                    }
+                    &-read {
+                        display: flex;
+                        margin: 0.5rem 0;
+                        margin-left: -0.4rem;
+                        margin-right: -0.4rem;
+                        .btn {
+                            margin: 0 0.4rem;
+                        }
+                    }
+                }
             }
             &--cover {
                 width: 100%;
@@ -44,95 +132,6 @@
                 }
                 img {
                     width: 100%;
-                }
-            }
-            &--avatar {
-                position: absolute;
-                height: 100%;
-                width: 12.595rem;
-                overflow: hidden;
-                border-radius: 5px;
-                cursor: pointer;
-                top: 0;
-                left: 4px;
-                transition: transform 0.2s ease;
-                transform: scale(0.9);
-                img {
-                    height: 300px;
-                }
-                &:hover  {
-                    transition: transform 0.2s ease;
-                    transform: scale(0.95);
-                    &::before {
-                        content: '';
-                        display: block;
-                        width: 40px;
-                        height: 100%;
-                        background-color: rgba(255, 255, 255, 0.096);
-                        box-shadow: 2px 1px 25px #a48e8e57;
-                        position: absolute;
-                        z-index: 1;
-                        transform: skew(-20deg, 0);
-                        left: -50%;
-                        animation: ScanImage 1s ease;
-                    }
-                }
-            }
-            &--detail {
-                width: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                padding-left: 24%;
-                padding-top: 1rem;
-                box-sizing: border-box;
-                &-name {
-                    font-size: 2rem;
-                    color: #B5E745;
-                }
-                &-information {
-                    > span {
-                        display: block;
-                        color: #fff;
-                    }
-                    > span:not(:nth-child(4)) {
-                        font-size: 1rem;
-                    }
-                    &-type {
-                        margin: calc(0.3rem - 2px) 0;
-                        display: flex;
-                        span {
-                            display: inline-block;
-                            padding: 5px 6px;
-                            background-color: #7f5af0;
-                            cursor: pointer;
-                            margin: 2px 0;
-                            border-radius: 5px;
-                        }
-                    }
-                }
-                &-follow {
-                    display: flex;
-                    align-items: center;
-                    margin: 0.5rem 0;
-                    margin-left: -0.4rem;
-                    margin-right: -0.4rem;
-                    .btn {
-                        margin: 0 0.4rem;
-                    }
-                    span {
-                        color: #fff;
-                        font-size: 1rem;
-                    }
-                }
-                &-read {
-                    display: flex;
-                    margin: 0.5rem 0;
-                    margin-left: -0.4rem;
-                    margin-right: -0.4rem;
-                    .btn {
-                        margin: 0 0.4rem;
-                    }
                 }
             }
         }

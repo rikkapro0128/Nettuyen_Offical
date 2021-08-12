@@ -7,8 +7,8 @@ function reRenderIndex(selector) {
     });
 }
 
-function aleartWarning(urlRedirect, elementRemove, listStory) {
-    Swal.fire({
+async function aleartWarning() {
+    return await Swal.fire({
         title: 'Có chắc con ku chưa?',
         text: "Ấn phát nữa là xoá luôn á!",
         icon: 'warning',
@@ -17,49 +17,11 @@ function aleartWarning(urlRedirect, elementRemove, listStory) {
         cancelButtonColor: '#d33',
         cancelButtonText: 'Thôi khỏi',
         confirmButtonText: 'Xoá mẹ đi!'
-    }).then(async (result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-            const idStory = elementRemove ? elementRemove.attr('id_story') : undefined;
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-            console.log('Đang gửi => ', listStory)
-            await fetch(`${urlRedirect}?_method=DELETE`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: listStory ? JSON.stringify(listStory) : JSON.stringify([idStory]),
-            }).then((result) => {
-                if(result.status === 301 || result.message === 'success') {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Đã xoá thành công!'
-                    });
-                    if(elementRemove) {
-                        elementRemove.remove();
-                        reRenderIndex('tr td#index-story'); // import selector
-                    }else if(listStory.length) {
-                        listStory.forEach(item => {
-                            $(`tr[id_story=${item}]`).remove();
-                        })
-                        reRenderIndex('tr td#index-story');
-                    }
-                }else if(result.status === 404 || result.message === 'fail') {
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Không xoá được!'
-                    });
-                }
-            })
+            return true;
+        }else {
+            return false;
         }
     })
 }
@@ -126,6 +88,8 @@ function addStory(option) {
         objStory.details.chapter = parseInt($('#number-chapter').val());
     });
     $(elementClick).on('click', function() {
+        if(!objStory.details.name) { Swal.fire('Bạn phải nhập tên truyện!'); return; };
+        if(!objStory.type.length) { Swal.fire('Bạn chưa chọn loại truyện!'); return; };
         fetch(`${linkPost}/${id}`, {
             method: 'POST',
             headers: {
@@ -281,4 +245,4 @@ function handleLoadImage() {
     });
 }
 
-export { handleForm, handleLoadImage, aleartFail, aleartSuccess, addStory, aleartWarning };
+export { handleForm, handleLoadImage, aleartFail, aleartSuccess, addStory, aleartWarning, reRenderIndex };

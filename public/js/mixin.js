@@ -1,4 +1,4 @@
-import { aleartFail, aleartSuccess } from './handleForm.js';
+import { aleartFail, aleartSuccess, aleartWarning } from './handleForm.js';
 
 const fileImageStory = {};
 
@@ -95,7 +95,76 @@ function formatBytes(bytes, decimals = 2) {
 function renderTypeStory(objStory) {
     const typeStory = [
         {
+            "name": "Manhwa"
+        },
+        {
+            "name": "Truyện Màu"
+        },
+        {
+            "name": "Martial Arts"
+        },
+        {
+            "name": "Sci-fi"
+        },
+        {
+            "name": "Bender"
+        },
+        {
+            "name": "Gender"
+        },
+        {
+            "name": "Mystery"
+        },
+        {
+            "name": "Psychological"
+        },
+        {
+            "name": "Supernatural"
+        },
+        {
+            "name": "Slice of Life"
+        },
+        {
+            "name": "Comedy"
+        },
+        {
+            "name": "Action"
+        },
+        {
+            "name": "Adventure"
+        },
+        {
+            "name": "Fantasy"
+        },
+        {
+            "name": "Manga"
+        },
+        {
+            "name": "Seinen"
+        },
+        {
             "name": "Tiên Hiệp"
+        },
+        {
+            "name": "Ecchi"
+        },
+        {
+            "name": "Harem"
+        },
+        {
+            "name": "Romance"
+        },
+        {
+            "name": "Drama"
+        },
+        {
+            "name": "Shounen"
+        },
+        {
+            "name": "Shoujo"
+        },
+        {
+            "name": "School Life"
         },
         {
             "name": "Kiếm Hiệp"
@@ -261,6 +330,17 @@ function loadImage(option) {
     let listFile = [];
     let changeOption;
     let countPos = 0;
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
     function viewImage(urlHashImage) {
         $(option.showImageUploaded).append(`<img src="${urlHashImage}" id="view-image"/> `)
     }
@@ -288,8 +368,9 @@ function loadImage(option) {
                     </div>
                 </td>
                 <td class="add-story__tool--list-image--title-item">
-                    <button class="btn a-warning" id="remove-chapter">Xoá Truyện</button>
-                    <button class="btn a-normal" id="replace-chapter">Thay thế</button>
+                    <button class="btn a-warning remove-chapter">Xoá ảnh</button>
+                    <button class="btn a-normal replace-chapter">Thay thế</button>
+                    <input type="file" class="choose-file-replace" hidden/>
                 </td>
             </tr>
         `);
@@ -298,6 +379,7 @@ function loadImage(option) {
     (function handleChangeOption() {
         let stackPosition = [];
         let lastValue;
+        let isSort = true;
         function renderOption(listValue) {
             $('table .select-list__item').not('li[value=noSetValue]').remove();
             listValue.forEach((item) => {
@@ -306,21 +388,28 @@ function loadImage(option) {
                 `);
             })
         }
-        $('body').on('click', '#sort-position', function() {
-            let sortList = [];
-            let isSort = true;
-            const lengthElement = $(option.table).children('tr').length;
-            if(lengthElement === 0) { Swal.fire('Có cái gì đâu mà sắp xếp!'); return false; }
+        function checkSelectIsNaN() {
             $('table .select > input[name=select-value]').each(function(index, element) {
                 const valueItem = parseInt($(element).attr('position'));
                 if(isNaN(valueItem)) { 
                     Swal.fire('Bạn chưa sắp xếp xong!');
                     isSort = false;
                     return false;
+                }else {
+                    isSort = true;
                 }
-                sortList.push(valueItem);
             })
+        }
+        $('body').on('click', '#sort-position', function() {
+            let sortList = [];
+            const lengthElement = $(option.table).children('tr').length;
+            if(lengthElement === 0) { Swal.fire('Có cái gì đâu mà sắp xếp!'); return false; }
+            checkSelectIsNaN();
             if(isSort) {
+                $('table .select > input[name=select-value]').each(function(index, element) {
+                    const valueItem = parseInt($(element).attr('position'));
+                    sortList.push(valueItem);
+                })
                 sortList.forEach((item, index) => {
                     listFile[index].position = item;
                 })
@@ -330,11 +419,30 @@ function loadImage(option) {
                     addElementInTable(item);
                 });
             }
-        })
-        $('body').on('click', 'table .select', function() {
+        }).on('click', 'table .select', function() {
             lastValue = parseInt($(this).children('input[name=select-value]').attr('position'));
-        })
-        $('body').on('change', 'table .select > input[name=select-value]', function(event) {
+        }).on('click', '.remove-chapter', async function() {
+            const getPostion = parseInt($(this).closest('tr').find('input[name=select-value]').attr('position'));
+            checkSelectIsNaN();
+            if(isSort) {
+                const isPermit = await aleartWarning();
+                if(isPermit) {
+                    listFile = listFile.filter(ele => ele.position !== getPostion);
+                    $(option.table).children('tr').remove();
+                    listFile.forEach((item, index) => {
+                        item.position = index + 1;
+                        addElementInTable(item);
+                    });
+                    countPos = listFile.length;
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Đã xoá thành công!'
+                    });
+                }
+            }else {
+                Swal.fire('Bạn phải sắp xếp xong mới được xoá!')
+            }
+        }).on('change', 'table .select > input[name=select-value]', function(event) {
             const value = isNaN(parseInt($(this).val())) ? $(this).val() : parseInt($(this).val());
             const position = parseInt($(this).attr('position'));
             if(value === 'noSetValue') {
@@ -351,11 +459,40 @@ function loadImage(option) {
                 $(this).val(value);
             }
             renderOption(stackPosition);
+        }).on('click', '.replace-chapter', function() {
+            const getPostion = parseInt($(this).closest('tr').find('input[name=select-value]').attr('position'));
+            let file;
+            checkSelectIsNaN();
+            if(isSort) {
+                // do something!
+                $(this).siblings('input.choose-file-replace').trigger('click');
+                $(this).siblings('input.choose-file-replace').on('change', function(event) {
+                    file = event.target.files[0];
+                    if(file) {
+                        let check = false;
+                        listFile.forEach((item) => { if(item.data.name === file.name) { check = true; return; } });
+                        if(check) { Swal.fire('Ảnh này bạn đã chọn rồi!'); return; }
+                        else {
+                            listFile.forEach((item, index) => { if(item.position === getPostion) { item.data = file; return; } })
+                            $(option.table).children('tr').remove();
+                            listFile.forEach((item, index) => {
+                                addElementInTable(item);
+                            });
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Thay thế thành công!'
+                            });
+                        }
+                    }
+                })
+            }else {
+                Swal.fire('Bạn phải sắp xếp xong mới được thay thế!')
+            }
         });
         $('.select > input[name=select-value]').on('change', function(event) {
             changeOption = event.target.value;
         });
-        $('button.your-tool__click.chapter').on('click', function() {
+        $('button.your-tool__click.chapter').on('click', async function() {
             const listStory = [];
             if(changeOption === 'noSetValue' || changeOption === undefined) { Swal.fire('Hãy nhập tuỳ chọn!') }
             else if(changeOption === 'remove-all') {
@@ -365,10 +502,29 @@ function loadImage(option) {
                         listStory.push(parentEle);
                     }
                 });
-                if(listStory.length === 0) { Swal.fire('Không có truyện nào được chọn!') }
+                if(listStory.length === 0) { Swal.fire('Không có ảnh nào được chọn!') }
                 else {
-                    // do something!
-                    
+                    checkSelectIsNaN();
+                    if(isSort) {
+                        const isPermit = await aleartWarning();
+                        if(isPermit) {
+                            listFile = listFile.filter((el) => {
+                                return !listStory.includes(el.position);
+                            });
+                            $(option.table).children('tr').remove();
+                            listFile.forEach((item, index) => {
+                                item.position = index + 1;
+                                addElementInTable(item);
+                            });
+                            countPos = listFile.length;
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Đã xoá thành công!'
+                            });
+                        }
+                    }else {
+                        Swal.fire('Bạn phải sắp xếp xong mới được xoá!')
+                    }
                 }
             }
         });
@@ -439,10 +595,34 @@ function updateStory(linkPost) {
     });
 }
 
+function actionToggle(selector, addClass, selectorList) {
+    let stateAll = false;
+    $(selector).on('click', function() {
+        if(!$(selector).hasClass(addClass)) {
+            $(selector).addClass(addClass);
+            stateAll = true;
+            if(selectorList) {
+                $('.menu-list').css({
+                    'transform': 'translate3d(0%, 0, 0)'
+                })
+            }
+        }else {
+            $(selector).removeClass(addClass);
+            stateAll = !stateAll;
+            if(selectorList) {
+                $('.menu-list').css({
+                    'transform': 'translate3d(-100%, 0, 0)'
+                });
+            }
+        }
+    })
+}
+
 export { 
     uploadSinglefile,
     showChildBox,
     loadImage,
     renderTypeStory,
     updateStory,
+    actionToggle,
 };

@@ -132,113 +132,106 @@
 }
 
 @mixin story {
-    .story {
-        font-family: 'UVN Bai Sau';
-        width: 100%;
-        position: relative;
-        border: 1px solid #7d7d7d;
-        background-color: #0F0F0F;
-        border-radius: 10px;
-        cursor: pointer;
-        &__box {
+    .perspective {
+        perspective: 1000px;
+        padding: 0.625rem;
+        .ani-card {
             width: 100%;
-            overflow: hidden;
-            clip-path: polygon(50% 94%, 78% 100%, 100% 88%, 100% 0, 0 0, 0 88%, 21% 100%);
-            border-radius: 8px;
-            overflow: hidden;
-            transform: scale(0.98);
-            height: 200px;
-            &--image {
-                box-sizing: border-box;
+            height: 100%;
+            position: relative;
+            user-select: none;
+            &::before {
+                content: '';
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                display: block;
+                border-radius: 2px;
+                transition: box-shadow 0.2s ease-out;
+                -webkit-box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.75);
+                box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.75);
+            }
+            cursor: pointer;
+            transform-origin: top;
+            transition: transform 0.2s ease-in-out;
+            border-radius: 2px;
+            // overflow: hidden; 
+            &:hover {
+                transform: rotateX(10deg) translateY(-2px);
+                & .ani-card__decription--name {
+                    background-color: #59595975;
+                    color:#AFFF4D;
+                }
+                & .ani-card__decription--number-chapter {
+                    background-color: #59595975;
+                    color: #FFFEFD;
+                }
+                &::before {
+                    -webkit-box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.75);
+                    -moz-box-shadow: 0px 3px 6px 3px rgba(0,0,0,0.75);
+                    box-shadow: 0px 6px 6px 3px rgba(0,0,0,0.75);
+                }
+                & .ani-card__scan {
+                    &::after {
+                        transform: rotate(-45deg) translate(38%, -50%);
+                    }
+                }
+            }
+            &__image {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                overflow: hidden;
-                transition: transform 0.2s ease-in-out;
-                user-select: none;
+                border-radius: 2px;
                 -webkit-user-drag: none;
-                &:hover {
-                    transform: scale(1.1);
+            }
+            &__decription {
+                position: absolute;
+                bottom: 0;
+                font-family: 'UVN Bai Sau';
+                width: inherit;
+                height: fit-content;
+                color: #595959;
+                font-size: 16px;
+                display: flex;
+                flex-direction: column;
+                span {
+                    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                    height: fit-content;
+                    padding: 4px;
+                    border-radius: 2px;
+                    position: relative;
+                    text-transform: capitalize;
+                }
+                &--name {
+                    max-width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                &--number-chapter {
                 }
             }
-        }
-        &__chapter {
-            width: 40px;
-            height: 28px;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 1;
-            color: #fff;
-            border: 1px solid #7d7d7d;
-            background-color: #3e3e3ed7;
-            text-align: center;
-            line-height: 28px;
-            display: flex;
-            align-items: center;
-            color: #f5ec42;
-            justify-content: center;
-            border-radius: 20px;
-            padding: 0 5px;
-            i {
-                font-size: 0.7rem;
-                margin-right: 4px;
-            }
-        }
-        &__name {
-            display: block;
-            font-size: 0.8rem;
-            padding: 8px;
-            color: #fff;
-            position: relative;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            &::before {
+            &__scan {
+                width: 100%;
+                height: 100%;
                 position: absolute;
-                content: '';
-                display: block;
-                width: 95%;
-                height: 1px;
-                margin-top: 1px;
-                background-color: #7d7d7d;
-                top: 0px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 1;
-            }
-            &::after {
-                position: absolute;
-                content: '';
-                display: block;
-                width: 95%;
-                height: 1px;
-                margin-top: 2px;
-                background-color: #7d7d7d;
-                top: 2px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 1;
-            }
-        }
-        &__rate {
-            width: fit-content;
-            padding: 0 8px;
-            position: absolute;
-            right: 8px;
-            top: 12px;
-            background-color: #3e3e3ed7;
-            text-align: center;
-            line-height: 28px;
-            border-radius: 20px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            color: #f5ec42;
-            border: 1px solid #7d7d7d;
-            i {
-                font-size: 0.7rem;
-                margin-right: 4px;
+                top: 0;
+                overflow: hidden;
+                &::after {
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    transition: transform 0.2s ease-out;
+                    transform-origin: top right;
+                    transform: rotate(-45deg) translate(80%, -45%);
+                    background-color: rgba(255, 255, 255, 0.041);
+                    -webkit-box-shadow: 0px 3px 6px 3px #ffffff0f;
+                    -moz-box-shadow: 0px 3px 6px 3px #ffffff0f;
+                    box-shadow: 0px 6px 6px 3px #ffffff0f;
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
-import { aleartFail, aleartSuccess, aleartWarning } from './handleForm.js';
+import { aleartFail, aleartSuccess, aleartWarning, reRenderIndex } from './handleForm.js';
+// import './particles.js/particles.js';
 
 // declare variable
 function inputStyle()  {
@@ -31,8 +32,44 @@ function clickEditListStory(element) {
 }
 
 function clickRemoveListStory(element) {
-    $(element).click(function() {
-        aleartWarning(`/user/remove-your-storys/`, $(this).closest('tr'));
+    let isPermit;
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+    $(element).on('click', async function() {
+        isPermit = await aleartWarning();
+        if(isPermit) {
+            const id_story = $(this).closest('tr').attr('id_story');
+            await fetch('/user/remove-your-storys?_method=DELETE', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify([id_story]),
+            }).then((result) => {
+                if(result.status === 301 || result.message === 'success') {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Đã xoá thành công!'
+                    });
+                    $(this).closest('tr').remove();
+                    reRenderIndex('tr td#index-story');
+                }else if(result.status === 404 || result.message === 'fail') {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Không xoá được!'
+                    });
+                }
+            })
+        }
     })
 }
 
@@ -40,7 +77,7 @@ function clickStory(listElement) {
     listElement.on('click', function(event) {
         const id = $(this).attr('id-story');
         if(id) {
-            window.location.replace(`http://localhost:3300/story/${id}`);
+            window.location.replace(`/story/${id}`);
         }
     });
 }
@@ -108,8 +145,9 @@ function handleExecSelectOption() {
         option = event.target.value;
         // console.log(option)
     });
-    $('button.your-tool__click.story').on('click', function() {
+    $('button.your-tool__click.story').on('click', async function() {
         const listStory = [];
+        let isPermit;
         if(option === 'noSetValue' || option === undefined) { Swal.fire('Hãy nhập tuỳ chọn!') }
         else if(option === 'remove-all') {
             $('.checkbox.element-check > input[name=select-element]').each(function(index, element) {
@@ -120,9 +158,55 @@ function handleExecSelectOption() {
             });
             if(listStory.length === 0) { Swal.fire('Không có truyện nào được chọn!') }
             else {
-                aleartWarning('/user/remove-your-storys', undefined, listStory);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+                isPermit = await aleartWarning();
+                // console.log(isPermit)
+                if(isPermit) {
+                    await fetch('/user/remove-your-storys?_method=DELETE', {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(listStory),
+                    }).then((result) => {
+                        if(result.status === 301 || result.message === 'success') {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Đã xoá thành công!'
+                            });
+                            if(listStory.length) {
+                                listStory.forEach(item => {
+                                    $(`tr[id_story=${item}]`).remove();
+                                })
+                                reRenderIndex('tr td#index-story');
+                            }
+                        }else if(result.status === 404 || result.message === 'fail') {
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Không xoá được!'
+                            });
+                        }
+                    })
+                }
             }
         }
+    });
+}
+
+function backgroundStyle() {
+    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+    particlesJS.load('particles-js', '/js/config-particlesJS.json', function() {
+        console.log('callback - particles.js config loaded');
     });
 }
 
@@ -135,4 +219,5 @@ export {
     selectBox,
     selectAllCheckBox,
     handleExecSelectOption,
+    backgroundStyle,
 };

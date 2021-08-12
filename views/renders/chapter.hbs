@@ -16,6 +16,18 @@
             /
         </h1>
         {{!--  --}}
+        <div class="tool-select">
+            {{#if (checkChapterIsZero story.chapter.number 1) }}
+                <a href="/story/{{ story.id }}/chapter-{{ toolMinus story.chapter.number 1 }}" state-chapter="is-min" style="pointer-events: none;" class="btn">Chapter trước</a>
+                {{else}}
+                <a href="/story/{{ story.id }}/chapter-{{ toolMinus story.chapter.number 1 }}" class="btn">Chapter trước</a>
+            {{/if}}
+            {{#if (checkChapterIsMax story.chapter.number story.maxChapter) }}
+                <a href="/story/{{ story.id }}/chapter-{{ toolSum story.chapter.number 1 }}" state-chapter="is-max" style="pointer-events: none;" class="btn">Chapter sau</a>
+                {{else}}
+                <a href="/story/{{ story.id }}/chapter-{{ toolSum story.chapter.number 1 }}" class="btn">Chapter sau</a>
+            {{/if}}
+        </div>
         <div class="chapter-item-single__content">
             {{#each story.listImage}}
                 <img src="{{ this.path }}" alt="{{ story.chapter.name }}-{{ @index }}">

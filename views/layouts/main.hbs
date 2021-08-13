@@ -24,12 +24,36 @@
         {{#if IS_LOG}}
             <div class="menu-list__info">
                 <img src="{{INFO_USER.avatarPath}}" alt="avatar" class="menu-list__info--avatar">
-                <span class="menu-list__info--name-user">{{INFO_USER.accountName}}</span>
+                <span class="menu-list__info--name-user" id="show-mobile-menu">{{INFO_USER.accountName}}
+                    <span class="menu-list__info--name-user-icon">
+                        <i class="fas fa-chevron-up"></i>
+                    </span>
+                </span>
+                <ul class="menu-list__info--option">
+                    <li class="menu-list__info--option-item">
+                        <a href="/user/info">Thông tin cá nhân</a>
+                        </li>
+                    <li class="menu-list__info--option-item">
+                        <a href="">Bình luận của bạn</a>
+                        </li>
+                    <li class="menu-list__info--option-item">
+                        <a href="/user/your-storys">Truyện bạn đã đăng</a>
+                        </li>
+                    <li class="menu-list__info--option-item">
+                        <a href="">Tin nhắn</a>
+                        </li>
+                    <li class="menu-list__info--option-item">
+                        <a href="/user/change-password">Đổi mật khẩu</a>
+                        </li>
+                    <li class="menu-list__info--option-item">
+                        <a href="" class="logout-user">Đăng xuất</a>
+                        </li>
+                </ul>
             </div>
         {{/if}}
         <ul class="menu-list__choose">
             <li class="menu-list__choose--item">
-                <a href="">Trang Chủ</a>
+                <a href="/">Trang Chủ</a>
                 </li>
             <li class="menu-list__choose--item">
                 <a href="">Thể Loại</a>
@@ -43,8 +67,14 @@
             <li class="menu-list__choose--item">
                 <a href="">Group Trò Chuyện</a>
                 </li>
+            <li class="menu-list__choose--item">
+                <a href="/views/signin">Đăng nhập</a>
+                </li>
+            <li class="menu-list__choose--item">
+                <a href="/views/signup">Đăng ký</a>
+                </li>
         </ul>
     </div>
-    <div id="particles-js"></div>
+    <div id="bg-overlay"></div>
 </body>
 </html>

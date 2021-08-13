@@ -30,12 +30,17 @@ body {
     position: relative;
 }
 
-#particles-js {
+#bg-overlay {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
-    z-index: -1;
+    z-index: 2;
+    cursor: pointer;
+    display: none;
+    &.show {
+        display: block;
+    }
 }
 
 .app {
@@ -115,6 +120,8 @@ img {
     margin: 0 auto;
     padding: 1.25rem;
     transition: filter 0.4s linear;
+    position: relative;
+    z-index: 1;
 }
 
 .menu-list {
@@ -123,9 +130,12 @@ img {
     height: 100%;
     top: 0;
     transform: translate3d(-100%, 0, 0);
-    transition: transform 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
     background-color: #7f5af0f5;
-    z-index: 2;
+    z-index: 3;
+    &.show {
+        transform: translate3d(0, 0, 0);
+    }
     &__choose {
         width: 100%;
         &--item {
@@ -157,6 +167,30 @@ img {
             display: block;
             background-color: #362045;
             cursor: pointer;
+            display: flex;
+            justify-content: space-evenly;
+            &-icon {
+                transition: transform 0.2s ease-in-out;
+                font-size: 1rem;
+                transform: translateY(5px);
+            }
+            &.show {
+                span {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        &--option {
+            &-item {
+                a {
+                    width: 100%;
+                    display: block;
+                    padding: 1rem;
+                    box-sizing: border-box;
+                    font-size: 1rem;
+                    color: #1aff25;
+                }
+            }
         }
     }
 }
@@ -214,7 +248,11 @@ img {
 // this is scope header
 
 .header {
-    height: fit-content;
+    height: fit-content;    
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #242629;
     &__wrap-top {
         display: flex;
         justify-content: space-between;
@@ -250,10 +288,8 @@ img {
                 display: none;
                 height: 100%;
                 align-items: center;
-                a:first-child {
-                    margin-right: 1rem;
-                }
                 &--signin {
+                    margin-right: 1rem;
                     &-text {
                         color: var(--header-sign);
                         font-size: 1.2rem;
@@ -274,9 +310,10 @@ img {
                     background-color: #7F5AF0;
                     border-radius: 4px;
                     cursor: pointer;
+                    position: relative;
                     &--avatar {
-                        width: 40px;
-                        height: 40px;
+                        width: 2.5rem;
+                        height: 2.5rem;
                         img {
                             width: 100%;
                             object-fit: cover;
@@ -286,6 +323,53 @@ img {
                         font-size: 1.2rem;
                         color: #fff;
                         margin-left: 0.6rem;
+                        line-height: 2.5rem;
+                    }
+                    &--icon {
+                        line-height: 2.5rem;
+                        margin-left: 0.6rem;
+                        color: #fff;
+                        transition: transform 0.2s ease-in-out;
+                    }
+                    &--option {
+                        display: none;
+                    }
+                    &.show {
+                        .fr-desktop__loged--icon {
+                            transform: rotate(180deg) translate(2px, -2px);
+                        }
+                        .fr-desktop__loged--option {
+                            width: 100%;
+                            display: block;
+                            position: absolute;
+                            bottom: -0.6rem;
+                            right: 0;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            transform: translate( 0, 100%);
+                            transition: all 0.2s ease-in-out;
+                            &-item {
+                                background-color: #7f5af0;
+                                box-sizing: border-box;
+                                display: block;
+                                width: 100%;
+                                padding: 0.8rem;
+                                font-size: 1rem;
+                                color: #fff;
+                                &:first-child {
+                                    border-top-left-radius: 4px;
+                                    border-top-right-radius: 4px;
+                                }
+                                &:last-child {
+                                    border-bottom-left-radius: 4px;
+                                    border-bottom-right-radius: 4px;
+                                }
+                                &:hover {
+                                    background-color: #4821BD;
+                                }
+                            }
+                        }
                     }
                 }
             }

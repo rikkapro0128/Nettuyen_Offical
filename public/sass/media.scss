@@ -80,8 +80,26 @@
         hr {
             display: none;
         }
+        &__left {
+            margin: 0 auto !important;
+            text-align: center;
+            &--link {
+                margin: 0 auto;
+            }
+        }
         &__right {
             display: none;
         }
+    }
+    .profile {
+        text-align: center;
+        width: fit-content !important;
+        margin: 0 auto;
+        &-wrap {
+            &-col-left {
+                display: none;
+            }
+        }
+
     }
 }

@@ -51,5 +51,16 @@
 @media screen and (max-width: 45em) {
   .footer hr {
     display: none; }
+  .footer__left {
+    margin: 0 auto !important;
+    text-align: center; }
+    .footer__left--link {
+      margin: 0 auto; }
   .footer__right {
-    display: none; } }
+    display: none; }
+  .profile {
+    text-align: center;
+    width: fit-content !important;
+    margin: 0 auto; }
+    .profile-wrap-col-left {
+      display: none; } }

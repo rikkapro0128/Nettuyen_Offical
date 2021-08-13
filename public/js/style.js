@@ -210,6 +210,21 @@ function backgroundStyle() {
     });
 }
 
+function showMenuMoblie(selector, addClass) {
+    let state = false;
+    $(selector).siblings('ul').slideUp();
+    $(selector).on('click', function () {
+        if(state) {
+            $(selector).removeClass(addClass);
+            $(selector).siblings('ul').slideUp();
+        }else {
+            $(selector).addClass(addClass);
+            $(selector).siblings('ul').slideDown();
+        }
+        state = !state;
+    })
+}
+
 export { 
     inputStyle,
     clickEditListStory,
@@ -220,4 +235,5 @@ export {
     selectAllCheckBox,
     handleExecSelectOption,
     backgroundStyle,
+    showMenuMoblie,
 };

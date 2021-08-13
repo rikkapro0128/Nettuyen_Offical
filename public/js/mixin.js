@@ -595,25 +595,41 @@ function updateStory(linkPost) {
     });
 }
 
-function actionToggle(selector, addClass, selectorList) {
+function actionToggle(selector, addClass, selectorList, bgOverlay) {
     let stateAll = false;
-    $(selector).on('click', function() {
+    $('body').on('click', selector, function() {
         if(!$(selector).hasClass(addClass)) {
             $(selector).addClass(addClass);
             stateAll = true;
             if(selectorList) {
-                $('.menu-list').css({
-                    'transform': 'translate3d(0%, 0, 0)'
-                })
+                $(selectorList).addClass('show');
+                if(bgOverlay) {
+                    $(bgOverlay).addClass('show');
+                }
             }
         }else {
             $(selector).removeClass(addClass);
-            stateAll = !stateAll;
+            stateAll = false;
             if(selectorList) {
-                $('.menu-list').css({
-                    'transform': 'translate3d(-100%, 0, 0)'
-                });
+                $(selectorList).removeClass('show');
+                if(bgOverlay) {
+                    $(bgOverlay).removeClass('show');
+                }
             }
+        }
+    })
+    if(bgOverlay) {
+        $(bgOverlay).on('click', function(event) {
+            $(selector).trigger('click');
+        });
+    }
+}
+
+function bodyClick(selector, addClass) {
+    $('body').on('click', function(event) {
+        let isHas = !$(event.target).closest(selector).length;
+        if(isHas) {
+            $(selector).removeClass(addClass);
         }
     })
 }
@@ -625,4 +641,5 @@ export {
     renderTypeStory,
     updateStory,
     actionToggle,
+    bodyClick,
 };

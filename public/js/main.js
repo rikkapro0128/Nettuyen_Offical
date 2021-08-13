@@ -10,8 +10,9 @@ import {
     selectAllCheckBox,
     handleExecSelectOption,
     backgroundStyle,
+    showMenuMoblie,
 } from './style.js';
-import { uploadSinglefile, showChildBox, loadImage, updateStory, actionToggle } from './mixin.js';
+import { uploadSinglefile, showChildBox, loadImage, updateStory, actionToggle, bodyClick } from './mixin.js';
 
 $(function() {
     // do something!
@@ -46,7 +47,9 @@ $(function() {
     clickRemoveListStory('td button#remove-story'); // query equal class
     uploadSinglefile($('.story__pic--avatar-story'), 'x', 2.5);
     uploadSinglefile($('.story__pic--cover-story'), '', 1);
-    actionToggle('.btn-menu', 'click', '1243');
+    actionToggle('.btn-menu', 'click', '.menu-list', '#bg-overlay');
+    actionToggle('.fr-desktop__loged', 'show');
+    bodyClick('.fr-desktop__loged', 'show');
     // showChildBox($('.story__add--chapter-title#show-box'), $('.story__add--chapter-content-box'), ['<i class="fas fa-caret-right"></i>', '<i class="fas fa-caret-down"></i>']);
     addStory({
         elementClick: '.submit-story.btn',
@@ -64,5 +67,6 @@ $(function() {
     clickStory($('.ani-card[id-story]'));
     selectAllCheckBox('#element-check-all', '.checkbox.element-check');
     handleExecSelectOption();
+    showMenuMoblie('#show-mobile-menu', 'show');
 
 });

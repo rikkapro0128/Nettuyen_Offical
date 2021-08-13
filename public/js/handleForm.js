@@ -153,7 +153,7 @@ function handleForm(option) {
         })
     }
     // handle logout
-    const logout = $('#logout');
+    const logout = $('.logout-user');
     logout.click(function(e) { 
         e.preventDefault();
         Swal.fire({

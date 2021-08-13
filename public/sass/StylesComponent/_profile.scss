@@ -1,5 +1,5 @@
 .profile {
-    width: 80%;
+    width: 100%;
     .profile-wrap {
         display: flex;
         padding: 1rem;
@@ -8,7 +8,7 @@
         &-col-left {
             width: fit-content;
             .avatar {
-                max-width: 12rem;
+                width: 12rem;
                 height: fit-content;
                 border: solid 1px #7f5af0;
                 border-radius: 2px;

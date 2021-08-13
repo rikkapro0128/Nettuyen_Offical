@@ -27,6 +27,7 @@ $(function() {
             signup: 'api/signup',
         },
         domain: 'localhost',
+        // domain: '192.168.1.4',
         message: {
             signin: 'Bạn đã đăng nhập thành công!',
             signup: 'Bạn đã đăng ký thành công!',

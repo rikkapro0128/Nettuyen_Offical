@@ -119,7 +119,9 @@
     width: fit-content !important;
     margin: 0 auto; }
     .profile-wrap-col-left {
-      display: none; } }
+      display: none; }
+    .profile-wrap-col-right {
+      padding: 0 !important; } }
 
 .wraper .block-story {
   grid-row: 1;
@@ -238,7 +240,7 @@
     border-radius: var(--fg-border); }
     .form-sign form .form_group {
       width: fit-content;
-      min-width: 25rem;
+      min-width: 20rem;
       display: flex;
       flex-direction: column;
       padding: 1rem 1rem; }
@@ -421,7 +423,7 @@
 
 .change-password__form .form_group {
   width: fit-content;
-  min-width: 25rem;
+  min-width: 20rem;
   display: flex;
   flex-direction: column;
   padding: 1rem 1rem; }
@@ -479,7 +481,7 @@
 
 .about-user__info .form_group {
   width: fit-content;
-  min-width: 25rem;
+  min-width: 20rem;
   display: flex;
   flex-direction: column;
   padding: 1rem 1rem; }

@@ -63,4 +63,6 @@
     width: fit-content !important;
     margin: 0 auto; }
     .profile-wrap-col-left {
-      display: none; } }
+      display: none; }
+    .profile-wrap-col-right {
+      padding: 0 !important; } }

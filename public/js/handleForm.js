@@ -170,13 +170,13 @@ function handleForm(option) {
                     'Bạn đã đăng xuất!',
                 ).then(data => {
                     if(data.isConfirmed || data.isDismissed) {
-                        fetch(`http://localhost:3300/api/signout`, {
+                        fetch(`http://${domain}:3300/api/signout`, {
                             method: 'POST',
                         })
                         .then(res => res.json())
                         .then(data => {
                             if(data.message === 'success!') {
-                                window.location.href = '/';
+                                window.location.href = `http://${domain}:3300/`;
                             }
                         })
                     }

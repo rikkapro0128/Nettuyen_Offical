@@ -21,6 +21,9 @@
 @include checkBoxElement;
 @include selectList;
 @include tool;
+@include inputForm_update;
+@include checkbox;
+@include text_underline;
 
 body {
     font-size: 13px;
@@ -28,6 +31,58 @@ body {
     user-select: none;
     font-family: 'UVN Bai Sau';
     position: relative;
+}
+
+table, td, th {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #fff;
+    vertical-align: top;
+    color: #fff;
+}
+
+table {
+    width: 100%;
+    background-color: #3A3C3E;
+    box-shadow: 3px 3px 5px 0px #000;
+    transition: all 0.2s; 
+    border: none;
+    border-radius: 10px;
+    &:hover {
+        box-shadow: 1px 1px 5px 0px #000;
+    }
+    th {
+        text-align: center;
+    }
+    td, th {
+        border: none;
+    }
+    tr:first-child {
+        background-color: #7f5af0;
+        th:first-child {
+            background-color: #169933;
+            border-bottom: 1px solid #575858;
+        }
+    }
+    tr:last-child {
+        td:first-child {
+            border-bottom-left-radius: 10px;
+        }
+        td:last-child {
+            border-bottom-right-radius: 10px;
+        }
+    }
+    tr:not(:first-child) {
+        transition: all .1s ease;
+        &:hover {
+            background-color: #252525;
+        }
+    }
+    tr {
+        td:not(:last-child), th:not(:last-child) {
+            border-right: 1px solid #575858;
+        }
+    }
 }
 
 #bg-overlay {
@@ -125,11 +180,11 @@ img {
 }
 
 .menu-list {
-    position: absolute;
+    position: fixed;
     width: 18.75em;
     height: 100%;
     top: 0;
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-101%, 0, 0);
     transition: all 0.4s ease-in-out;
     background-color: #7f5af0f5;
     z-index: 3;
@@ -491,22 +546,11 @@ img {
     }
 }
 
-@include inputForm_update;
-@include checkbox;
-@include text_underline;
-
-table, td, th {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #fff;
-    vertical-align: top;
-    color: #fff;
-}
-
 .box-title {
     font-size: 1.2rem;
     color: #fff;
     padding: 0.6rem 0; 
+    text-align: start;
 }
 
 .your-post {
@@ -514,7 +558,7 @@ table, td, th {
         font-size: 1rem;
         padding: 0.6rem 0; 
         color: #fff;
-        font-style: italic;
+        text-align: start;
         a {
             color: #fff;
             &:hover {
@@ -530,49 +574,6 @@ table, td, th {
             box-sizing: border-box;
             width: fit-content !important; 
         }
-        table {
-            width: 100%;
-            background-color: #3A3C3E;
-            box-shadow: 3px 3px 5px 0px #000;
-            transition: all 0.2s; 
-            border: none;
-            border-radius: 10px;
-            &:hover {
-                box-shadow: 1px 1px 5px 0px #000;
-            }
-            th {
-                text-align: center;
-            }
-            td, th {
-                border: none;
-            }
-            tr:first-child {
-                background-color: #7f5af0;
-                th:first-child {
-                    background-color: #169933;
-                    border-bottom: 1px solid #575858;
-                }
-            }
-            tr:last-child {
-                td:first-child {
-                    border-bottom-left-radius: 10px;
-                }
-                td:last-child {
-                    border-bottom-right-radius: 10px;
-                }
-            }
-            tr:not(:first-child) {
-                transition: all .1s ease;
-                &:hover {
-                    background-color: #252525;
-                }
-            }
-            tr {
-                td:not(:last-child), th:not(:last-child) {
-                    border-right: 1px solid #575858;
-                }
-            }
-        }
     }
 }
 
@@ -580,7 +581,7 @@ table, td, th {
     &__title {
         color: #fff;
         font-size: 1rem;
-        font-style: italic;
+        text-align: start;
         a { 
             color: #fff;
             &:hover {
@@ -590,11 +591,13 @@ table, td, th {
     }
     .add-your-story__type {
         width: 100%;
+        box-sizing: border-box;
         h1 {
             font-size: 1.2rem;
             color: #fff;
             padding: 0.6rem 0; 
             margin-left: -10px;
+            text-align: start;
         }
     }
     &__context--name--number-chapter {
@@ -625,7 +628,7 @@ table, td, th {
     &--title {
         color: #fff;
         font-size: 1rem;
-        font-style: italic;
+        text-align: start;
         a {
             color: #fff;
             &:hover {

@@ -55,7 +55,6 @@ class Signs {
                 .json({message: 'success!'});
             }
         }
-        return res.redirect('/');
     }
 }
 

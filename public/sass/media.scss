@@ -72,10 +72,40 @@
     }
     .container {
         box-shadow: none !important;
+        .story-item {
+            display: block !important;
+        }
+    }
+    .profile {
+        text-align: center;
+        margin: 0 auto;
+        &-wrap {
+            padding: 0 !important;
+            &-col-left {
+                display: none;
+            }
+            &-col-right {
+                padding: 0 !important;
+                width: 100%;
+                margin: 1rem 0;
+                .your-post {
+                    &__list {
+                        &--table {
+                            display: block;
+                            overflow: scroll;
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
 @media screen and (max-width: 45em) { // hide menu header
+    .chapter-item {
+        display: block !important;
+    }
     .footer {
         hr {
             display: none;
@@ -91,18 +121,51 @@
             display: none;
         }
     }
-    .profile {
-        text-align: center;
-        width: fit-content !important;
-        margin: 0 auto;
-        &-wrap {
-            &-col-left {
-                display: none;
-            }
-            &-col-right {
-                padding: 0 !important;
+    .container {
+        .story-item {
+            &-single {
+                &__wrap-story {
+                    height: fit-content !important;
+                    &--cover {
+                        display: none;
+                    }
+                    &--content {
+                        &-avatar {
+                            width: 24rem;
+                            min-height: 100%;
+                            
+                        }
+                    }
+                }
+                &__list-chapter {
+                    width: 100%;
+                    overflow: scroll;
+                    table {
+                        display: block;
+                        min-width: 40rem;
+                    }
+                }
             }
         }
+    }
+}
 
+@media screen and (max-width: 40em) {
+    .container {
+        .story-item {
+            &-single {
+                &__wrap-story {
+                    &--cover {
+                    }
+                    &--content {
+                        display: block !important;
+                        &-avatar {
+                            width: 18rem;
+                            margin: 0 auto;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

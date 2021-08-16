@@ -239,16 +239,17 @@
 
 @mixin inputForm {
     .form_group {
-        width: fit-content;
+        width: 100%;
         min-width: 20rem;
         display: flex;
         flex-direction: column;
         padding: 1rem 1rem;
+        box-sizing: border-box;
         &--title {
             font-size: var(--fg-font-title);
             color: var(--title-primary);
-            word-spacing: var(--word-space);
             margin: var(--fg-m-tb-title) 0; 
+            text-align: start;
         }
         &--input {
             font-size: var(--fg-font-input);
@@ -256,14 +257,12 @@
             outline: none;
             border: none;
             color: var(--input-primary);
-            font-family: 'JetBrains Mono', monospace;
             font-weight: 200;
             padding: var(--fg-p-tb-input) 1rem;
             margin: var(--fg-m-tb-input) 0; 
         }
         &--input::placeholder {
             font-size: 1rem;
-            font-family: 'JetBrains Mono', monospace;
             color: var(--input-primary);
         }
     }

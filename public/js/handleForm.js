@@ -112,10 +112,9 @@ function addStory(option) {
 
 // handle signin, signup & logout
 function handleForm(option) {
-    const { idElement, domain, port, path, message, urlRedirect } = option;
+    const { idElement, port, path, message, urlRedirect } = option;
     const infoSignIn = $(idElement.signin)[0] ? {
         idElement: idElement.signin,
-        domain,
         port,
         path: path.signin,
         message: message.signin,
@@ -123,7 +122,6 @@ function handleForm(option) {
     } : null;
     const infoSignUp = $(idElement.signup)[0] ? {
         idElement: idElement.signup,
-        domain,
         port,
         path: path.signup,
         message: message.signup,
@@ -135,7 +133,7 @@ function handleForm(option) {
         form.submit(function(event) {
             event.preventDefault();
             const valueForm = getValueForm($(this));
-            fetch(`http://${infoOffical.domain}:${infoOffical.port}/${infoOffical.path}`, {
+            fetch(`/${infoOffical.path}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -170,13 +168,13 @@ function handleForm(option) {
                     'Bạn đã đăng xuất!',
                 ).then(data => {
                     if(data.isConfirmed || data.isDismissed) {
-                        fetch(`http://${domain}:3300/api/signout`, {
+                        fetch(`/api/signout`, {
                             method: 'POST',
                         })
                         .then(res => res.json())
                         .then(data => {
                             if(data.message === 'success!') {
-                                window.location.href = `http://${domain}:3300/`;
+                                window.location.reload();
                             }
                         })
                     }
@@ -189,7 +187,7 @@ function handleForm(option) {
     formChangePass.submit(function(e) {
         e.preventDefault();
         const valueForm = getValueForm($(this));
-        fetch(`http://localhost:3300/user/change-password?_method=put`, {
+        fetch(`/user/change-password?_method=put`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -199,9 +197,9 @@ function handleForm(option) {
         .then(res => res.json())
         .then(data => {
             if(data.result) {
-                aleartSuccess(data.mess, 'http://localhost:3300/user/change-password');
+                aleartSuccess(data.mess, '/user/change-password');
             }else {
-                aleartFail(data.mess, 'http://localhost:3300/user/change-password');
+                aleartFail(data.mess, '/user/change-password');
             }
         })
     });

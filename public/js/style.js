@@ -27,7 +27,7 @@ function inputStyle()  {
 function clickEditListStory(element) {
     $(element).click(function() {
         const idStory = $(this).closest('tr').attr('id_story');
-        window.location.href = `http://localhost:3300/user/edit-your-storys/${idStory}`;
+        window.location.href = `/user/edit-your-storys/${idStory}`;
     })
 }
 
